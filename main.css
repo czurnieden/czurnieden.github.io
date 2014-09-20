@@ -1,0 +1,414 @@
+/*
+       There's still some left from
+
+	Name: Smashing HTML5
+	Date: July 2009
+	Description: Sample layout for HTML5 and CSS3 goodness.
+	Version: 1.0
+	Author: Enrique Ramírez
+	Autor URI: http://enrique-ramirez.com
+*/
+ 
+/* Imports */
+@import url("reset.css");
+ 
+/***** Global *****//* Body */
+	body {
+		background: #FFF;
+		color: #333;
+		font-family: sans-serif;
+		line-height: 1.5;
+		margin: 0;
+		padding: 0;
+		text-align: left;
+	}
+  
+/* Headings */
+h2 {font-size: 1.6em}	/* 22px */
+h3 {font-size: 1.4em}	/* 20px */
+h4 {font-size: 1.3em}	/* 18px */
+h5 {font-size: 1.15em}	/* 16px */
+h6 {font-size: 1em}	/* 14px */
+ 
+h2, h3, h4, h5, h6 {
+	font-weight: 400;
+	line-height: 1.1;
+	margin-bottom: .8em;
+}
+ 
+ 
+/* Anchors */
+a {outline: 0;}
+a img {border: 0px; text-decoration: none;}
+a:link, a:visited {
+	color: #833;
+	padding: 0 1px;
+	/* text-decoration: underline;*/
+}
+a:hover, a:active {
+	color: #833;
+	text-decoration: none;
+	text-shadow: 2px 3px 3px #000;
+}
+/* Paragraphs */
+p {margin-bottom: 1.2em;}
+* p:last-child {margin-bottom: 0;}
+ 
+strong, b {font-weight: bold;}
+em, i {font-style: italic;}
+
+ 
+/* Lists */
+ul {
+	list-style: outside disc;
+	margin: 1em 0 1.5em 1.5em;
+}
+ 
+ol {
+	list-style: outside decimal;
+	margin: 1em 0 1.5em 1.5em;
+}
+
+
+dl {margin: 0 0 1.5em 0;}
+dt {font-weight: bold;}
+dd {margin-left: 1.5em;}
+ 
+/* Quotes */
+blockquote {font-style: italic;}
+cite {}
+ 
+q {}
+
+/* Tables */
+table {margin: .5em auto 1.5em auto; width: 98%;}
+ 
+	/* Thead */
+	thead th {padding: .5em .4em; text-align: left;}
+	thead td {}
+ 
+	/* Tbody */
+	tbody td {padding: .5em .4em;}
+	tbody th {}
+ 
+	tbody .alt td {}
+	tbody .alt th {}
+ 
+	/* Tfoot */
+	tfoot th {}
+	tfoot td {}
+
+
+/***** Layout *****/
+.body {clear: both; margin: 0 auto; width: 80%;}
+img.right figure.right {float: right; margin: 0 0 2em 2em;}
+img.left, figure.left {float: right; margin: 0 0 2em 2em;}
+
+/*
+	Header
+*****************/
+        #banner {
+	   margin: 0 auto;
+	   padding: 2.5em 0 0 0;
+        }
+ 
+	/* Banner */
+	#banner h1 {font-size: 3em; line-height: 1.6; text-align:center;}
+	#banner h1 a:link,#banner h1  a:visited {
+		color: #833;
+		font-weight: bold;
+		text-decoration: none;
+		
+	}
+
+	#banner h1 a:hover,#banner h1  a:active {
+		background: none;
+		color: #BBB;
+	        text-shadow: none;
+	}
+
+/* Main Nav */
+	#banner nav {
+		background: #833;
+		font-size: 1.2em;
+		height: 5ex;
+		line-height: 5ex;
+		margin: 0 auto 2em auto;
+		padding: 5px;
+		text-align: center;
+		width: 70%;
+	
+		border-radius: 15px;
+		-moz-border-radius: 15px;
+		-webkit-border-radius: 15px;
+	}
+
+
+
+	#banner nav ul {list-style: none; margin: 0 auto; width: 800px;}
+	#banner nav li {float: left; display: inline; margin: 0;}
+	
+	#banner nav a:link,#banner nav  a:visited {
+		color: #bbb;
+		display: inline-block;
+		height: 5ex;
+		padding-right: 1.5em;
+		padding-left: 1.5em;
+		text-decoration: none;
+	}
+	#banner nav a:hover{
+		background: #777;
+		color: #DDD;text-shadow: 1px 2.5em 3px #000;
+         }
+        #banner nav a:active,
+	#banner nav .active a:link, #banner nav .active a:visited {
+		background: #777;
+		color: #DDD;
+	}
+	#banner nav li:first-child a {
+		border-top-left-radius: 15px;
+		-moz-border-radius-topleft: 15px;
+		-webkit-border-top-left-radius: 15px;
+		
+		border-bottom-left-radius: 15px;
+		-moz-border-radius-bottomleft: 15px;
+		-webkit-border-bottom-left-radius: 15px;
+	}
+
+/*
+	Featured
+*****************/
+#featured {
+	background: #DDD;
+	margin-bottom: 2em;
+	overflow: hidden;
+	padding: 20px;
+	width: 80%;
+ 
+	border: 1px solid #833;
+
+	border-radius: 15px;
+	-moz-border-radius: 15px;
+	-webkit-border-radius: 15px;
+}
+ 
+#featured figure {
+	border: 1px solid #833;
+	float: right;
+	margin: 0.75em 2em 0 5em;
+	padding: 5px;
+	width: 100px;
+	height: 100px;background: #FFF;
+}
+#featured figure img {display: block; float: right;}
+ 
+#featured h2 {color: #333; font-size: 1.75em; margin-bottom: 0.4em;padding-left:1.8em;}
+#featured h3 {font-size: 1.5em; margin-bottom: .5em;padding-left:1em;}
+ 
+#featured h3 a:link, #featured h3 a:visited {background: #DDD;color: #333; text-decoration: none;}
+#featured h3 a:hover, #featured h3 a:active {background: #ddd;color: #333;}
+
+
+
+/*
+	Body
+*****************/
+#content {
+	background: #fff;
+	margin-bottom: 2em;
+	overflow: hidden;
+	padding: 20px 20px;
+	width: 80%;
+        border: 1px solid #833;
+ 
+	border-radius: 15px;
+	-moz-border-radius: 15px;
+	-webkit-border-radius: 15px;
+}
+
+
+
+/*
+	Extras
+*****************/
+#extras {margin: 0 auto 3em auto; overflow: hidden;}
+ 
+#extras ul {list-style: none; margin: 0;}
+#extras li {border-bottom: 1px solid #fff;}
+#extras h2 {
+	color: #833;
+	font-size: 1.5em;
+	margin-bottom: .25em;
+	padding: 0 3px;
+}
+
+ 
+#extras a:link, #extras a:visited {
+	color: #444;
+	display: block;
+	border-bottom: 1px solid #ddd;
+	text-decoration: none;
+	padding: .3em .25em;
+}
+
+
+
+
+
+	/* Blogroll */
+	#extras .blogroll {
+		float: left;
+		width: 80%;
+	}
+ 
+	#extras .blogroll li {float: left; margin: 0 20px 0 0; width: 10em;}
+ 
+
+
+/*
+	Footer
+*****************/
+#contentinfo {padding-bottom: 2em; text-align: right;}
+
+
+/* Blog */
+.hentry {
+	border-bottom: 1px solid #eee;
+	padding-top: 1.5em;
+}
+li:last-child .hentry, #content > .hentry {border: 0; margin: 0;}
+#content > .hentry {padding: 1em 0;}
+ 
+.entry-title {font-size: 1.5em; margin-bottom: 0;}
+.entry-title a:link, .entry-title a:visited {text-decoration: none;}
+ 
+.hentry .post-info * {font-style: normal;}
+ 
+
+
+
+/* Content */
+	.hentry footer {margin-bottom: 2em;padding-right:3em;}
+	.hentry footer address {display: inline;}
+	#posts-list footer address {display: block;}
+ 
+	/* Blog Index */
+	#posts-list {list-style: none; margin: 0;}
+	#posts-list .hentry {padding-left: 18em; position: relative;}
+	#posts-list footer {
+		left: .5em;
+		position: absolute;
+		top: .5em;
+		width: 15em;
+	}
+
+
+.typo_form h2 {
+        color:#833;
+	padding-left:8em;
+}
+.typo_form label {
+	width:8em;
+	display:inline-block;
+	float:left;
+	padding:.25em;
+}
+.typo_form input {
+	height:3ex; 
+	width:30em; 
+	padding:.5em .5em;
+}
+.typo_form textarea {padding:1em; width:30em;}
+.typo_form button {margin-left:10em;}
+
+
+.typo_form ul {
+    width:80%;
+    list-style-type:none;
+    list-style-position:outside;
+    margin:0px;
+    padding:0px;
+}
+.typo_form li{
+	padding:.5em; 
+	border-bottom:1px solid #833;
+	position:relative;
+}
+
+
+.typo_form input, .typo_form textarea { 
+	border:1px solid #aaa;
+	box-shadow: 0px 0px 3px #ccc, 0 10px 15px #eee inset;
+	border-radius:2px;
+}
+.typo_form input:focus, .typo_form textarea:focus {
+	background: #fff; 
+	border:1px solid #555; 
+	box-shadow: 0 0 3px #aaa; 
+}
+
+
+button.submit ,#kbd_layout , option{
+	background-color: #833;
+	background: -webkit-gradient(linear, left top, left bottom, from(#833), to(#c77));
+	background: -webkit-linear-gradient(top, #833, #c77);
+	background: -moz-linear-gradient(top, #833, #c77);
+	background: -ms-linear-gradient(top, #833, #c77);
+	background: -o-linear-gradient(top, #833, #c77);
+	background: linear-gradient(top, #833, #c77);
+	border: 1px solid #833;
+	border-radius: 10px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	-ms-border-radius: 10px;
+	-o-border-radius: 10px;
+	box-shadow: inset 0 1px 0 0 #ddd;
+	-webkit-box-shadow: 0 1px 0 0 #ddd inset ;
+	-moz-box-shadow: 0 1px 0 0 #ddd inset;
+	-ms-box-shadow: 0 1px 0 0 #ddd inset;
+	-o-box-shadow: 0 1px 0 0 #ddd inset;
+
+	color: black;
+	font-weight: bold;
+	padding: 6px 20px;
+	text-align: center;
+	text-shadow: 0 -1px 0 #ddd;
+        height: 5ex;
+}
+
+#kbd_layout{
+        height: 5ex;
+        text-align:center;
+}
+option{
+        height: 2ex;
+        text-align:center;
+}
+button.submit:hover {
+	opacity:.75;
+	cursor: pointer; 
+}
+button.submit:active {
+	border: 1px solid #833;
+	box-shadow: 0 0 10px 5px #ddd inset; 
+	-webkit-box-shadow:0 0 10px 5px #ddd inset ;
+	-moz-box-shadow: 0 0 10px 5px #ddd inset;
+	-ms-box-shadow: 0 0 10px 5px #ddd inset;
+	-o-box-shadow: 0 0 10px 5px #ddd inset;
+	
+}
+
+.typo_form input:focus { 
+	padding-right:1em;
+	padding-left:1em;
+}
+.typo_form input { 
+	-moz-transition: padding .25s; 
+	-webkit-transition: padding .25s; 
+	-o-transition: padding .25s;
+	transition: padding .25s;
+}
+
+input:required, {
+	background: #fff url(pretty-non-existant-picture.png) no-repeat 98% center;
+}

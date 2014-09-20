@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+   <head>
+   <link rel="icon"  type="image/png"   href="fav32.png" />
+   <!--[if IE]><link rel="shortcut icon" href="sitelink/favicon.ico"/><![endif]-->
+   <meta charset="utf-8" />
+   <meta http-equiv="x-ua-compatible" content="ie=edge">
+   	<!--[if lt IE 9]>
+   	<script
+   	src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+   	<![endif]-->
+   <title>Little's Webpages</title>
+   <meta name="description" content="The Github webpage for the Little
+   programming language">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <style type="text/css"  >
+   article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+       display: block;
+       }
+   </style>
+   <link rel="stylesheet" type="text/css"
+         href="main.css" />
+    <script  type="text/javascript" src="type-o-mat.js"></script>
+    <script  type="text/javascript">
+    function despell(){
+      var string = document.getElementById('input_string').value;
+      var domobj = document.getElementById('kbd_layout');
+      var layout = domobj.options[domobj.selectedIndex].text;
+      var result = string.typeerrors(layout);
+      document.getElementById('output').value = result.join("\n");
+      return false;
+    }
+    </script>
+    </head>
+    <body id="index" class="home">
+       <header id="banner" class="body">
+	<h1>A <a href="https://github.com/czurnieden/Little" title="Little"><span style="font-variant:small-caps;font-weight:bold">Little</span></a> arbitrary precison in JavaScript</h1>
+ 
+	<nav><ul>
+		<li class="active"><a href="#">Home</a></li>
+		<li><a href="https://github.com/czurnieden/">Software</a></li>
+ 
+		<li><a href="https://deamentiaemundi.wordpress.com">Blog</a></li>
+		<li><a href="http://www.imdb.com/title/tt0118884/">Contact</a></li>
+	</ul></nav>
+        </header>
+        <aside id="featured" class="body"><article>
+	  <figure>blame
+	  	<img src="fav64.png" alt="CZ sign" />
+	  </figure>
+	<hgroup>
+		<h2>A website</h2>
+		<h3>With something to put in</h3>
+	</hgroup>
+	<p>No content yet, more to come.</p> 
+        </article></aside>
+<section id="content" class="body">
+	<ol id="posts-list" class="hfeed">
+		<li><article class="hentry">	
+			<header>
+				<h2 class="entry-title">Make Some Typos</h2>
+			</header>
+ 
+			<footer class="post-info"> 
+				
+	A JavaScript port of an older version of the perl modul <a href="https://metacpan.org/pod/Lingua::TypoGenerator">Lingua::TypoGenerator</a> by Ivan Tubert-Brohman with some additional keyboard layouts
+				
+			</footer>
+			<div class="entry-content">
+				<p>And if you cannot do it yourself, here is little script to help you out with it.</p>
+<p>
+<form class="typo_form" name="typo_form" id="typo_form" onsubmit="return false" action="#" method="post" >
+<ul>
+    <li>
+         <h2>Type-O-Mat</h2>
+    </li>
+    <li>
+        <label for="input_string">Spelled right:</label>
+        <input type="text" name="input_string" id="input_string" required/>
+    </li>
+    <li>
+	<label for="output">Spelled wrong:</label>
+	<textarea type="text" name="output"  id="output" cols="60" rows="10" readonly="readonly"></textarea>
+    </li>
+    <li>
+	<button class="submit" onclick="despell()">Spe3lcheck</button> with 
+<select id="kbd_layout">
+  <option>en</option>
+  <option>es</option>
+  <option>fr</option>
+  <option>pt</option>
+  <option>de</option>
+</select> layout.
+    </li>
+</ul>
+</form>
+</p>
+<p>
+It is quite simple and works quite correct for english keyboard layouts, but only so-so for the rest. See the <a href="./type-o-mat.js">Sourcecode</a> for details. For a more refined algorithm you might look at <a href="https://metacpan.org/pod/Lingua::DE::TypoGenerator"> Lingua::DE::TypoGenerator</a>
+</p>
+ 
+			</div><!-- /.entry-content -->
+		<!--</article></li>
+		
+		<li><article class="hentry">
+			...
+		</article></li>
+ 
+		
+		<li><article class="hentry">
+			...
+		</article></li>-->
+
+	</ol><!-- /#posts-list -->
+ 
+</section><!-- /#content -->
+<section id="extras" class="body">
+  <div class="blogroll">
+    <h2>Needful Links</h2>
+      <ul>
+	<li><a href="http://www.ecma-international.org/ecma-262/5.1/" rel="external">ECMAScript</a></li>
+			<li><a href="https://developer.mozilla.org/" rel="external">MDN</a></li>
+			<li><a href="http://en.wikipedia.org" rel="external">Wikipedia</a></li>
+ 
+		</ul>
+	</div><!-- /.blogroll -->
+
+</section><!-- /#extras -->
+<footer id="contentinfo" class="body">
+This page is in large parts based upon the example <a href="http://www.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing HTML5</a> by <a href="http://enrique-ramirez.com">Enrique Ramírez</a>.<br />It looked quite good befor I took it into my unwashed hands.
+</footer><!-- /#contentinfo -->
+
+
+    </body>
+</html>
