@@ -34,7 +34,7 @@
     </head>
     <body id="index" class="home">
        <header id="banner" class="body">
-	<h1>A <a href="https://github.com/czurnieden/Little" title="Little"><span style="font-variant:small-caps;font-weight:bold">Little</span></a> arbitrary precison in JavaScript</h1>
+	<h1>A <a href="https://github.com/czurnieden/Little" title="Little"><span style="font-variant:small-caps;font-weight:bold">Little</span></a> arbitrary precision in JavaScript</h1>
  
 	<nav><ul>
 		<li class="active"><a href="#">Home</a></li>
@@ -45,14 +45,39 @@
 	</ul></nav>
         </header>
         <aside id="featured" class="body"><article>
-	  <figure>blame
-	  	<img src="fav64.png" alt="CZ sign" />
-	  </figure>
+	  <figure><div id="case">
+             <div class="little_icon left">blame</div>
+	     <div class="little_icon right"><img src="fav64.png" alt="CZ sign" /></div>
+	  </div></figure>
 	<hgroup>
-		<h2>A website</h2>
-		<h3>With something to put in</h3>
+		<h2>Status</h2>
 	</hgroup>
-	<p>No content yet, more to come.</p> 
+	<p>
+            Despite of the physical shortness of the average Earth day I could manage to get at least a little bit done. I have put the stuff listed below into the sub-directory <a href="https://github.com/czurnieden/Little/libs">libs</a>.
+        </p> 
+<ul>
+<li>A bunch of helper functions</li>
+<li>A Bigint library with the following arithmetic functions:<ul>
+     <li>Addition/Subtraction</li>
+     <li>Multiplication and fast Multiplication (Karatsuba only for now)</li>
+     <li>Squaring and fast Squaring (Karatsuba only for now)</li>
+     <li>Power (small integer to the power of a bigint and bigint to the power of a small integer)</li>
+     <li>Integer logarithm with a positive integer base</li>
+     <li>n<sup>th</sup> root for positive integer n</li>
+     <li>reading and printing the number as a string (a bit slow, no optimizations yet)</li>
+     <li>a bunch of small needful functions (comparing, checking etc.)</li>
+     </ul></li>
+     <li>A distinct lack of documentation</li>
+</ul>
+<p class="widerpar">
+The <a href="https://github.com/czurnieden/Little/libs/bignum.js">file with the Bigint library</a> is stand-alone, you can give it a try without much ado.
+</p>
+<p>
+It is quite some mess for now but I'm still gathering the parts together. It makes no sense to build anything without the bare minimum of parts at least and the minimum is reached when the car rolls on its own tires by its own power out of the garage.
+</p>
+<p>
+All what is left to do is to write a basic Bigfloat library (with the same number of functions of the Bigint library) and get the parser to spit out the correct AST.
+</p>
         </article></aside>
 <section id="content" class="body">
 	<ol id="posts-list" class="hfeed">
@@ -63,7 +88,7 @@
  
 			<footer class="post-info"> 
 				
-	A JavaScript port of an older version of the perl modul <a href="https://metacpan.org/pod/Lingua::TypoGenerator">Lingua::TypoGenerator</a> by Ivan Tubert-Brohman with some additional keyboard layouts
+	A JavaScript port of an older version of the Perl module <a href="https://metacpan.org/pod/Lingua::TypoGenerator">Lingua::TypoGenerator</a> by Ivan Tubert-Brohman with some additional keyboard layouts
 				
 			</footer>
 			<div class="entry-content">
@@ -96,7 +121,7 @@
 </form>
 </p>
 <p>
-It is quite simple and works quite correct for english keyboard layouts, but only so-so for the rest. See the <a href="./type-o-mat.js">Sourcecode</a> for details. For a more refined algorithm you might look at <a href="https://metacpan.org/pod/Lingua::DE::TypoGenerator"> Lingua::DE::TypoGenerator</a>
+It is quite simple and works quite correct for English keyboard layouts, but only so-so for the rest. See the <a href="./type-o-mat.js">Source code</a> for details. For a more refined algorithm you might look at <a href="https://metacpan.org/pod/Lingua::DE::TypoGenerator"> Lingua::DE::TypoGenerator</a>
 </p>
  
 			</div><!-- /.entry-content -->
