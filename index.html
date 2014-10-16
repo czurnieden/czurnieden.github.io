@@ -50,27 +50,33 @@
 	     <div class="little_icon right"><img src="fav64.png" alt="CZ sign" /></div>
 	  </div></figure>
 	<hgroup>
-		<h2>Status</h2>
+		<h2>Status <span id="cdate">Thu Oct 16 22:26:29 CEST 2014</span></h2>
 	</hgroup>
 	<p>
-            Despite of the physical shortness of the average Earth day I could manage to get at least a little bit done. I have put the stuff listed below into the sub-directory <a href="https://github.com/czurnieden/Little/libs">libs</a>.
+The <a href="https://github.com/czurnieden/Little/libs/bignum.js">big integer library</a> is nearly complete, with the exception of all of the things I forgot, of course and some optimizations that will follow later. For example: Toom-Cook multiplication/squareing of higher order and fast division (Karatsuba and Newton).<br>
+            I have put the stuff listed below into the sub-directory <a href="https://github.com/czurnieden/Little/libs">libs</a>.
         </p> 
 <ul>
 <li>A bunch of helper functions</li>
 <li>A Bigint library with the following arithmetic functions:<ul>
      <li>Addition/Subtraction</li>
-     <li>Multiplication and fast Multiplication (Karatsuba only for now)</li>
-     <li>Squaring and fast Squaring (Karatsuba only for now)</li>
+     <li>Multiplication and fast Multiplication (Karatsuba, Toom-Cook 3, FFT)</li>
+     <li>Squaring and fast Squaring (Karatsuba, Toom-Cook 3, FFT)</li>
      <li>Power (small integer to the power of a bigint and bigint to the power of a small integer)</li>
      <li>Integer logarithm with a positive integer base</li>
      <li>n<sup>th</sup> root for positive integer n</li>
-     <li>reading and printing the number as a string (a bit slow, no optimizations yet)</li>
+     <li>reading and printing the number as a string (a bit slow, no optimizations but see below)</li>
+     <li>GCD, LCM and extended GCD</li>
      <li>a bunch of small needful functions (comparing, checking etc.)</li>
      </ul></li>
      <li>A distinct lack of documentation</li>
 </ul>
 <p class="widerpar">
 The <a href="https://github.com/czurnieden/Little/libs/bignum.js">file with the Bigint library</a> is stand-alone, you can give it a try without much ado.
+</p>
+<p>
+Some optimization for reading and writing big integers are possible, especially the radices base 2<sup>k</sup> like 2, 8, 16 and 2<sup>26</sup> (the size of the bigint digit).<br> Optimization of in- and output for radix ten is possible if we work with larger chunks instead of single characters. The input would be much faster (the output not so much but still faster) but needs a big integer library with radix 10<sup>k</sup> (with k = 7 for ECMAScript's standard 64-bit numbers).<br>
+It (including the basic Bigdecimal code necessary) is in the code but still commented out, needs some more testing.
 </p>
 <p>
 It is quite some mess for now but I'm still gathering the parts together. It makes no sense to build anything without the bare minimum of parts at least and the minimum is reached when the car rolls on its own tires by its own power out of the garage.

@@ -327,6 +327,11 @@ ol ol, ul ol {
    padding-top:3ex;
 }
 
+#cdate {
+     font-style:italic;
+     border-bottom: 1px solid #833;
+}
+
 /*
 	Body
 *****************/
