@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html>
+   <head>
+   <link rel="icon"  type="image/png"   href="fav32.png" />
+   <!--[if IE]><link rel="shortcut icon" href="sitelink/favicon.ico"/><![endif]-->
+   <meta charset="utf-8" />
+   <meta http-equiv="x-ua-compatible" content="ie=edge">
+   	<!--[if lt IE 9]>
+   	<script
+   	src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+   	<![endif]-->
+   <title>Little's Webpages: Give it a try</title>
+   <meta name="description" content="The Github webpage for the Little
+   programming language">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <style type="text/css"  >
+   article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+       display: block;
+       }
+   </style>
+   <link rel="stylesheet" type="text/css"
+         href="main.css" />
+    <script  type="text/javascript" src="bignum.js"></script>
+    <script  type="text/javascript" src="bigrational.js"></script>
+    <script  type="text/javascript" src="integer_function.js"></script>
+    <script  type="text/javascript">
+    function eval_text(){
+       var input = document.getElementById('input').value;
+       var ret = eval(input);
+       input += "\r\n/*\r\n";
+       input += ret;
+       input += "\r\n*/\r\n";
+       document.getElementById('input').value = input;
+    }
+    function clrscr(){
+       document.getElementById('input').value = "";
+    }
+    </script>
+    </head>
+    <body id="index" class="home">
+       <header id="banner" class="body">
+	<h1>A <a href="https://github.com/czurnieden/Little" title="Little"><span style="font-variant:small-caps;font-weight:bold">Little</span></a> arbitrary precision in JavaScript</h1>
+ 
+	<nav><ul>
+		<li class="active"><a href="#">Home</a></li>
+		<li><a href="https://github.com/czurnieden/">Software</a></li>
+		<li><a href="https://deamentiaemundi.wordpress.com">Blog</a></li>
+		<li><a href="http://www.imdb.com/title/tt0118884/">Contact</a></li>
+	</ul></nav>
+        </header>
+
+<section id="content" class="body">
+	<ol id="posts-list" class="hfeed">
+		<li><article class="hentry" style="padding-left: 1em;">	
+			<header>
+				<h2 class="entry-title">Try it out</h2>
+			</header>
+			<div class="entry-content">
+				<p>Try the raw Biginteger and Bigrational libraries, 
+                                   short description with some examples below.
+                                </p>
+<p>
+<form class="typo_form" name="eval_form" id="eval_form" onsubmit="return false" action="" method="post" >
+<ul>
+    <li>
+	<textarea style="width:100%" type="text" name="input"  id="input" cols="60" rows="20"></textarea>
+    </li>
+    <li>
+	<button class="submit" onclick="eval_text()">Compute</button>
+	<button class="submit" style="padding-left:0em;" onclick="clrscr()">Clear Screen</button>
+    </li>
+</ul>
+</form>
+</p>
+</div></article></li>
+		<li><article class="hentry" style="padding-left: 1em;">	
+			<header>
+				<h2 class="entry-title" style="margin-left:10em;padding-bottom:3ex;" >Function List</h2>
+			</header>
+			<div class="entry-content">
+<h3 style="margin-left:5em">Some Examples</h3>
+<p>
+    Most of the functions, especially the basic functions are implemented as prototypes to
+    the Bigintgers and Bigrationals respectively, so a simple addition of one and one to get
+    two as the expected result (we asume decimal output here) needs the following, ready to
+    be put into the textarea above:
+</p>
+<pre>
+var one = new Bigint(1);
+var result = one.add(one);
+result.toString();
+</pre>
+<p>
+You can give the <code>Bigint</code> constructor small numbers (up to 2<sup>26</sup>) directly,
+ larger numbers (up to 2<sup>53</sup>) need to be given indirectly:
+</p>
+<pre>
+var num = 134217728;
+var onehundredthirtyfourmilliontwohundredseventeenthousandsevenhundredtwentyeight = num.toBigint();
+onehundredthirtyfourmilliontwohundredseventeenthousandsevenhundredtwentyeight.toString();
+</pre>
+<p>
+Even larger numbers need to be given as strings:
+</p>
+<pre>
+var largenumberasastring = "82756729834529384756298356298375629834756298345623894756";
+var largenumber = largenumberasastring.toBigint();
+largenumber.toString();
+</pre>
+<p>
+The rational number follow the same style with the exception of the second format. You can give
+small number directly:
+</p>
+<pre>
+var smallfraction = new Bigrational(234,432);
+smallfraction.toString();
+</pre>
+<p>
+Caution: the constructor does no reducing! You have to do it by hand, either in-place
+with <code>bigrat.normalize()</code> or on a copy with <code>bigrat.reduce()</code>
+</p>
+<pre>
+var smallfraction = new Bigrational(234,432);
+smallfraction.normalize();
+smallfraction.toString();
+</pre>
+<p>
+Larger numbers as strings:
+</p>
+<pre>
+var largefractionasastring = "984756398475t3987539/5847698w347349857649569487";
+largefraction = largefractionasastring.toBigrational();
+largefraction.normalize();
+largefraction.toString();
+</pre>
+<p>
+Larger numbers as two Bigintegers:
+</p>
+<pre>
+var numerator   = "984756398475t39875395847698w347349857649569487";
+var denominator = "8736452873452873465287346528365823756873465t823746";
+numerator = numerator.toBigint();
+denominator = denominator.toBigint();
+largefraction = new Bigrational(numerator, denominator);
+largefraction.normalize();
+largefraction.toString();
+</pre>
+<p>
+Bigrational as two Bigints:
+<pre>
+var numerator   = "-984756398475t39875395847698w347349857649569487";
+var denominator = "8736452873452873465287346528365823756873465t823746";
+numerator = numerator.toBigint();
+denominator = denominator.toBigint();
+largefraction = new Bigrational(numerator, denominator);
+largefraction.normalize();
+numerator2 = largefraction.num;
+denominator2 = largefraction.den;
+sign = largefraction.sign;
+alert(numerator2.toString() + "\r\n" + denominator2.toString() + "\r\n" + sign);
+</pre>
+</p>
+<p>
+Chaining is possible but does not work between the Bigints and Bigrationals automatically;
+these are the raw libraries. You need to do it manually as described above.<br>
+Otherwise:
+</p>
+<pre>
+var a = new Bigint(123);
+var b = new Bigint(243);
+/* c = a * a + b * b */
+var c = a.mul(a).add(b.mul(b));
+/* c = (a * a + b) * b */
+var d = a.mul(a).add(b).mul(b);
+"c = " + c.toString() + "\r\nd = " + d.toString();
+</pre>
+<h3 style="margin-left:5em">Common Functions</h3>
+Same name for both Bigint and Bigrational (do not mix, they are just the same names).
+Some do work for JavaScript's native numbers, too, if indicated with <code>Number</code>.<br>
+Despite of their similar names they might work differntly. The square root for example does an
+integer (truncating) square root for Bigintegers but a normal square root with a fractional part
+to arbitrary but preset precision for Bigrationals.
+<dl>
+<dt>add</dt><dd>Addition</dd>
+<dt>addInt</dt><dd>Addition with second argument a small integer</dd>
+<dt>sub</dt><dd>Subtraction</dd>
+<dt>subInt</dt><dd>Subtraction with second argument a small integer</dd>
+<dt>mul</dt><dd>Multiplication</dd>
+<dt>mulInt</dt><dd>Multiplication with second argument a small integer</dd>
+<dt>div</dt><dd>Division</dd>
+<dt>divInt</dt><dd>Division with second argument a small integer</dd>
+<dt> sqr </dt><dd> square </dd>
+<dt> sqrt </dt><dd> square root  </dd>
+<dt> nthroot </dt><dd> n<sup>th</sup>-root (Newton)</dd>
+<dt>abs </dt><dd>return absolute value</dd>
+<dt>copy </dt><dd> returns a deep copy </dd>
+<dt>free</dt><dd>An offering to the garbage-collector. To free it completely it needs an extra
+ <code>oldbignumber = null;</code></dd>
+<dt> cmp </dt><dd> compare. returns MP_GT if the second one is greater, MP_LT if it is smaller
+ and MP_EQ if both ar equal </dd>
+<dt>isNaN</dt><dd>Is the Number not a number? <code>Number</code></dd>
+<dt>setNaN</dt><dd>The Number is not a number</dd>
+<dt>isFinite </dt><dd> is it finite? </dd>
+<dt>isInf </dt><dd> is it not finite? </dd>
+<dt>setInf </dt><dd> tell that it not finite? </dd>
+<dt>isEven</dt><dd>Is the Number even? <code>Number</code></dd>
+<dt>isOdd</dt><dd>Is the Number odd? <code>Number</code></dd>
+<dt>isOne </dt><dd> is it 1 (one)? </dd>
+<dt>isUnity</dt><dd> is it one or minus one? </dd>
+<dt> isZero </dt><dd> is it zero? </dd>
+<dt> neg </dt><dd> change sign of copy and return it </dd>
+<dt>sign</dt><dd>Sign of the number <code>Number</code></dd>
+<dt>toString</dt><dd>return value as a string <code>Number</code><br>
+The <code>Bigint</code> function <code>toString</code> and hence the <code>Bigrational</code>
+one, too, accepts more bases (2-62) than the native one of the <code>Number</code> object (2-36).
+</dd>
+</dl>
+There is also a <a href="https://github.com/czurnieden/primesieve/">primesieve</a> available.
+This program offers ten functions which are in alphabetical order:
+
+<dl>
+<dt><code>fill(amount)</code> </dt>
+<dd>
+Build a prime sieve up to the amount <code>amount</code>. Allows for skipping of the
+automated adapting of the sieve-size if <code>amount</code> is chosen high enough.
+<br>
+Returns: <code>undefined</code> in case of an error
+<br>
+See also: <code>grow(amount)</code>
+</dd>
+<dt><code>grow(amount)</code></dt>
+<dd>
+Grows the prime sieve by the amount <code>amount</code>. It just builds a new prime sieve with
+a different limit (if higher then the already existing limit) for now. Mostly
+used internally.
+<br>
+Returns:  <code>undefined</code> in case of an error
+<br>
+See also: <code>fill(amount)</code>
+</dd>
+<dt><code>isSmallPrime(number)</code></dt>
+<dd>
+Tests if <code>number</code> is a prime. Automatically builds a sieve if <code>number</code> is larger then the existing sieve.
+<br>
+Returns: <code>true</code> or <code>false</code> if <code>number</code> is a prime or not, respectively or <code>undefined</code> in case of an error.
+<br>
+See also: <code>Primesieve.raiseLimit(limit)</code>
+</dd>
+<dt><code>nextPrime(number)</code> </dt>
+<dd>
+Searches for the nearest prime larger than <code>number</code>. Automatically builds a
+sieve if <code>number</code> is larger then the existing sieve.
+<br>
+Returns: <code>Number</code> or <code>undefined</code> in case of an error
+</dd>
+
+<dt><code>precPrime(number)</code></dt>
+<dd>
+Searches for the nearest prime smaller than <code>number</code>. Does <strong>not</strong> automatically build a sieve if <code>number</code> is larger then the existing sieve. Should it?
+<br>
+Returns: <code>Number</code> or <code>undefined</code> in case of an error
+</dd>
+<dt><code>primePiApprox(number)</code> </dt>
+<dd>
+The approximated result (upper bound) of the prime counting function for
+<code>number</code>
+<br>
+Returns: <code>Number</code> or <code>undefined</code> in case of an error
+</dd>
+
+<dt><code>primePi(number)</code></dt>
+<dd>
+The exact result of the prime counting function for <code>number</code>. Automatically
+builds a sieve if <code>number</code> is larger then the existing sieve.
+<br>
+Returns: <code>Number</code> or <code>undefined</code> in case of an error
+</dd>
+
+<dt><code>primeRange(low,high)</code></dt>
+<dd>
+Calculates the range of primes between <code>low</code> and <code>high</code>. It will detect if <code>low</code> and <code>high</code> are reversed and reruns itself with the arguments reversed.
+Automatically builds a sieve if <code>number</code> is larger then the existing sieve.
+<br>
+Returns: <code>Array</code> or <code>undefined</code> in case of an error
+</dd>
+<dt><code>primes(number)</code></dt>
+<dd>
+Calculates primes up to and including <code>number</code>. Automatically builds a sieve if
+<code>number</code> is larger then the existing sieve.
+<br>
+Returns: <code>Array</code> or <code>undefined</code> in case of an error
+</dd>
+<dt><code>raiseLimit(number)</code></dt>
+<dd>
+This module <code>primesieve</code> has a limit for the maximum size for the automatic
+sieve building. It is pre-defined at <code>0x800000</code> which is one megabyte. This
+function can raise it to the manager.
+<br>
+Returns: <code>undefined</code> in case of an error
+</dd>
+<dt><code>sieve()</code></dt>
+<dd>
+Get the raw prime sieve. This function is not implemented in the CLI version.
+<br>
+Returns: The raw prime sieve, either an `UInt32Array` or a normal `Array`
+</dd>
+<dt><code>sterror()</code></dt>
+<dd>
+An error number to string conversion. The following errors are used:
+<ol>
+<li>"Success"</li>
+<li>"Argument not an integer"</li>
+<li>"Argument too low"</li>
+<li>"Argument too high"</li>
+<li>"Prime wanted is higher than the limit"</li>
+<li>"Unknown error"</li>
+</ol>
+The numbers of the list correspond to the error numbers.
+<br>
+Returns: <code>String</code>
+<br>
+See also: <code>error</code>
+</dd>
+<dt><code>error</code></dt>
+<dd>
+Variable holding the error number. For a table of errors see <code>strerror()</code>
+</dd>
+</dl>
+
+
+
+
+<h3 style="margin-left:5em">Biginteger</h3>
+<dl>
+<dt> and </dt><dd> binary arithmetic <code>c = a&b</code>  </dd>
+<dt> clamp</dt><dd> strip leading zeros </dd>
+<dt> clearBit </dt><dd> clear bit (set to zero) of <code>this</code> </dd>
+<dt> clear</dt><dd> An offering to the garbage-collector together with a set-to-zero of the <code>Bigint</code> for later use </dd>
+<dt> decr </dt><dd> subtract one from <code>this</code> (like <code>i--;</code>) in-place  </dd>
+<dt> digits </dt><dd> number of decimal digits (return one for zero)</dd>
+<dt> divmod </dt><dd> returns a tuple with the quotient and the modulus respectively, rounding to -inf (like in PARI/GP for example). Differs from <code>divrem</code> when some of the arguments are negative</dd>
+<dt> divrem </dt><dd> returns a tuple with the quotient and the reminder respectively</dd>
+<dt> divremInt  </dt><dd> like <code>divrem</code> but the second argument can be a small integer </dd>
+<dt> dlShift </dt><dd> multiply with 2<sup>bigbase</sup>, return copy </dd>
+<dt> dlShiftInplace </dt><dd> multiply with 2<sup>bigbase</sup> in-place </dd>
+<dt> drShift </dt><dd> divide by 2<sup>bigbase</sup>, return copy </dd>
+<dt> drShiftInplace </dt><dd> divide by 2<sup>bigbase</sup> in-place</dd>
+<dt> egcd </dt><dd> extended gcd </dd>
+<dt> exactDiv3 </dt><dd> works if the number is divisible by three without a reminder </dd>
+<dt> flipBit </dt><dd> flip bit of <code>this</code> </dd>
+<dt> gcd </dt><dd> compute the greatest common denominator </dd>
+<dt> getBit </dt><dd> get bit of <code>this</code> </dd>
+<dt> grow </dt><dd> grows the digits array without changing <code>this.used</code>. Returns the new length of the digit array  </dd>
+<dt> highBit </dt><dd> highest bit set (zero based) <code>Number</code> </dd>
+<dt> ilog2 </dt><dd> integer logarith base 2 (actually just <code>highBit() + 1</code>) </dd>
+<dt> ilogb(base) </dt><dd> integer logarithm of base <code>base</code>  </dd>
+<dt> incr </dt><dd> add one to <code>this</code> (like <code>i++;</code>) in-place </dd>
+<dt> isNeg </dt><dd>  is the Bigint smaller than zero?</dd>
+<dt> isOk </dt><dd> is a number and is finite  </dd>
+<dt> isPos </dt><dd>is the Bigint greater than zero?  </dd>
+<dt> isPow2 </dt><dd> is it a power of two? <code>Number</code> </dd>
+<dt> jacobi </dt><dd> Jacobi function  </dd>
+<dt> lcm </dt><dd> lowest common multiplicator </dd>
+<dt> lowBit </dt><dd>  lowest bit set (zero based) <code>Number</code>  </dd>
+<dt> lShift </dt><dd> multiply with 2<sup>n</sup>, return copy  </dd>
+<dt> lShiftInplace </dt><dd> multiply with 2<sup>n</sup> in-place  </dd>
+<dt> mask </dt><dd> create a bitmask <code>c = (1&lt;&lt;n)-1</code> </dd>
+<dt> mod2d </dt><dd> returns reminder of division by  2<sup>n</sup></dd>
+<dt> modInv </dt><dd> modular inverse <code>Number</code></dd>
+<dt> mulInt </dt><dd> multiply with a small integer (&lt; 2<sup>bigbase</sup>)  </dd>
+<dt> not </dt><dd> binary arithmetic <code>c = ~a</code>  </dd>
+<dt> notInplace </dt><dd> binary arithmetic <code>a = ~a</code>  </dd>
+<dt> nthrootold </dt><dd>  integer n<sup>th</sup>-root (bracketing) </dd>
+<dt> numSetBits </dt><dd> Hamming weight </dd>
+<dt> or </dt><dd> binary arithmetic <code>c = a|b</code>  </dd>
+<dt> pow </dt><dd> returns <code>this</code> to the power of a small integer or a Bigint</dd>
+<dt> random (bits,seed)</dt><dd> A random Bigint of <code>bits</code> length in bits and optional small integer as the seed to the underlying PRNG (Bob Jenkins' small PRNG (with the extra round))</dd>
+<dt> rShift </dt><dd> divide by 2<sup>n</sup>, return copy  </dd>
+<dt> rShiftInplace </dt><dd> divide by 2<sup>n</sup> in-place  </dd>
+<dt> rShiftRounded </dt><dd> divide by 2<sup>n</sup>, round to +inf, return copy  </dd>
+<dt> setBit </dt><dd> set bit (set to one) of <code>this</code> </dd>
+<dt> swap </dt><dd> swap two Bigints (with deep copy) </dd>
+<dt> toNumber </dt><dd> Bigint to JavaScript Number </dd>
+<dt> xor </dt><dd> binary arithmetic <code>c = a^b</code>  </dd>
+
+</dl>
+
+<h3 style="margin-left:5em">Bigrational</h3>
+<dl>
+<dt>bernoulli</dt><dd> Bernoulli numbers  </dd>
+<dt>fastround</dt><dd> Faster rounding methoi but with larger results </dd>
+<dt>fitsBitPrecision</dt><dd> If number fits a given bit-precision </dd>
+<dt>fitsDecPrecision</dt><dd>  If number fits a given decimal-precision   </dd>
+<dt>inverse</dt><dd>  Inverses the fraction  in-place</dd>
+<dt>isBitPrecision</dt><dd> If number is of given bit-precision  </dd>
+<dt>isDecPrecision</dt><dd> If number is of given decimal-precision   </dd>
+<dt>isEpsGreaterZero</dt><dd> greater than zero plus EPS  </dd>
+<dt>isEpsLowerZero</dt><dd> lower than zero minus EPS   </dd>
+<dt>isEpsZero</dt><dd> number inside range zero plus/minus EPS  </dd>
+<dt>isInt</dt><dd> is the number an integer, that is, is the denominator one  </dd>
+<dt>isLowerOne</dt><dd> Is the absolute value between zero and one  </dd>
+<dt>normalize</dt><dd>  Reduce the fraction in-place </dd>
+<dt>parts</dt><dd> returns the parts of the fraction splitted into the integer part and the fraction part  </dd>
+<dt>powInt</dt><dd>  to the power of a small integer </dd>
+<dt>reciprocal</dt><dd> returns reciprocal of the fraction </dd>
+<dt>reduce</dt><dd>  returns the reduced fraction   </dd>
+<dt>round</dt><dd> Median rounding  </dd>
+</dl>
+
+<h3 style="margin-left:5em">Integer Functions</h3>
+These are normal JavaScript functions, no prototypes.<br>
+There are some tricks used with the factors of factorials, the functions can be
+used themself but they were not meant for that and hence are tricky to use. Please
+see the source for more information until proper documentation has been written.
+<dl>
+<dt>add_factored_factorial</dt><dd> </dd>
+<dt>compute_factored_factorial</dt><dd> </dd>
+<dt>compute_signed_factored_factorial</dt><dd> </dd>
+<dt>factor_factorial</dt><dd> </dd>
+<dt>negate_factored_factorials</dt><dd> </dd>
+<dt>power_factored_factorials</dt><dd> </dd>
+<dt>subtract_factored_factorials( subtrahend,</dt><dd> </dd>
+<dl>
+The normal integer functions are:
+<dt>bell</dt><dd><a href="http://en.wikipedia.org/wiki/Bell_number">Bell numbers</a></dd>
+<dt>binomial</dt><dd><a href="http://en.wikipedia.org/wiki/Binomial_coefficient">Binomial coefficients</a> </dd>
+<dt>catalan</dt><dd><a href="http://en.wikipedia.org/wiki/Catalan_number">Catalan numbers</a></dd>
+<dt>doublefactorial</dt><dd><a href="http://en.wikipedia.org/wiki/Double_factorial">Doublefactorial</a></dd>
+<dt>euler</dt><dd><a href="http://en.wikipedia.org/wiki/Euler_number">Eulerian (zig) numbers</a></dd>
+<dt>factorial</dt><dd><a href="http://en.wikipedia.org/wiki/Factorial">Factorial</a></dd>
+<dt>fallingfactorial</dt><dd><a href="http://en.wikipedia.org/wiki/Pochhammer_symbol">Falling factorial</a></dd>
+<dt>fibonacci</dt><dd><a href="http://en.wikipedia.org/wiki/Fibonacci_number">Fibonacci numbers (fast algorithm using matrix exponentiation)</a> </dd>
+<dt>free_stirling1cache</dt><dd>Make offerings to the garbage-collector </dd>
+<dt>free_stirling2cache</dt><dd>Make offerings to the garbage-collector </dd>
+<dt>prime_divisors</dt><dd>How often does the prime p divide the factorial of the number n </dd>
+<dt>risingfactorial</dt><dd><a href="http://en.wikipedia.org/wiki/Pochhammer_symbol">Rising factorial<</a>/dd>
+<dt>stirling1</dt><dd><a href="http://en.wikipedia.org/wiki/Stirling_number">Stirling numbers of the first kind (cached)</a> </dd>
+<dt>stirling2</dt><dd><a href="http://en.wikipedia.org/wiki/Stirling_number">Stirling numbers of the second kind (series, faster for small numbers) </a></dd>
+<dt>stirling2caching</dt><dd> <a href="http://en.wikipedia.org/wiki/Stirling_number">Stirling numbers of the second kind (cached)</a></dd>
+<dt>subfactorial</dt><dd><a href="http://en.wikipedia.org/wiki/Derangement">Sub-factorial (derangement) </a></dd>
+<dt>superfactorial</dt><dd><a href="http://mathworld.wolfram.com/Superfactorial.html">Superfactorial (as defined by Sloane and Plouffe)</a></dd>
+</dl>
+</div></article></li>
+		<!--
+		<li><article class="hentry">
+			...
+		</article></li>
+ 
+		
+		<li><article class="hentry">
+			...
+		</article></li>-->
+
+	</ol><!-- /#posts-list -->
+ 
+</section><!-- /#content -->
+<section id="extras" class="body">
+  <div class="blogroll">
+    <h2>Needful Links</h2>
+      <ul>
+	<li><a href="http://www.ecma-international.org/ecma-262/5.1/" rel="external">ECMAScript</a></li>
+			<li><a href="https://developer.mozilla.org/" rel="external">MDN</a></li>
+			<li><a href="http://en.wikipedia.org" rel="external">Wikipedia</a></li>
+ 
+		</ul>
+	</div><!-- /.blogroll -->
+
+</section><!-- /#extras -->
+<footer id="contentinfo" class="body">
+This page is in large parts based upon the example <a href="http://www.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing HTML5</a> by <a href="http://enrique-ramirez.com">Enrique Ramírez</a>.<br />It looked quite good before I took it into my unwashed hands.
+</footer><!-- /#contentinfo -->
+
+
+    </body>
+</html>

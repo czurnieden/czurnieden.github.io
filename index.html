@@ -20,16 +20,47 @@
    </style>
    <link rel="stylesheet" type="text/css"
          href="main.css" />
+    <script  type="text/javascript" src="bignum.js"></script>
+    <script  type="text/javascript" src="bigrational.js"></script>
+    <script  type="text/javascript" src="integer_function.js"></script>
     <script  type="text/javascript" src="type-o-mat.js"></script>
     <script  type="text/javascript">
-    function despell(){
-      var string = document.getElementById('input_string').value;
-      var domobj = document.getElementById('kbd_layout');
-      var layout = domobj.options[domobj.selectedIndex].text;
-      var result = string.typeerrors(layout);
-      document.getElementById('output').value = result.join("\n");
-      return false;
+    function despell() {
+        var string = document.getElementById('input_string').value;
+        var domobj = document.getElementById('kbd_layout');
+        var layout = domobj.options[domobj.selectedIndex].text;
+        var result = string.typeerrors(layout);
+        document.getElementById('output').value = result.join("\n");
+        return false;
     }
+    function comp_bernoulli() {
+        var selectedRadio = "none";
+        var output = "";
+        var input = 0;
+        var i;
+        var string = document.getElementById('input_string').value;
+        var radios = document.getElementsByName("choice");
+        for (i = 0; i < radios.length; i++) {
+            if (radios[i].checked == true) {
+                selectedRadio = radios[i].value;
+            }
+        }
+        var rat = new Bigrational(1, 1);
+        input = parseInt(string);
+        var result = rat.bernoulli(input);
+        if (selectedRadio == "all") {
+            for (i = 0; i <= input; i++) {
+                if (i.isEven() || i == 1) {
+                    output += rat.bernoulli(i).toString() + "\r\n";
+                }
+            }
+        } else {
+            output = result.toString();
+        }
+        document.getElementById('output').value = output;
+        return false;
+    }
+
     </script>
     </head>
     <body id="index" class="home">
@@ -50,17 +81,23 @@
 	     <div class="little_icon right"><img src="fav64.png" alt="CZ sign" /></div>
 	  </div></figure>
 	<hgroup>
-		<h2>Status <span id="cdate">Thu Oct 16 22:26:29 CEST 2014</span></h2>
+		<h2>Status <span id="cdate">Thu Dec 11 02:27:56 CET 2014</span></h2>
 	</hgroup>
+<p style="padding-left:3em;">
+<span class="drumroll">New!</span> <a href="bernoulli.html">Give it a try!</a> Well, the raw bigint/bigrational libraries at least.
+</p>
 	<p>
-The <a href="https://github.com/czurnieden/Little/libs/bignum.js">big integer library</a> is nearly complete, with the exception of all of the things I forgot, of course and some optimizations that will follow later. For example: Toom-Cook multiplication/squareing of higher order and fast division (Karatsuba and Newton).<br>
-            I have put the stuff listed below into the sub-directory <a href="https://github.com/czurnieden/Little/libs">libs</a>.
+The <a href="https://github.com/czurnieden/Little/blob/master/libs/bignum.js">big integer library</a> is nearly complete,
+with the exception of all of the things I forgot, of course and some optimizations that will follow later. 
+For example: Toom-Cook multiplication/squareing of higher order<br>
+            I have put the stuff listed below into the sub-directory <a href="https://github.com/czurnieden/Little/blob/master/libs/">libs</a>.
         </p> 
 <ul>
 <li>A bunch of helper functions</li>
-<li>A Bigint library with the following arithmetic functions:<ul>
+<li>A <a href="https://github.com/czurnieden/Little/blob/master/libs/bignum.js">Bigint library</a> with the following arithmetic functions:<ul>
      <li>Addition/Subtraction</li>
-     <li>Multiplication and fast Multiplication (Karatsuba, Toom-Cook 3, FFT)</li>
+     <li>Multiplication and fast multiplication (Karatsuba, Toom-Cook 3, FFT)</li>
+     <li>Division and fast division (Burnikel-Ziegler and Newton, Barret division is still broken)</li>
      <li>Squaring and fast Squaring (Karatsuba, Toom-Cook 3, FFT)</li>
      <li>Power (small integer to the power of a bigint and bigint to the power of a small integer)</li>
      <li>Integer logarithm with a positive integer base</li>
@@ -69,24 +106,91 @@ The <a href="https://github.com/czurnieden/Little/libs/bignum.js">big integer li
      <li>GCD, LCM and extended GCD</li>
      <li>a bunch of small needful functions (comparing, checking etc.)</li>
      </ul></li>
-     <li>A distinct lack of documentation</li>
+<li>A <a href="https://github.com/czurnieden/Little/blob/master/libs/bigrational.js">Bigrational library</a> with the following arithmetic functions:<ul>
+     <li>Addition/Subtraction</li>
+     <li>Multiplication/Divison</li>
+     <li>n<sup>th</sup> root for positive rationals</li>
+     <li>median rounding (e.g.: for the roots)</li>
+     <li>a lot of helper functions</li>
+     <li>Bernoulli numbers. See below for the example</li>
+     </ul></li>
+<li>A <a href="https://github.com/czurnieden/Little/blob/master/libs/integer_function.js">integer functions library</a> with the following content:<ul>
+     <li>Factorial, superfactorial,  fallingfactorial, risingfactorial, doublefactorial, subfactorial</li>
+     <li>Binomial</li>
+     <li>Catalan number (not the constant)</li>
+     <li>Stirling numbers of the first kind</li>
+     <li>Stirling numbers of the second kind</li>
+     <li>Bell numbers</li>
+     <li>Eulerian (zig) numbers</li>
+     <li>Fibonacci</li>
+     </ul></li>
+<li>A distinct lack of documentation</li>
 </ul>
 <p class="widerpar">
-The <a href="https://github.com/czurnieden/Little/libs/bignum.js">file with the Bigint library</a> is stand-alone, you can give it a try without much ado.
+The <a href="https://github.com/czurnieden/Little/blob/master/libs/bignum.js">file with the Bigint library</a> is stand-alone, you can give it a try without much ado.
 </p>
 <p>
 Some optimization for reading and writing big integers are possible, especially the radices base 2<sup>k</sup> like 2, 8, 16 and 2<sup>26</sup> (the size of the bigint digit).<br> Optimization of in- and output for radix ten is possible if we work with larger chunks instead of single characters. The input would be much faster (the output not so much but still faster) but needs a big integer library with radix 10<sup>k</sup> (with k = 7 for ECMAScript's standard 64-bit numbers).<br>
 It (including the basic Bigdecimal code necessary) is in the code but still commented out, needs some more testing.
 </p>
 <p>
-It is quite some mess for now but I'm still gathering the parts together. It makes no sense to build anything without the bare minimum of parts at least and the minimum is reached when the car rolls on its own tires by its own power out of the garage.
-</p>
-<p>
 All what is left to do is to write a basic Bigfloat library (with the same number of functions of the Bigint library) and get the parser to spit out the correct AST.
 </p>
         </article></aside>
+
 <section id="content" class="body">
 	<ol id="posts-list" class="hfeed">
+		<li><article class="hentry">	
+			<header>
+				<h2 class="entry-title">Bernoulli Numbers</h2>
+			</header>
+			<footer class="post-info"> 
+                             The algorithm is based on: Brent, Richard P., and David Harvey. "Fast computation of Bernoulli, Tangent
+   and Secant numbers." Computational and Analytical Mathematics. Springer New
+   York, 2013. 127-142.   <a href="http://arxiv.org/abs/1108.0286">Preprint here</a>
+			</footer>
+			<div class="entry-content">
+				<p>Get a Bernoulli number. Please be aware that this is done in pure
+                                   JavaScript. So B<sub>100</sub> gets you quasi immediate satisfaction
+                                   but B<sub>1,000</sub> may need a minute or five.<br>
+                                   The algorithm caches the results up to B<sub>n</sub>
+                                </p>
+<p>
+<form class="typo_form" name="bern_form" id="bern_form" onsubmit="return false" action="" method="post" >
+<ul>
+    <li>
+         <h2>Bernoulli Numbers</h2>
+    </li>
+    <li>
+        <label for="input_string">Which one?</label>
+        <input type="text" style="width:5em;" name="input_string" id="input_string" required/>
+    </li>
+    <li>
+        <label>How many?</label>
+<input  style="vertical-align:bottom;width:1em" type="radio" name="choice" id="choice_one" value="one" checked="checked"/>
+<span>One</span><br>
+<input style="vertical-align:bottom;width:1em" type="radio" name="choice" id="choice_all" value="all"/>
+<span>All (B<sub>2n</sub> including B<sub>1</sub>)</span><br>
+
+    <li>
+    <li>
+	<label for="output">Bernoulli Number(s):</label>
+	<textarea type="text" name="output"  id="output" cols="60" rows="10" readonly="readonly"></textarea>
+    </li>
+    <li>
+	<button class="submit" onclick="comp_bernoulli()">Compute</button>
+    </li>
+</ul>
+</form>
+</p>
+<p>
+
+</p>
+ 
+			</div>
+		</article></li>
+
+
 		<li><article class="hentry">	
 			<header>
 				<h2 class="entry-title">Make Some Typos</h2>
@@ -130,9 +234,9 @@ All what is left to do is to write a basic Bigfloat library (with the same numbe
 It is quite simple and works quite correct for English keyboard layouts, but only so-so for the rest. See the <a href="./type-o-mat.js">Source code</a> for details. For a more refined algorithm you might look at <a href="https://metacpan.org/pod/Lingua::DE::TypoGenerator"> Lingua::DE::TypoGenerator</a>
 </p>
  
-			</div><!-- /.entry-content -->
-		<!--</article></li>
-		
+			</div>
+		</article></li>
+		<!--
 		<li><article class="hentry">
 			...
 		</article></li>

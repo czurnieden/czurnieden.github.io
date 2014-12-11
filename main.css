@@ -11,7 +11,7 @@
 
 /* Imports */
  @import url("reset.css");
-
+@import url(http://fonts.googleapis.com/css?family=Playball);
 /***** Global *****/
 
 /* Body */
@@ -198,7 +198,7 @@ img.left, figure.left {
 #banner nav a:hover {
     background: #777;
     color: #DDD;
-    text-shadow: 1px 2.5em 3px #000;
+    /*text-shadow: 1px 2.5em 3px #000;*/
 }
 #banner nav a:active, #banner nav .active a:link, #banner nav .active a:visited {
     background: #777;
@@ -216,7 +216,7 @@ img.left, figure.left {
 	Featured
 *****************/
  #featured {
-    background: #DDD;
+    background: #F5F5F5;
     margin-bottom: 2em;
     overflow: hidden;
     padding: 20px;
@@ -317,12 +317,19 @@ ol ol, ul ol {
 #featured ul { 
    padding-left:3em;
 }
-#featured sup {
+ sup {
    font-size: 75%;
    font-style:italic;
    position: relative;
    vertical-align: top;
 }
+ sub {
+   font-size: 75%;
+   font-style:italic;
+   position: relative;
+   vertical-align: bottom;
+}
+
 .widerpar { 
    padding-top:3ex;
 }
@@ -392,8 +399,9 @@ ol ol, ul ol {
 }
 /* Blog */
  .hentry {
-    border-bottom: 1px solid #eee;
-    padding-top: 1.5em;
+    border-bottom: 5px double #833;
+    padding-top: 3ex;
+   padding-bottom:3ex;
 }
 li:last-child .hentry, #content > .hentry {
     border: 0;
@@ -435,7 +443,7 @@ li:last-child .hentry, #content > .hentry {
 #posts-list footer {
     left: .5em;
     position: absolute;
-    top: .5em;
+    top: 10ex;
     width: 15em;
 }
 .typo_form h2 {
@@ -472,16 +480,20 @@ li:last-child .hentry, #content > .hentry {
     border-bottom:1px solid #833;
     position:relative;
 }
-.typo_form input, .typo_form textarea {
+input, textarea {
     border:1px solid #aaa;
     box-shadow: 0px 0px 3px #ccc, 0 10px 15px #eee inset;
     border-radius:2px;
 }
-.typo_form input:focus, .typo_form textarea:focus {
+input:focus, textarea:focus {
     background: #fff;
     border:1px solid #555;
     box-shadow: 0 0 3px #aaa;
 }
+
+
+
+
 button.submit, #kbd_layout, option {
     background-color: #833;
     background: -webkit-gradient(linear, left top, left bottom, from(#833), to(#c77));
@@ -538,6 +550,28 @@ button.submit:active {
     -o-transition: padding .25s;
     transition: padding .25s;
 }
-input:required, {
+input:required {
     background: #fff url(pretty-non-existant-picture.png) no-repeat 98% center;
+}
+
+pre{
+  margin-left: 5em;
+  margin-bottom:2ex;
+  font-family:monospace;
+  background-color:#f5f5f5;
+  width:75%;
+  padding: 2ex 1em;
+  border: 1px solid #833;
+}
+
+code{
+  font-family:monospace;
+  font-weight:bold;
+  background-color:#f5f5f5;
+ /* border: 1px solid #833;*/
+}
+.drumroll{
+  font-size:5ex;
+  font-weight:bold;
+  font-family: 'Playball', cursive;
 }
