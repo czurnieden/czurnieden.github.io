@@ -82,7 +82,7 @@
 <p>
     Most of the functions, especially the basic functions are implemented as prototypes to
     the Bigintgers and Bigrationals respectively, so a simple addition of one and one to get
-    two as the expected result (we asume decimal output here) needs the following, ready to
+    two as the expected result (we assume decimal output here) needs the following, ready to
     be put into the textarea above:
 </p>
 <pre>
@@ -177,7 +177,7 @@ var d = a.mul(a).add(b).mul(b);
 <h3 style="margin-left:5em">Common Functions</h3>
 Same name for both Bigint and Bigrational (do not mix, they are just the same names).
 Some do work for JavaScript's native numbers, too, if indicated with <code>Number</code>.<br>
-Despite of their similar names they might work differntly. The square root for example does an
+Despite of their similar names they might work differently. The square root for example does an
 integer (truncating) square root for Bigintegers but a normal square root with a fractional part
 to arbitrary but preset precision for Bigrationals.
 <dl>
@@ -197,7 +197,7 @@ to arbitrary but preset precision for Bigrationals.
 <dt>free</dt><dd>An offering to the garbage-collector. To free it completely it needs an extra
  <code>oldbignumber = null;</code></dd>
 <dt> cmp </dt><dd> compare. returns MP_GT if the second one is greater, MP_LT if it is smaller
- and MP_EQ if both ar equal </dd>
+ and MP_EQ if both are equal </dd>
 <dt>isNaN</dt><dd>Is the Number not a number? <code>Number</code></dd>
 <dt>setNaN</dt><dd>The Number is not a number</dd>
 <dt>isFinite </dt><dd> is it finite? </dd>
@@ -388,7 +388,7 @@ Variable holding the error number. For a table of errors see <code>strerror()</c
 <h3 style="margin-left:5em">Bigrational</h3>
 <dl>
 <dt>bernoulli</dt><dd> Bernoulli numbers  </dd>
-<dt>fastround</dt><dd> Faster rounding methoi but with larger results </dd>
+<dt>fastround</dt><dd> Faster rounding method but with larger results </dd>
 <dt>fitsBitPrecision</dt><dd> If number fits a given bit-precision </dd>
 <dt>fitsDecPrecision</dt><dd>  If number fits a given decimal-precision   </dd>
 <dt>inverse</dt><dd>  Inverses the fraction  in-place</dd>
