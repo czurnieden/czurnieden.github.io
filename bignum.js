@@ -117,72 +117,216 @@ all: it may not even compile!
 
 
 // Flagnames taken from libtommath
-
-// Preallocated length of bitarray. Probably unnecessary, may be removed in the
-// future. Or not if and when typed arrays gets used instead of normal ones.
-// The latter is unlikely until no function like realloc or similar allow for
-// dynamic growth of the buffer
+/**
+ Preallocated length of bitarray. Probably unnecessary, may be removed in the
+ future. Or not if and when typed arrays gets used instead of normal ones.
+ The latter is unlikely until no function like realloc or similar allow for
+ dynamic growth of the buffer.
+ @memberof Bigint
+ @const {number}
+ @default
+*/
 var MP_PREC = 5;
-// Flag for positive value
+/**
+   Flag for positive value
+   @const {number}
+   @default
+*/
 var MP_ZPOS = 1;
-// Flag for negative value
+/**
+   Flag for negative value
+   @const {number}
+   @default
+*/
 var MP_NEG = -1;
 
+/**
+   Largest integer possible with native number
+   @const {number}
+   @default
+*/
 var MP_LONG_MAX = 9007199254740992;
+/**
+   Smallest integer possible with native number
+   @const {number}
+   @default
+*/
 var MP_LONG_MIN = -9007199254740992;
+/**
+   Largest 32-bit integer (e.g.: for boolean operations)
+   @const {number}
+   @default
+*/
 var MP_INT_MAX = 0xffffffff;
+/**
+   Smallest 32-bit integer (e.g.: for boolean operations)
+   @const {number}
+   @default
+*/
 var MP_INT_MIN = -0xffffffff;
 
-// Comparing
-// less than
+/**
+   Comparing: value for less-than
+   @const {number}
+   @default
+*/
 var MP_LT = -1;
-// equal
+/**
+   Comparing: value for equal
+   @const {number}
+   @default
+*/
 var MP_EQ = 0;
-// greater than
+/**
+   Comparing: value for greater-than
+   @const {number}
+   @default
+*/
 var MP_GT = 1;
 
-// Errors
+/**
+   Common Errors: no error
+   @const {number}
+   @default
+*/
 var MP_OKAY = 0;
-// Input wrong
+/**
+   Common Errors: Domain error (input wrong)
+   @const {number}
+   @default
+*/
 var MP_DOMAIN = -2;
+/**
+   Common Errors: range error
+   @const {number}
+   @default
+*/
 var MP_VAL = -3;
-// Output out of range (mostly too large)
+/**
+   Common Errors: range error
+   @const {number}
+   @default
+*/
 var MP_RANGE = MP_VAL;
-// Function not supported (you may come back later)
+/**
+   Common Errors: Function not supported (you may come back later?)
+   @const {number}
+   @default
+*/
 var MP_NOTSUP = -4;
+/**
+   Common Errors: Function not supported (you may come back later?)
+   @const {number}
+   @default
+*/
 var MP_NOSYS = MP_NOTSUP;
 // Value too large for something to be specified elsewhere
+/**
+   Common Errors: Overflow
+   @const {number}
+   @default
+*/
 var MP_OVERFLOW = -5;
-// Value too small for something to be specified elsewhere
+/**
+   Common Errors: Underflow
+   @const {number}
+   @default
+*/
 var MP_UNDERFLOW = -6;
-// total loss of significance
+/**
+   Common Errors: total loss of significance
+   @const {number}
+   @default
+*/
 var MP_TLOSS = -7;
-// partial loss of significance
+/**
+   Common Errors: partial loss of significance
+   @const {number}
+   @default
+*/
 var MP_PLOSS = -8;
-// Pole error (singularity)
+/**
+   Common Errors: Pole error (singularity)
+   @const {number}
+   @default
+*/
 var MP_SING = -9;
 
-
-
-
 // A bit of Bool
+/**
+   An alias for true
+   @const {bool}
+   @default
+*/
 var MP_YES = true;
+/**
+   An alias for false
+   @const {bool}
+   @default
+*/
 var MP_NO = false;
 
-// Cut-offs for fast multiplication (YMMV. Please send a note if it varies)
-
+/**
+   Cut-Off values: Karatsuba multiplication
+   (YMMV. Please send a note if it varies)
+ @memberof Bigint
+   @const {number}
+   @default
+*/
 var KARATSUBA_MUL_CUTOFF = 125;
+/**
+   Cut-Off values: Karatsuba squaring
+   (YMMV. Please send a note if it varies)
+ @memberof Bigint
+   @const {number}
+   @default
+*/
 var KARATSUBA_SQR_CUTOFF = 200;
-
+/**
+   Cut-Off values: Toom-Cook 3-way multiplication
+   (YMMV. Please send a note if it varies)
+ @memberof Bigint
+   @const {number}
+   @default
+*/
 var TOOM_COOK_MUL_CUTOFF = 475;
+/**
+   Cut-Off values: Toom-Cook 3-way squaring
+   (YMMV. Please send a note if it varies)
+ @memberof Bigint
+   @const {number}
+   @default
+*/
 var TOOM_COOK_SQR_CUTOFF = 600;
 
-// although not tested yet, but seemed reasonable
+/**
+   Cut-Off values: FFT-multiplication
+   (YMMV. Please send a note if it varies)
+ @memberof Bigint
+   @const {number}
+   @default
+*/
 var FFT_MUL_CUTOFF = 4096;
 // do one karatsuba mul. if limit is reached
 // 2^23 is below limit and still 8,388,608 limbs large which is > 10^(10^14)
+/**
+   Cut-Off values: Upper limit of rounding errors for FFT. It will do one round
+   of Karatusba to reduce the individual sizes.
+   (YMMV. Please send a note if it varies)
+ @memberof Bigint
+   @const {number}
+   @default
+*/
 var FFT_UPPER_LIMIT = 1 << 23; // only if NTT is not implemented
+/**
+   Cut-Off values: FFT-squaring
+   (YMMV. Please send a note if it varies)
+ @memberof Bigint
+   @const {number}
+   @default
+*/
 var FFT_SQR_CUTOFF = 2048;
+
 
 /*
 var NTT_MUL_CUTOFF;
@@ -195,13 +339,33 @@ var TOOM_COOK_5_MUL_CO;
 var TOOM_COOK_5_SQR_CO;
 */
 
-// Cut-offs for fast division (YMMV. Please send a note if it varies)
-// all limits are in limbs exept where indicated differently
+// all limits are in limbs exept when indicated differently
 
 // Burnikel-Ziegel division (divide&conquer taken literally)
+/**
+   Cut-Off values: Burnikel-Ziegel division<br>
+   (YMMV. Please send a note if it varies)
+ @memberof Bigint
+   @const {number}
+   @default
+*/
 var BURN_ZIEG_NUMERATOR = 500;
+/**
+   Cut-Off values: Burnikel-Ziegel division<br>
+   (YMMV. Please send a note if it varies)
+ @memberof Bigint
+   @const {number}
+   @default
+*/
 var BURN_ZIEG_DENOMINATOR = 300;
-// when to do the normal division instead of recursing (in bits)
+/**
+   Cut-Off values: Burnikel-Ziegel division, when to do the normal division
+   instead of recursing (value in bits)<br>
+   (YMMV. Please send a note if it varies)
+ @memberof Bigint
+   @const {number}
+   @default
+*/
 var BURN_ZIEG_CUTOFF = 3000;
 
 // for N<=2*D size of numerator, size of denominator otherwise
@@ -209,69 +373,160 @@ var BURN_ZIEG_CUTOFF = 3000;
 // O(n^2) in theory, in praxi it needs the O(n^1.465) of Toom-Cook 3-way, 2-way
 // does not seem fast enough
 // TODO: find the bug
-var BARRETT_NUMERATOR   = 3800000; // was 3800
+/**
+  @ignore
+*/
+var BARRETT_NUMERATOR = 3800000; // was 3800
+/**
+  @ignore
+*/
 var BARRETT_DENOMINATOR = 1900000; // was 1900
 // when to do some rounds of Newton-Raphson to refine mu (the reciprocal) for
 // Barrett-division
+/**
+  @ignore
+*/
 var BARRETT_NEWTON_CUTOFF = 100;
-
-// Division by multiplication with reciprocal (simple Newton-Raphson)
-// These are the ranges where the steps of FFT multiplication can influence
-// some specific cutoffs values. Truncated FFT is planned but not yet
-// implemented
+/**
+   Cut-Off values: Division by multiplication with reciprocal (simple Newton-Raphson)
+   These are the ranges where the steps of FFT multiplication can influence
+   some specific cutoffs values. Truncated FFT is planned but not yet implemented.<br>
+   (YMMV. Please send a note if it varies)
+ @memberof Bigint
+   @const {number}
+   @default
+*/
 var NEWTON_NUMERATOR = 8000;
+/**
+   Cut-Off values: Division by multiplication with reciprocal (simple Newton-Raphson)
+These are the ranges where the steps of FFT multiplication can influence
+ some specific cutoffs values. Truncated FFT is planned but not yet implemented.<br>
+   (YMMV. Please send a note if it varies)
+ @memberof Bigint
+   @const {number}
+   @default
+*/
 var NEWTON_DENOMINATOR = 4000;
-// reasonabel general cutoff if the k of N=k*D is not too large
+/**
+   Cut-Off values: Division by multiplication with reciprocal (simple Newton-Raphson)
+   A reasonabel general cutoff if the k of N=k*D is not too large
+These are the ranges where the steps of FFT multiplication can influence
+ some specific cutoffs values. Truncated FFT is planned but not yet implemented.<br>
+   (YMMV. Please send a note if it varies)
+ @memberof Bigint
+   @const {number}
+   @default
+*/
 var NEWTON_CUTOFF = 77000; // >2 mio bits
 
 
 // Bits per digit. See below for details
+/**
+   Bits per digit<br>
+   Some of the functions rely on this constant being set to 26, the default value,
+   so if you want to change it, look them up.
+   @const {number}
+   @default
+*/
 var MP_DIGIT_BIT = 26;
 // Digit mask (e.g.: 0x3fffffff for 30 bit long digits)
+/**
+   Digit mask
+   @const {number}
+   @default
+*/
 var MP_MASK = ((1 << MP_DIGIT_BIT) - 1);
 // Too large a digit by one. (radix)
+/**
+   Size of radix (limb)
+   @const {number}
+   @default
+*/
 var MP_DIGIT_MAX = (1 << MP_DIGIT_BIT);
 
 
 // half digits needed for FFT multiplication
+/**
+   Half digits needed for FFT multiplication<br>
+   Half of the number of digit bits
+ @memberof Bigint
+   @const {number}
+   @default
+*/
 var MP_HALF_DIGIT_BIT = (MP_DIGIT_BIT >> 1);
+/**
+   Half digits needed for FFT multiplication<br>
+   Half of the size of the radix
+ @memberof Bigint
+   @const {number}
+   @default
+*/
 var MP_HALF_DIGIT = (1 << MP_HALF_DIGIT_BIT);
+/**
+   Half digits needed for FFT multiplication<br>
+   Half of the size of the digit mask
+ @memberof Bigint
+   @const {number}
+   @default
+*/
 var MP_HALF_DIGIT_MASK = (MP_HALF_DIGIT - 1);
 
-/* Used in FFT code */
-/*
-  The size of the L1-cache in bytes. The number here is that of the data cache
-  part of an AMD Duron. The Linux kernel gives a lot of information e.g.:
-    grep . /sys/devices/system/cpu/cpu0/cache/index
-
-  There is also lscpu(1) wich is easier to use.
-  On Windows:
-    http://msdn.microsoft.com/en-us/library/ms683194.aspx
-    http://www.cpuid.com/softwares/cpu-z.htm
-  Lack of access to a Mac leaves that part blank. The new MacOS is based on BSD,
-  so 'dmesg' might work or
-    cat /var/run/dmesg.boot | grep CPU
-
-  if in doubt leave the value as it is but give 32 kib (32768) at least a try.
-
- */
-
 if (typeof MP_L1_SIZE === 'undefined') {
+    /**
+       Used in FFT code
+
+      The size of the L1-cache in bytes. The number here is that of the data cache
+      part of an AMD Duron. The Linux kernel gives a lot of information e.g.:
+      <pre>
+        grep . /sys/devices/system/cpu/cpu0/cache/index
+      </pre>
+      There is also lscpu(1) wich is easier to use.
+      On Windows:
+        {@link http://msdn.microsoft.com/en-us/library/ms683194.aspx}<br>
+        {@link http://www.cpuid.com/softwares/cpu-z.htm}<br>
+      Lack of access to a Mac leaves that part blank. The new MacOS is based on BSD,
+      so 'dmesg' might work or
+      <pre>
+        cat /var/run/dmesg.boot | grep CPU
+      </pre>
+      If in doubt leave the value as it is but give 32 kib (32768) at least a try.
+
+       @memberof Bigint
+       @const  {number}
+       @default
+    */
+
     var MP_L1_SIZE = 65536;
 }
-// Memory for some of the bit-juggling below
+/**
+   Memory for some of the bit-juggling below: an 8 (eight) byte buffer
+   @const {object}
+   @default
+*/
 var double_int = new DataView(new ArrayBuffer(8));
 
-// modular multiplicative inverse of 3 (three) for exactDiv3
+/**
+   Modular multiplicative inverse of 3 (three) for exactDiv3.<br>
+   Has no default value because of the different possible sizes of the limb
+ @memberof Bigint
+   @const {Bigint}
+*/
 var MOD_MUL_INV_THREE;
+/**
+   Half of the modular multiplicative inverse of 3 (three) for exactDiv3.<br>
+   Has no default because of the different possible sizes of the limb
+ @memberof Bigint
+   @const {Bigint}
+   @default
+*/
 var MOD_MUL_INV_THREE_HALF;
 
-/*
+/**
   checking for endianess (little endian only for now)
 
   The method (shamelessly stolen from emscripten) is a bit more complicated than
   I want it but things like
-
+<pre>
     var byteorder;
     var test = 0xaabbccdd;
     if((test&0xff) == 0xdd) byteorder = "1234";
@@ -288,14 +543,16 @@ var MOD_MUL_INV_THREE_HALF;
     // the PDP-11 byteorder. Please send a note to the author.
     else return undefined;
     return byteorder
-
+</pre>
   are a bit dubious ("test" needs to act like an unsigned 32 bit integer. Does
-  it? Always?), so I've chosen the long and tedious but correct way.
-
+  it? Always?), so I've chosen the long and tedious but hopefully correct way.
+<br>
   Throws a FatalError which you may or may not want to catch.
-
+<br>
   It seems as if the endianess of typed arrays gets fixed in the next ECMAScript
   standard to big-endian. But only them.
+
+  @throws {FatalError}
 */
 var __bigint_check_endianess = (function() {
     try {
@@ -317,7 +574,7 @@ var __bigint_check_endianess = (function() {
             console.log(e.message);
         }
         if (typeof alert === 'function') {
-            //alert(e.message);
+            alert(e.message);
         }
         throw {
             name: 'FatalError',
@@ -332,83 +589,238 @@ var __bigint_check_endianess = (function() {
  *
  ******************************************************************************/
 
-/*
- * generalized, extendable "typeof" function
- */
+/**
+   Generalized, extendable "typeof" function. Please see the source for how to add
+   more objects.
+   @param {*} obj just anything
+   @return {string} lowercase'd name of input
+*/
 function xtypeof(obj) {
+    'use strict';
     // try it the traditional way
     var tmp = typeof obj;
-    if (tmp !== "object") {
+    if (tmp !== 'object') {
         return tmp;
     } else {
         // try the toString prototype
-        var toString = Object.prototype.toString;
-        tmp = toString.call(obj);
-        // it is one of the build-ins
-        if (tmp !== "[object Object]") {
+        tmp = Object.prototype.toString.call(obj);
+        // It is one of the build-ins
+        // Format is defined in the ECMAScript 5.1 in 5.2.4.2
+        // http://www.ecma-international.org/ecma-262/5.1/#sec-15.2.4.2
+        if (tmp !== '[object Object]') {
             return tmp.slice(8, -1).toLowerCase();
         } else {
             // Put your own objects here
-            // they must exist at this point
+            // The key is the lowercase'd name of the object,
+            // the value is the correctly typed name of the object.
+            // The value must be a String, hence in quotes.
             var list = {
-                 "bigint": Bigint
-            // "complex": Complex
+                bigint: 'Bigint',
+                //bigfloat: 'Bigfloat',
+                bigrational: 'Bigrational',
+                complex: 'Complex'
             };
             for (var p in list) {
-                if (obj instanceof list[p]) {
+                try {
+                    // Yes, kids, eval() is eeeeevil!
+                    // Undefined entries will cause a ReferenceError.
+                    tmp = eval(list[p]);
+                } catch (e) {
+                    // Nothing to catch here because the evidence
+                    // of non-existance is sufficient for our needs,
+                    // so let's...
+                    continue;
+                }
+                if (obj instanceof tmp) {
                     return p;
-               }
+                }
             }
-            return "object";
+            return 'object';
         }
     }
 }
 
-// A primesieve, full implementation, for factorial computation
+/**
+ A primesieve, full implementation.
+ @see {@link https://github.com/czurnieden/primesieve/} for a full
+ description.
+ @namespace primesieve
+*/
 var primesieve = (function() {
+    /**
+       Basket for the easier return of the functions of this module
+       @memberof primesieve
+       @private
+    */
     var Primesieve = {};
+    /**
+       Real size of the sieve in bits.
+       @memberof primesieve
+       @private
+    */
     var primelimit = 0;
+    /**
+       Buffer for the <code>ArrayBuffer</code>
+       @memberof primesieve
+       @private
+    */
     var buffer;
+    /**
+       The actual sieve.
+       @memberof primesieve
+       @private
+    */
     var primesieve;
+    /**
+       The guard limit of the primesieve.<br>
+       Currently set to one megabibyte, which can hold more than half a million
+       primes.
+       @memberof primesieve
+       @constant  {number}
+       @default
+       @see primesieve.raiseLimit
+    */
     var primesizelimit = 0x800000; // 1 megabyte
-
-    // works with normal arrays, too
-    if (typeof Uint32Array === 'undefined'){
+    /**
+       A [2, 3, 5, 7, 11] wheel for factoring
+       @memberof primesieve
+       @private
+    */
+    var wheel = [
+        1, 2, 2, 4, 2, 4, 2, 6, 4, 2, 4, 6, 6, 2, 6, 4, 2, 6, 4, 6,
+        8, 4, 2,
+        4, 2, 4, 14, 4, 6, 2, 10, 2, 6, 6, 4, 2, 4, 6, 2, 10, 2, 4,
+        2, 12,
+        10, 2, 4, 2, 4, 6, 2, 6, 4, 6, 6, 6, 2, 6, 4, 2, 6, 4, 6, 8,
+        4, 2,
+        4, 6, 8, 6, 10, 2, 4, 6, 2, 6, 6, 4, 2, 4, 6, 2, 6, 4, 2, 6,
+        10, 2,
+        10, 2, 4, 2, 4, 6, 8, 4, 2, 4, 12, 2, 6, 4, 2, 6, 4, 6, 12,
+        2, 4, 2,
+        4, 8, 6, 4, 6, 2, 4, 6, 2, 6, 10, 2, 4, 6, 2, 6, 4, 2, 4, 2,
+        10, 2,
+        10, 2, 4, 6, 6, 2, 6, 6, 4, 6, 6, 2, 6, 4, 2, 6, 4, 6, 8, 4,
+        2, 6,
+        4, 8, 6, 4, 6, 2, 4, 6, 8, 6, 4, 2, 10, 2, 6, 4, 2, 4, 2,
+        10, 2, 10,
+        2, 4, 2, 4, 8, 6, 4, 2, 4, 6, 6, 2, 6, 4, 8, 4, 6, 8, 4, 2,
+        4, 2, 4,
+        8, 6, 4, 6, 6, 6, 2, 6, 6, 4, 2, 4, 6, 2, 6, 4, 2, 4, 2, 10,
+        2, 10,
+        2, 6, 4, 6, 2, 6, 4, 2, 4, 6, 6, 8, 4, 2, 6, 10, 8, 4, 2, 4,
+        2, 4,
+        8, 10, 6, 2, 4, 8, 6, 6, 4, 2, 4, 6, 2, 6, 4, 6, 2, 10, 2,
+        10, 2, 4,
+        2, 4, 6, 2, 6, 4, 2, 4, 6, 6, 2, 6, 6, 6, 4, 6, 8, 4, 2, 4,
+        2, 4, 8,
+        6, 4, 8, 4, 6, 2, 6, 6, 4, 2, 4, 6, 8, 4, 2, 4, 2, 10, 2,
+        10, 2, 4,
+        2, 4, 6, 2, 10, 2, 4, 6, 8, 6, 4, 2, 6, 4, 6, 8, 4, 6, 2, 4,
+        8, 6,
+        4, 6, 2, 4, 6, 2, 6, 6, 4, 6, 6, 2, 6, 6, 4, 2, 10, 2, 10,
+        2, 4, 2,
+        4, 6, 2, 6, 4, 2, 10, 6, 2, 6, 4, 2, 6, 4, 6, 8, 4, 2, 4, 2,
+        12, 6,
+        4, 6, 2, 4, 6, 2, 12, 4, 2, 4, 8, 6, 4, 2, 4, 2, 10, 2, 10,
+        6, 2, 4,
+        6, 2, 6, 4, 2, 4, 6, 6, 2, 6, 4, 2, 10, 6, 8, 6, 4, 2, 4, 8,
+        6, 4,
+        6, 2, 4, 6, 2, 6, 6, 6, 4, 6, 2, 6, 4, 2, 4, 2, 10, 12, 2,
+        4, 2, 10,
+        2, 6, 4, 2, 4, 6, 6, 2, 10, 2, 6, 4, 14, 4, 2, 4, 2, 4, 8,
+        6, 4, 6,
+        2, 4, 6, 2, 6, 6, 4, 2, 4, 6, 2, 6, 4, 2, 4, 12
+    ];
+    /**
+       This sieve works with normal Arrays, too
+       @memberof primesieve
+       @private
+    */
+    if (typeof Uint32Array === 'undefined') {
         Uint32Array = Array;
-        ArrayBuffer = function(){return 0;};
+        ArrayBuffer = function() {
+            return 0;
+        };
     }
-
-    // 30*log(113)/113 see also http://oeis.org/A209883
+    /**
+       30*log(113)/113 see also {@link http://oeis.org/A209883 }
+       @memberof primesieve
+       @private
+    */
     var LN_113 = 1.25505871293247979696870747618124469168920275806274;
-    // Rosser, J. B. and Schoenfeld, L. "Approximate Formulas for Some
-    // Functions of Prime Numbers." Illinois J. Math. 6, 64-97, 1962
-    // http://projecteuclid.org/DPubS?service=UI&version=1.0&verb=Display&handle=euclid.ijm/1255631807
-    var approx_pi = function(limit){
+    /**
+       Rosser, J. B. and Schoenfeld, L. <i>Approximate Formulas for Some
+       Functions of Prime Numbers.</i> Illinois J. Math. 6, 64-97, 1962
+       {@link http://projecteuclid.org/DPubS?service=UI&version=1.0&verb=Display&handle=euclid.ijm/1255631807 }
+       @memberof primesieve
+       @param {number} limit upper limit of search
+       @return {number} Approximation of p(limit)
+       @see primesieve.approx_limit
+       @private
+    */
+    var approx_pi = function(limit) {
         // Math.ceil(5*x/(4*Math.log(x))) // would be more exact for large x
-        return Math.ceil( (LN_113 * limit) / Math.log(limit) ) + 2;
+        return Math.ceil((LN_113 * limit) / Math.log(limit)) + 2;
     };
-    var approx_limit = function(prime_pi){
-        if(prime_pi < 10){
-          return 30;
+    /**
+       Upper limit of pi(x). Uses expansion of li(x)-li(2)
+       @param {number} limit upper limit of search
+       @return {number} Approximation of p(limit)
+       @see primesieve.approx_pi
+       @memberof primesieve
+       @private
+    */
+    var approx_limit = function(prime_pi) {
+        if (prime_pi < 10) {
+            return 30;
         }
         // see first term of expansion of li(x)-li(2)
-        return Math.ceil( prime_pi * ( Math.log( prime_pi * Math.log( prime_pi))));
+        return Math.ceil(prime_pi * (Math.log(prime_pi * Math.log(
+            prime_pi))));
     };
+    /**
+       Checks if the given argument is a fitting integer
+       @memberof primesieve
+       @param {number} x an ECMAScript conforming number
+       @return {bool}
+       @private
+    */
     var isInt = function(x) {
         if (isNaN(x)) {
             return false;
         }
-        if (x > -9007199254740992 && x < 9007199254740992 && Math.floor(
+        if (x > -9007199254740992 && x <= 9007199254740992 && Math.floor(
                 x) == x) {
             return true;
         }
     };
+    /**
+       Clear bit (set to zero) at given position
+       @memberof primesieve
+       @param {number} where position of the bit
+       @private
+    */
     var clear = function(where) {
-        primesieve[where >>> 5] &= ~((1 << (31 - (where & 31))) );
+        primesieve[where >>> 5] &= ~((1 << (31 - (where & 31))));
     };
+    /**
+       Get value of bit at given position
+       @memberof primesieve
+       @param {number} where position of the bit
+       @return {number} value of bit at given position
+       @private
+    */
     var get = function(where) {
-        return ((primesieve[where >>> 5] >>> ((31 - (where & 31)))) & 1);
+        return ((primesieve[where >>> 5] >>> ((31 - (where & 31)))) &
+            1);
     };
+    /**
+       Get value next set (value = 1) bit from given position
+       @memberof primesieve
+       @param {number} where position of the start
+       @return {number} position of next set bit or -1
+       @private
+    */
     var nextset = function(from) {
         while (from < primelimit && !get(from)) {
             from++;
@@ -418,6 +830,13 @@ var primesieve = (function() {
         }
         return from;
     };
+    /**
+       Get value previous set (value = 1) bit from given position
+       @memberof primesieve
+       @param {number} where position of the start
+       @return {number} position of previous set bit or -1
+       @private
+    */
     var prevset = function(from) {
         while (from >= 0 && !get(from)) {
             from--;
@@ -427,12 +846,19 @@ var primesieve = (function() {
         }
         return from;
     };
+    /**
+       Fill the primesieve.
+       @memberof primesieve
+       @param {number} n length of sieve. Maximum available prime is smaller or
+                         equal to this argument
+       @private
+    */
     var fillsieve = function(n) {
         var k, r, j;
         n = n + 1;
         primelimit = n - 1;
         k = Math.ceil(n / 32);
-        if(typeof ArrayBuffer !== "function"){
+        if (typeof ArrayBuffer !== "function") {
             buffer = new ArrayBuffer(k * 4);
         } else {
             buffer = k;
@@ -458,13 +884,62 @@ var primesieve = (function() {
             }
         }
     };
+    /**
+       Error value for success/no error
+       @memberof primesieve
+       @constant {number}
+       @default
+       @private
+    */
     var E_SUCCESS = 0;
+    /**
+       Error value for "not an integer"
+       @memberof primesieve
+       @constant {number}
+       @default
+       @private
+    */
     var E_ARG_NO_INT = 1;
+    /**
+       Error value for "Argument given is too low"
+       @memberof primesieve
+       @constant {number}
+       @default
+       @private
+    */
     var E_ARG_TOO_LOW = 2;
+    /**
+       Error value for "Argument given is too high"
+       @memberof primesieve
+       @constant {number}
+       @default
+       @private
+    */
     var E_ARG_TOO_HIGH = 3;
+    /**
+       Error value for "above guard limit"
+       @memberof primesieve
+       @constant {number}
+       @default
+       @private
+       @see primesieve.raiseLimit
+    */
     var E_ABOVE_LIMIT = 4;
+    /**
+       Variable to hold error number
+       @alias error
+       @memberof primesieve
+       @constant {number}
+       @default
+    */
     Primesieve.error = 0;
-    Primesieve.strerror = function(){
+    /**
+       Function to convert an error number into a human readable string
+       @alias strerror
+       @memberof primesieve
+       @return {string} Summary of the error
+    */
+    Primesieve.strerror = function() {
         var strerrors = [
             "Success",
             "Argument not an integer",
@@ -472,31 +947,40 @@ var primesieve = (function() {
             "Argument too high",
             "Prime wanted is higher than the limit ",
             "Unknown error"
-                        ];
+        ];
         var e = Primesieve.error;
-        if(e == 0){
-            return strerrors[ 0 ];
+        if (e == 0) {
+            return strerrors[0];
         }
-        if(e < 0 || e > strerrors.length - 1){
-            return strerrors[ strerrors.length - 1 ];
+        if (e < 0 || e > strerrors.length - 1) {
+            return strerrors[strerrors.length - 1];
         }
-        if(e == E_ABOVE_LIMIT){
-            return strerrors[ E_ABOVE_LIMIT ] + primesizelimit;
+        if (e == E_ABOVE_LIMIT) {
+            return strerrors[E_ABOVE_LIMIT] + primesizelimit;
         } else {
             return strerrors[e];
         }
     };
+    /**
+       Checks if the given number is a small prime (must be in the sieve)<br>
+       For larger numbers see {@link primesieve.isPrime}
+       @alias isSmallPrime
+       @memberof primesieve
+       @param {number} prime positive small integer
+       @return {bool} or undefined in case of an error
+       @see primesieve.isPrime
+    */
     Primesieve.isSmallPrime = function(prime) {
         if (!isInt(prime)) {
             Primesieve.error = E_ARG_NO_INT;
             return undefined;
-        } else if (prime < 2 ) {
+        } else if (prime < 2) {
             Primesieve.error = E_ARG_TOO_LOW;
             return undefined;
         }
         if (prime > primelimit) {
             Primesieve.grow(prime + 100);
-            if(Primesieve.error ==  E_ABOVE_LIMIT){
+            if (Primesieve.error == E_ABOVE_LIMIT) {
                 return undefined;
             }
         }
@@ -506,6 +990,154 @@ var primesieve = (function() {
         }
         return false;
     };
+    /**
+       Checks if the given number is a prime.<br>
+       Might need a couple of seconds for larger primes.
+       @alias isPrime
+       @memberof primesieve
+       @param {number} prime positive integer &lt; 2<sup><i>53</i></sup>
+       @return {bool} or undefined in case of an error
+    */
+    Primesieve.isPrime = function(n) {
+        var length = wheel.length;
+        // length of lead of wheel/start of cycle
+        var roundstart = 3;
+        // first prime
+        var factor = 2;
+        // cycling index into the wheel
+        var next = 0;
+        var sqrtn;
+        if (!isInt(n)) {
+            Primesieve.error = E_ARG_NO_INT;
+            return undefined;
+        } else if (n < 2) {
+            Primesieve.error = E_ARG_TOO_LOW;
+            return undefined;
+        }
+        Primesieve.error = E_SUCCESS;
+        if (n & 1 == 0) {
+            return false;
+        }
+        sqrtn = Math.floor(Math.sqrt(n));
+        // check for perfect squares.
+        if (sqrtn * sqrtn == n) {
+            return false;
+        }
+        while (factor < sqrtn) {
+            if (n % factor == 0) {
+                return false;
+            }
+            factor += wheel[next];
+            next++;
+            if (next == length) {
+                next = roundstart;
+            }
+        }
+        return true;
+    };
+    /**
+       Returns factors of argument<br>
+       Returns all factors in an array, for a different format
+       {@link primesieve.primeDecomposition}
+       @alias factor
+       @memberof primesieve
+       @param {number} prime positive integer &lt; 2<sup><i>53</i></sup>
+       @return {array} list of all factors in increasing order or undefined in
+                      case of an error
+       @see primesieve.primeDecomposition
+    */
+    Primesieve.factor = function(n) {
+        var length = wheel.length;
+        var roundstart = 3;
+        var factor = 2;
+        var next = 0;
+        var result = [];
+        if (!isInt(n)) {
+            Primesieve.error = E_ARG_NO_INT;
+            return undefined;
+        } else if (n < 2) {
+            Primesieve.error = E_ARG_TOO_LOW;
+            return undefined;
+        }
+        Primesieve.error = E_SUCCESS;
+        while (factor * factor <= n) {
+            while (n % factor == 0) {
+                result.push(factor);
+                n /= factor;
+            }
+            factor += wheel[next];
+            next++;
+            if (next == length) {
+                next = roundstart;
+            }
+        }
+        if (n > 1) {
+            result.push(n);
+        }
+        return result;
+    };
+    /**
+       Returns factors of argument as tuples (prime, exponent)<br>
+       For a different format  see {@link primesieve.factor}
+       @alias primeDecomposition
+       @memberof primesieve
+       @param {number} prime positive integer &lt; 2<sup><i>53</i></sup>
+       @return {array} list of all factors in increasing order as tuples of the
+                      form (prime, exponent) packed into an array or undefined
+                      in case of an error
+       @see primesieve.factor
+    */
+    Primesieve.primeDecomposition = function(n) {
+        var length = wheel.length;
+        var roundstart = 3;
+        var factor = 2;
+        var next = 0;
+        var result = [];
+        // a short array, because p(41) = max. primorial < 2^53
+        var counter = [];
+        var idx;
+        if (!isInt(n)) {
+            Primesieve.error = E_ARG_NO_INT;
+            return undefined;
+        } else if (n < 2) {
+            Primesieve.error = E_ARG_TOO_LOW;
+            return undefined;
+        }
+        Primesieve.error = E_SUCCESS;
+        while (factor * factor <= n) {
+            while (n % factor == 0) {
+                idx = counter.indexOf(factor);
+                if (idx < 0) {
+                    counter.push(factor);
+                    result.push([factor, 1]);
+                } else {
+                    result[idx][1] ++;
+                }
+                n /= factor;
+            }
+            factor += wheel[next];
+            next++;
+            if (next == length) {
+                next = roundstart;
+            }
+        }
+        if (n > 1) {
+            idx = counter.indexOf(n);
+            if (idx < 0) {
+                result.push([n, 1]);
+            } else {
+                result[idx] ++;
+            }
+        }
+        return result;
+    };
+    /**
+       Returns prime greater than argument
+       @alias nextPrime
+       @memberof primesieve
+       @param {number} prime positive small integer
+       @return {number} Next prime or undefined in case of an error
+    */
     Primesieve.nextPrime = function(prime) {
         if (!isInt(prime)) {
             Primesieve.error = E_ARG_NO_INT;
@@ -516,30 +1148,44 @@ var primesieve = (function() {
         }
         if (prime > primelimit) {
             Primesieve.grow(prime + 100);
-            if(Primesieve.error ==  E_ABOVE_LIMIT){
+            if (Primesieve.error == E_ABOVE_LIMIT) {
                 return undefined;
             }
         }
         Primesieve.error = E_SUCCESS;
         return nextset(prime);
     };
+    /**
+       Returns prime greater than argument
+       @alias precPrime
+       @memberof primesieve
+       @param {number} prime positive small integer
+       @return {number} Preceding prime or undefined in case of an error
+    */
     Primesieve.precPrime = function(prime) {
         if (!isInt(prime)) {
             Primesieve.error = E_ARG_NO_INT;
             return undefined;
-        } else if (prime < 2 ) {
+        } else if (prime < 2) {
             Primesieve.error = E_ARG_TOO_LOW;
             return undefined;
         }
         if (prime > primelimit) {
             Primesieve.grow(prime + 100);
-            if(Primesieve.error ==  E_ABOVE_LIMIT){
+            if (Primesieve.error == E_ABOVE_LIMIT) {
                 return undefined;
             }
         }
         Primesieve.error = E_SUCCESS;
         return prevset(prime);
     };
+    /**
+       Number of primes up to argument (counts primes in sieve)
+       @alias primePi
+       @memberof primesieve
+       @param {number} prime positive small integer
+       @return {number} Number of primes or undefined in case of an error
+    */
     Primesieve.primePi = function(prime) {
         var k = 0;
         var ct = 0;
@@ -547,14 +1193,14 @@ var primesieve = (function() {
         if (!isInt(prime)) {
             Primesieve.error = E_ARG_NO_INT;
             return undefined;
-        } else if (prime < 2 ) {
+        } else if (prime < 2) {
             Primesieve.error = E_ARG_TOO_LOW;
             return undefined;
         }
 
         if (prime > primelimit) {
             Primesieve.grow(prime + 100);
-            if(Primesieve.error ==  E_ABOVE_LIMIT){
+            if (Primesieve.error == E_ABOVE_LIMIT) {
                 return undefined;
             }
         }
@@ -568,17 +1214,33 @@ var primesieve = (function() {
         Primesieve.error = E_SUCCESS;
         return ct;
     };
+    /**
+       Number of primes up to argument (approximation independant of sieve)
+       @alias primePiApprox
+       @memberof primesieve
+       @param {number} prime positive small integer
+       @return {number} Number of primes or undefined in case of an error
+    */
     Primesieve.primePiApprox = function(prime) {
         if (!isInt(prime)) {
             Primesieve.error = E_ARG_NO_INT;
             return undefined;
-        } else if (prime < 2 ) {
+        } else if (prime < 2) {
             Primesieve.error = E_ARG_TOO_LOW;
             return undefined;
         }
         Primesieve.error = E_SUCCESS;
         return approx_pi(prime);
     };
+    /**
+       Produces an Array holding all primes between <code>low</code> and <code>high</code>
+       @alias primeRange
+       @memberof primesieve
+       @param {number} low positive small integer
+       @param {number} high positive small integer
+       @return {array} Primes between <code>low</code> and <code>high</code> or
+                       undefined in case of an error
+    */
     Primesieve.primeRange = function(low, high) {
         var down = 0,
             up = 0,
@@ -588,17 +1250,17 @@ var primesieve = (function() {
         if (!isInt(low) || !isInt(high)) {
             Primesieve.error = E_ARG_NO_INT;
             return undefined;
-        } else if (low < 0 ) {
+        } else if (low < 0) {
             Primesieve.error = E_ARG_TOO_LOW;
             return undefined;
-        } else if ( low > high ) {
+        } else if (low > high) {
             /* try again, maybe just a fluke */
-            return Primesieve.primeRange(high,low);
+            return Primesieve.primeRange(high, low);
         }
 
-        if(primelimit < high){
-             Primesieve.grow(high + 100);
-            if(Primesieve.error ==  E_ABOVE_LIMIT){
+        if (primelimit < high) {
+            Primesieve.grow(high + 100);
+            if (Primesieve.error == E_ABOVE_LIMIT) {
                 return undefined;
             }
         }
@@ -618,8 +1280,15 @@ var primesieve = (function() {
         Primesieve.error = E_SUCCESS;
         return ret;
     };
+    /**
+       Produces an Array with the primes between zero and the given argument
+       @alias primes
+       @memberof primesieve
+       @param {number} prime positive small integer
+       @return {array} Primes between zero and the given argument
+    */
     Primesieve.primes = function(prime) {
-        var ret, k, count, limit,i;
+        var ret, k, count, limit, i;
         limit = approx_limit(prime);
 
         if (!isInt(prime)) {
@@ -630,9 +1299,9 @@ var primesieve = (function() {
             return undefined;
         }
 
-        if(primelimit < limit){
+        if (primelimit < limit) {
             Primesieve.grow(limit);
-            if(Primesieve.error ==  E_ABOVE_LIMIT){
+            if (Primesieve.error == E_ABOVE_LIMIT) {
                 return undefined;
             }
         }
@@ -650,6 +1319,15 @@ var primesieve = (function() {
         Primesieve.error = E_SUCCESS;
         return ret;
     };
+    /**
+       Grows the sieve to the size given by the argument. Does not reduce the size
+       or increment the sieve, it just produces a new sieve of the given size.
+       @alias grow
+       @memberof primesieve
+       @param {number} alot positive small integer
+       @return {bool} undefined in case of an error
+       @see primesieve.raiseLimit
+    */
     Primesieve.grow = function(alot) {
         if (!isInt(alot)) {
             Primesieve.error = E_ARG_NO_INT;
@@ -660,14 +1338,33 @@ var primesieve = (function() {
         } else if (alot > primesizelimit) {
             Primesieve.error = E_ABOVE_LIMIT;
             return undefined;
-        } else if(alot > primelimit){
+        } else if (alot > primelimit) {
             Primesieve.error = E_SUCCESS;
             fillsieve(alot);
-        } /* else {
-           Do nothing for now
-        }*/
+        }
+        /* else {
+                   Do nothing for now
+                }*/
     };
+    /**
+       Grows the sieve to the size given by the argument. Does not reduce the size
+       or increment the sieve, it just produces a new sieve of the given size.
+       @alias fill
+       @memberof primesieve
+       @param {number} alot positive small integer
+       @return {bool} or undefined in case of an error
+       @see primesieve.raiseLimit
+       @see primesieve.grow
+    */
     Primesieve.fill = Primesieve.grow;
+    /**
+       To avoid unexpected surprises this primesieve has an in-build limit for
+       the size of the primesieve of one megabyte. Does not lower the limit.
+       @alias raiseLimit
+       @memberof primesieve
+       @param {number} raise size of the new maximum in bits
+       @return {bool} undefined in case of an error
+    */
     Primesieve.raiseLimit = function(raise) {
         if (!isInt(raise)) {
             Primesieve.error = E_ARG_NO_INT;
@@ -680,41 +1377,182 @@ var primesieve = (function() {
             primesizelimit = raise;
         }
     };
+    /**
+       Returns the raw prime-sieve. It might be an <code>Array</code> or a
+       <code>TypedArray</code>, so please check before use.
+       @alias sieve
+       @memberof primesieve
+       @return {primesieve} the raw primesieve
+    */
     Primesieve.sieve = function() {
         return primesieve;
     };
     return Primesieve;
-})(/* You may place a start-size here */);
+})( /* You may place a start-size here */ );
 
 if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
     module.exports = primesieve;
 } else {
     if (typeof define === 'function' && define.amd) {
-        define([], function() { return primesieve; });
+        define([], function() {
+            return primesieve;
+        });
     } else {
         window.primesieve = primesieve;
     }
 }
-
-// Computes iteration steps for e.g. Newton-Raphson
-// "stepsize" is the length of the steps and a multiplicator.
-// For example stepsize=2 for quadratic convergences (Newton), stepsize=3
-// for cubic ones (Housholder), etc.
-// Yep, just like the similarily named Python function
+/**
+Computes iteration steps for e.g. Newton-Raphson.
+"stepsize" is the length of the steps and a multiplicator.
+For example stepsize=2 for quadratic convergences (Newton), stepsize=3
+for cubic ones (Housholder), etc.
+Yep, just like the similarily named Python function
+@param start precision at start
+@param end precision at end
+@param stepsize size of steps (e.g.: 2 for quadratic, 3 for cubic convergences and so on)
+@return {array} an Array with a list of the precisions
+*/
 function computeGiantsteps(start, end, stepsize) {
-    var ret = [ end ],
+    var ret = [end],
         i = 1;
     if (arguments.length != 3) {
         return MP_VAL;
     }
     while (true) {
-        if (ret[ ret.length - 1 ] <= start * stepsize) {
+        if (ret[ret.length - 1] <= start * stepsize) {
             break;
         }
-        ret[ i++ ] = Math.floor(ret[ret.length - 1] / stepsize) + 2;
+        ret[i++] = Math.floor(ret[ret.length - 1] / stepsize) + 2;
     }
     return ret.reverse();
 }
+
+/*
+     Error handling
+     Idea shamelessly stolen from  Colin Ihrig
+     http://www.sitepoint.com/exceptional-exception-handling-in-javascript/
+
+     TODO: make a module out of it?
+*/
+/**
+   Constructor for error: division by zero
+   @constructor
+   @param {string} message an individual message (default is: "Empty Message")
+*/
+function DivisionByZero(message) {
+  this.name = "Division by zero";
+  this.message = (message || "Empty Message");
+}
+/**
+   @ignore
+*/
+DivisionByZero.prototype = new Error();
+/**
+   @ignore
+*/
+DivisionByZero.prototype.constructor = DivisionByZero;
+/**
+   Constructor for error: inexact result (partial loss of significance)
+   @constructor
+   @param {string} message an individual message (default is: "Empty Message")
+*/
+function Inexact(message) {
+  this.name = "Inexact result";
+  this.message = (message || "Empty Message");
+}
+/**
+   @ignore
+*/
+Inexact.prototype = new Error();
+/**
+   @ignore
+*/
+Inexact.prototype.constructor = Inexact;
+/**
+   Constructor for error: invalid result (total loss of significance)
+   @constructor
+   @param {string} message an individual message (default is: "Empty Message")
+*/
+function Invalid(message) {
+  this.name = "Invalid result";
+  this.message = (message || "Empty Message");
+}
+/**
+   @ignore
+*/
+Invalid.prototype = new Error();
+/**
+   @ignore
+*/
+Invalid.prototype.constructor = Invalid;
+/**
+   Constructor for error: overflow
+   @constructor
+   @param {string} message an individual message (default is: "Empty Message")
+*/
+function Overflow(message) {
+  this.name = "Overflow";
+  this.message = (message || "Empty Message");
+}
+/**
+   @ignore
+*/
+Overflow.prototype = new Error();
+/**
+   @ignore
+*/
+Overflow.prototype.constructor = Overflow;
+/**
+   Constructor for error: underflow
+   @constructor
+   @param {string} message an individual message (default is: "Empty Message")
+*/
+function Underflow(message) {
+  this.name = "Underflow";
+  this.message = (message || "Empty Message");
+}
+/**
+   @ignore
+*/
+Underflow.prototype = new Error();
+/**
+   @ignore
+*/
+Underflow.prototype.constructor = Underflow;
+/**
+   Constructor for error: singularity (pole of function) (e.g.: gamma(-2))
+   @constructor
+   @param {string} message an individual message (default is: "Empty Message")
+*/
+function Singularity(message) {
+  this.name = "Singularity";
+  this.message = (message || "Empty Message");
+}
+/**
+   @ignore
+*/
+Singularity.prototype = new Error();
+/**
+   @ignore
+*/
+Singularity.prototype.constructor = Singularity;
+/**
+   Constructor for error: method not (yet) supported (e.g.: sqrt(-2))
+   @constructor
+   @param {string} message an individual message (default is: "Empty Message")
+*/
+function Unsupported(message) {
+  this.name = "Unsupported";
+  this.message = (message || "Empty Message");
+}
+/**
+   @ignore
+*/
+Unsupported.prototype = new Error();
+/**
+   @ignore
+*/
+Unsupported.prototype.constructor = Unsupported;
 
 /*
  * All functions implemented by prototyping to avoid name-clashes
@@ -723,33 +1561,70 @@ function computeGiantsteps(start, end, stepsize) {
  * variable A in A.isNaN() is a Bigint, a Number, a Bigfloat, or anything else.
  */
 
-// uses the global object which auto-converts numbers!
+/**
+   The built-in Number object.
+   @external Number
+ */
+
+/**
+   The built-in String object.
+   @external String
+ */
+
+/**
+  Checks if the number is not a number.<br>
+  <strong>Caution:</strong> uses the global object which auto-converts numbers!
+  @function external:Number#isNaN
+  @return {bool}
+*/
 Number.prototype.isNaN = function() {
     return isNaN(this);
 };
 // Does not use the new Number.isFinite for reasons layed down
 // in blog post TODO: look-up URL of aforementioned blog post
+/**
+  Checks if the number is finite.
+  @function external:Number#isFinite
+  @return {bool}
+*/
 Number.prototype.isFinite = function() {
     if (isNaN(this) || this === Infinity || this === -Infinity) {
         return false;
     }
     return true;
 };
-// Danger: will return inexact results for numbers > 2^53!
+/**
+  Checks if the number is even.
+  <strong>Caution:</strong> will return inexact results for numbers > 2<sup>53</sup>
+  @function external:Number#isEven
+  @return {bool}
+*/
 Number.prototype.isEven = function() {
     if (Math.abs(this) > 0x1fffffffffffff) {
+        // throw new Inexact("Value for Number.isEven too large")
         return MP_RANGE;
     }
     return (this % 2 == 0);
 };
-// Danger: will return inexact results for numbers > 2^53!
+/**
+  Checks if the number is odd.
+  <strong>Caution:</strong> will return inexact results for numbers > 2<sup>53</sup>
+  @function external:Number#isOdd
+  @return {bool}
+*/
 Number.prototype.isOdd = function() {
     if (Math.abs(this) > 0x1fffffffffffff) {
+        // throw new Inexact("Value for Number.isOdd too large")
         return MP_RANGE;
     }
     return (this % 2 == 1);
 };
 //TODO: check for exceptions (NaN, Inf)
+/**
+  Returns the sign of the number
+  @function external:Number#sign
+  @return {number}
+*/
 Number.prototype.sign = function() {
     return (this < 0) ? MP_NEG : MP_ZPOS;
 };
@@ -757,10 +1632,18 @@ Number.prototype.sign = function() {
 /*
  *  Most of the following functions assume 32-bit little-endian integers.
  */
-
+/**
+  Look for the the power of two bigger than the number
+  @function external:Number#nextPow2
+  @return {number} 2<sup>x</sup>&gt; <code>this</code>
+*/
 Number.prototype.nextPow2 = function() {
     var n = this;
-    // checks & balances
+    if(!n.isInt() || n > MP_INT_MAX){
+        // throw new RangeError("Value for Number.nexPow2 too large or "+
+        //                      " not an integer")
+        return MP_RANGE;
+    }
     n--;
     n |= n >>> 1;
     n |= n >>> 2;
@@ -770,8 +1653,17 @@ Number.prototype.nextPow2 = function() {
     n++;
     return n;
 };
-
+/**
+  Lowest bit set (zero based counting)
+  @function external:Number#lowBit
+  @return {number}
+*/
 Number.prototype.lowBit = function() {
+    if(!this.isInt() || this > MP_INT_MAX){
+        // throw new RangeError("Value for Number.lowBit too large or "+
+        //                      "not an integer")
+        return MP_RANGE;
+    }
     if (this == 0) {
         return 0;
     }
@@ -784,8 +1676,18 @@ Number.prototype.lowBit = function() {
     return ret;
 };
 
-// http://graphics.stanford.edu/~seander/bithacks.html
+/**
+  Highest bit set (zero based counting).
+  @see {@link http://graphics.stanford.edu/~seander/bithacks.html}
+  @function external:Number#highBit
+  @return {number}
+*/
 Number.prototype.highBit = function() {
+    if(!this.isInt() || this > MP_INT_MAX){
+        // throw new RangeError("Value for Number.highBit too large or "+
+        //                      "not an integer")
+        return MP_RANGE;
+    }
     if (this == 0) {
         return 0;
     }
@@ -801,9 +1703,18 @@ Number.prototype.highBit = function() {
     }
     return ret;
 };
-
-// this is a function with a limit of 32
+/**
+  Checks if <code>this</code> is a power of 2 (two)
+  @function external:Number#isPow2
+  @param {number} b must be smaller than 2<sup>32</sup>
+  @return {bool}
+*/
 Number.prototype.isPow2 = function(b) {
+    if(!this.isInt() || this > MP_INT_MAX){
+        // throw new RangeError("Value for Number.isPow2 too large or "+
+        //                      "not an integer")
+        return MP_RANGE;
+    }
     var x = 0 >>> 0;
     /* fast return if no power of two */
     if ((b == 0) || (b & (b - 1))) {
@@ -816,14 +1727,23 @@ Number.prototype.isPow2 = function(b) {
     }
     return false;
 };
-// Despite common opinion, this function is not generally applicable, the
-// name should give a hint!
-// Danger: does not check if input is really all ASCII
+/**
+  Reverses the characters in a string.
+  <strong>Caution:</strong> Despite common opinion, this function is not
+   generally applicable, the name should give a hint!
+  @function external:String#asciireverse
+  @return {string}
+*/
 String.prototype.asciireverse = function() {
     return this.split('').reverse().join('');
 };
 
 // written for isOk() but not (yet?) used
+/**
+  Checks if <code>this</code> is a subnormal (denormal) number
+  @function external:Number#isSubnormal
+  @return {bool}
+*/
 Number.prototype.isSubnormal = function() {
     var high = 0 >>> 0;
     double_int.setFloat64(0, this);
@@ -835,6 +1755,14 @@ Number.prototype.isSubnormal = function() {
 };
 
 // contains code from SunPro, see license at the start of this file
+/**
+  Checks if <code>this</code> is NaN according to IEEE-754. This code is licensed under the
+  SunPro license listed near the top of this file.<br>
+  This function is not yet used.
+  @function external:Number#ieee_754_isNaN
+  @license SunPro
+  @return {bool}
+*/
 Number.prototype.ieee_754_isNaN = function() {
     var high, low, nan;
     double_int.setFloat64(0, this);
@@ -848,10 +1776,19 @@ Number.prototype.ieee_754_isNaN = function() {
 };
 
 // subnormals are ok?
+/**
+  Checks if the number is a proper number and finite, too.
+  @function external:Number#isOk
+  @return {bool}
+*/
 Number.prototype.isOk = function() {
     return (!this.isNaN() && this.isFinite()) ? MP_YES : MP_NO;
 };
-
+/**
+  Checks if the number is a proper small integer.
+  @function external:Number#isInt
+  @return {bool}
+*/
 Number.prototype.isInt = function() {
     if (!this.isOk()) {
         return MP_NO;
@@ -869,8 +1806,11 @@ Number.prototype.isInt = function() {
     return MP_NO;
 };
 
-
-// Checks if the number fits into one big-digit
+/**
+  Checks if the number fits into one limb
+  @function external:Number#issmallenough
+  @return {bool}
+*/
 Number.prototype.issmallenough = function() {
     if (!this.isInt() || (Math.abs(this) >= MP_DIGIT_MAX)) {
         return false;
@@ -878,9 +1818,18 @@ Number.prototype.issmallenough = function() {
     return true;
 };
 
-// number of bits set (Hamming weight)
-// http://graphics.stanford.edu/~seander/bithacks.html
+/**
+  Number of Bits set (Hamming weight)<br>
+  {@link  http://graphics.stanford.edu/~seander/bithacks.html}
+  @function external:Number#setBits
+  @return {number}
+*/
 Number.prototype.setBits = function() {
+    if(!this.isInt() || this > MP_INT_MAX){
+        // throw new RangeError("Value for Number.setBits too large or "+
+        //                      "not an integer")
+        return MP_RANGE;
+    }
     if (this == 0) {
         return 0;
     }
@@ -890,9 +1839,18 @@ Number.prototype.setBits = function() {
     return (((x + (x >>> 4)) & 0x0F0F0F0F) * 0x01010101) >>> 24;
 };
 
-// calculate multiplicative modular inverse (for exactDiv3)
+/**
+  Calculate multiplicative modular inverse (for exactDiv3)
+  @function external:Number#modInv
+  @param {number} m modulus
+  @return {number}
+*/
 Number.prototype.modInv = function(m) {
     var t1, t2, x, y, q, a, b;
+    if(!this.isInt()){
+        // throw new RangeError("Value for Number.modInv not an Integer")
+        return MP_RANGE;
+    }
     a = this;
     if (m < 0) {
         m = -m;
@@ -921,11 +1879,26 @@ Number.prototype.modInv = function(m) {
     }
     return t1;
 };
-Number.prototype.abs = function(){
+/**
+  Absolute value
+  @function external:Number#abs
+  @return {number} absolute value
+*/
+Number.prototype.abs = function() {
     return Math.abs(this);
 };
+/**
+  GCD: greatest common divisor
+  @function external:Number#gcd
+  @param {number} n
+  @return {number} gcd
+*/
 Number.prototype.gcd = function(n) {
     var x, y, g, temp;
+    if(!this.isInt()){
+        // throw new RangeError("Value for Number.gcd not an Integer")
+        return MP_RANGE;
+    }
     if (this.abs() > n.abs()) {
         return n.gcd(this);
     }
@@ -998,68 +1971,78 @@ Number.prototype.gcd = function(n) {
     }
 };
 
-/*
-  Prototype of Bigint.
-  Parameters: a small integer (<  MP_DIGIT_MAX).
-  Return: none.
+/**
+  Constructor for the Bigint object.
+  @constructor
+  @param {number} n small integer &lt; 2<sup>MP_DIGIT_BIT</sup>
 */
 function Bigint(n) {
-        // memory for digits, preallocated to hold at least five digits
-        this.dp = new Array(MP_PREC);
-        // Set all to zero (keep it simpel)
-        for (var i = this.dp.length - 1; i >= 0; i--) {
-            this.dp[i] = 0 >>> 0;
-        }
-        // number of digits actually used
-        this.used = 1;
-        // Allocated length of digit-array. Probably unnecessary, may be removed in
-        // the future. On the other side, it is possible--depending on the javascript
-        // interpreter--to offer the GC something to collect by tinkering with the
-        // Array.length property.
-        // I'll probably remove it and use this.dp.length instead.
-        this.alloc = MP_PREC;
-        // sign of bigint.
-        this.sign = MP_ZPOS;
-
-        // Allow for a small number to be set directly
-        if (xtypeof(n) === 'number' && Math.abs(n) < MP_DIGIT_MAX) {
-            this.dp[0] = Math.abs(n);
-            this.sign = (n < 0) ? MP_NEG : MP_ZPOS;
-        }
+    /**
+       memory for limbs, preallocated to hold at least five limbs
+    */
+    this.dp = new Array(MP_PREC);
+    // Set all to zero (keep it simpel)
+    for (var i = this.dp.length - 1; i >= 0; i--) {
+        this.dp[i] = 0 >>> 0;
     }
+    /**
+       number of limbs actually used
+    */
+    this.used = 1;
+    // Allocated length of limb-array. Probably unnecessary, may be removed in
+    // the future. On the other side, it is possible--depending on the javascript
+    // interpreter--to offer the GC something to collect by tinkering with the
+    // Array.length property.
+    // I'll probably remove it and use this.dp.length instead.
+    this.alloc = MP_PREC;
+    /**
+       sign of Bigint
+    */
+    this.sign = MP_ZPOS;
+
+    // Allow for a small number to be set directly
+    if (xtypeof(n) === 'number' && Math.abs(n) < MP_DIGIT_MAX) {
+        this.dp[0] = Math.abs(n);
+        this.sign = (n < 0) ? MP_NEG : MP_ZPOS;
+    }
+}
     // Ones and zeros are always useful especially in binary arithmetic but
     // it is probably easier to do the "new Bigint(0)" directly
-Bigint.ZERO = new Bigint(0);
-Bigint.ONE = new Bigint(1);
+    //Bigint.ZERO = new Bigint(0);
+    //Bigint.ONE = new Bigint(1);
 
-/*
+/**
   We don't need an extra init() function since new Bigint() already does that,
   but we need something to clean up; the size of the Array holding the digits
   can get quite large and even a lot of small ones can sum up.
-
+  <br>
   We cannot free the memory directly, we are only able to give the GC a change
   to do it for us.
-
+  <br>
   This functions empties the Bigint only, to sacrifice it completely the
-  variable must be set to 'null', too.
+  variable must be set to 'undefined', too.<br>
   Example:
-
+  <pre>
   tmp = new Bigint(0);
   // do some stuff with tmp
   // tmp got large but we'll do a lot of stuff after it in the same
   // scope and need to get rid of tmp
-  tmp.clear();
-  tmp = null;
-
+  tmp.free();
+  tmp = undefined;
+  </pre>
+  @memberof Bigint
+  @instance
 */
 Bigint.prototype.free = function() {
-    this.dp = null;
-    this.used = null;
-    this.alloc = null;
-    this.sign = null;
+    delete this.dp;
+    delete this.used;
+    delete this.alloc;
+    delete this.sign;
 };
-/*
-   Offer memory to GC but keep the rest for later use.
+/**
+  Offer memory to GC but keep the rest for later use.
+  @memberof Bigint
+  @instance
 */
 Bigint.prototype.clear = function() {
     this.dp = [0 >>> 0];
@@ -1067,39 +2050,100 @@ Bigint.prototype.clear = function() {
     this.alloc = 1;
     this.sign = MP_ZPOS;
 };
+/**
+  Set to zero and offer memory to GC
+  @memberof Bigint
+  @instance
+*/
+Bigint.prototype.toZero = function() {
+    this.clear();
+};
 /*
    Add "n" numbers of zeros to the MSB side aka preallocate more memory.
    Probably faster then the engines heuristics for growing an Array.
    Does *not* set this.used!
 */
-Bigint.prototype.grow = function(n){
-  //checks & balances
- var t = [];
- while(n--){t[n] = 0 >>> 0;}
- this.dp = this.dp.concat(t);
- return (this.dp.length);
+/**
+   Add "n" numbers of zeros to the MSB side aka preallocate more memory.
+   Probably faster then the engines heuristics for growing an Array.
+   Does not set <code>this.used</code>!
+  @memberof Bigint
+  @instance
+  @param {number} n number of limbs added
+  @return {number} length of new limb-array
+*/
+Bigint.prototype.grow = function(n) {
+    if(!this.isInt() || this > MP_INT_MAX){
+        // throw new RangeError("Value for Bigint.grow too large or "+
+        //                      "not an Integer")
+        return MP_RANGE;
+    }
+    if(n < 0){
+        // throw new Unsupported("Negative value for Bigint.grow not supported")
+        return MP_RANGE;
+    }
+    var t = [];
+    while (n--) {
+        t[n] = 0 >>> 0;
+    }
+    this.dp = this.dp.concat(t);
+    return (this.dp.length);
 };
 
 // avoid mess
+/**
+  Clamps off leading zeros to give the GC a chance to clean up.
+  @memberof Bigint
+  @instance
+*/
 Bigint.prototype.clamp = function() {
     while (this.used > 1 && (this.dp[this.used - 1] == 0 || isNaN(this.dp[
             this.used - 1]))) {
         this.used--;
     }
     // this may keep the whole array allocated, at least for some time.
+    // A so called "Optimization by Hope"
     this.dp.length = this.used;
     this.alloc = this.used;
 };
 
-// unify
+/**
+  Sign
+  @memberof Bigint
+  @instance
+  @return {number} sign
+*/
 Bigint.prototype.sign = function() {
     return this.sign;
 };
 
+/**
+  Returns true because it <em>is</em> an integer
+  @memberof Bigint
+  @instance
+  @return {bool} true
+*/
+Bigint.prototype.isInt = function() {
+    return true;
+};
+
+
 // print all four bytes even if zero (little endian). toString(16) does not
 // do that
+/**
+  Print all four bytes even if they are zero (little endian).<br>
+  <code>toString(16)</code> does not do that.
+  @function external:Number#toHex32
+  @param {*} uppercase returns uppercase string if any argument has been given
+  @return {string}
+*/
 Number.prototype.toHex32 = function(uppercase) {
     var t = this;
+    if(!this.isInt() || this > MP_INT_MAX){
+        // throw new RangeError("Value for Number.toHex32 too large or "+
+        //                      "not an Integer")
+        return MP_RANGE;
+    }
     var lower = "0123456789abcdef";
     var upper = "0123456789ABCDEF";
     var rcase = uppercase || false;
@@ -1115,226 +2159,130 @@ Number.prototype.toHex32 = function(uppercase) {
     }
     return ret;
 };
-/*
-// rudimentary bigdecimal for speeding up a_bigint.toString()
-var BIGDECIMAL_BASE = 10000000;
-var BIGDECIMAL_LOG10_BASE = 7;
-function Bigdecimal() {
-    this.digits = [];
-    this.sign = 1;
-    this.used = 0;
-    if (arguments.length != 0) {
-        var n = arguments[0];
-        if (n.isInt()){
-            if (n < BIGDECIMAL_BASE) {
-                this.digits[0] = n;
-                this.sign = n.sign();
-                this.used = 1;
-            } else if(n < BIGDECIMAL_BASE * BIGDECIMAL_BASE) {
-                this.digits[0] = n % BIGDECIMAL_BASE;
-                this.digits[1] = Math.floor(n/BIGDECIMAL_BASE);
-                this.used = 2;
-            } else {
-                this.digits[0] = n % BIGDECIMAL_BASE;
-                this.digits[1] = Math.floor(n/BIGDECIMAL_BASE);
-                this.digits[2] = Math.floor(this.digits[1]/BIGDECIMAL_BASE)>>>0;
-                this.digits[1] = (this.digits[1] % BIGDECIMAL_BASE)>>>0 ;
-                this.used = 3;
-            }
-        }
-    } else {
-        this.digits[0] = 0;
-    }
-}
-Bigdecimal.prototype.clamp = function() {
-    while(this.used > 1 && (this.digits[this.used-1] == 0 || isNaN(this.digits[this.used-1])) )
-        this.used--;
-    this.digits.length = this.used;
-};
-Bigdecimal.prototype.dup = function() {
-    var copy = new Bigdecimal(0);
-    if (this.used == 0) return copy;
-    copy.digits = new Array(this.used);
-    copy.sign = this.sign;
-    copy.used = this.used;
-    for (var i = 0; i < this.used; i++)
-        copy.digits[i] = this.digits[i];
-    return copy;
-};
 
-Bigdecimal.prototype.isZero = function() {
-    if (this.used == 0 && this.sign == 1) return true;
-    return false;
-};
-Bigdecimal.prototype.isOne = function() {
-    if (this.used == 1 && this.sign == 1 && this.digits[0] == 1) return true;
-    return false;
-};
-Bigdecimal.ZERO = new Bigdecimal(0);
-Bigdecimal.ONE = new Bigdecimal(1);
-
-Bigdecimal.prototype.abs = function() {
-    var r = this.dup();
-    r.sign = 1;
-    return r;
-};
-
-Bigdecimal.prototype.neg = function() {
-    var r = this.dup();
-    if (this.used == 0) return r;
-    if (this.used == 1 && this.digits[0] == 0) return r;
-    r.sign = this.sign * -1;
-    return r;
-};
-
-Bigdecimal.prototype.cmp_mag = function(bdec) {
-    if (this.used > bdec.used) return MP_GT;
-    if (this.used < bdec.used) return MP_LT;
-
-    for (var i = this.used - 1; i >= 0; i--) {
-        if (this.digits[i] > bdec.digits[i]) return MP_GT;
-        if (this.digits[i] < bdec.digits[i]) return MP_LT;
-    }
-    return MP_EQ;
-};
-
-Bigdecimal.prototype.cmp = function(bdec) {
-    if (this.sign > bdec.sign) return MP_GT;
-    if (this.sign < bdec.sign) return MP_LT;
-    if (this.sign < 0)
-        return bdec.cmp_mag(this);
-    return this.cmp_mag(bdec);
-};
-
-Bigdecimal.prototype.toString = function() {
-    var len = this.used - 1;
-    var str = "";
-    if (this.isZero()) return "0";
-    for (var i = len; i >= 0; i--) {
-        var temp = this.digits[i].toString();
-
-        var tlen = temp.length;
-        while (tlen++ < BIGDECIMAL_LOG10_BASE && i != len) {
-            temp = "0" + temp;
-        }
-        str += temp;
-    }
-    str = (this.sign < 1) ? "-" + str : str;
-    return str;
-};
-
-Bigdecimal.prototype.lowlevel_add = function(bdec) {
-    var t = this.digits;
-    var tlen = this.used;
-
-    var b = bdec.digits;
-    var blen = bdec.used;
-    var tblen = tlen + blen;
-
-    var temp, carry = 0, i;
-    var ret;
-    if (tlen < blen) return bdec.add(this);
-    ret = new Bigdecimal(0);
-    ret.digits = [];
-    while(tblen--)ret.digits[tblen] = 0;
-    for (i = 0; i < blen; i++) {
-        temp = carry;
-        temp += t[i] + b[i];
-        carry = Math.floor(temp / BIGDECIMAL_BASE);
-        ret.digits[i] = temp % BIGDECIMAL_BASE;
-    }
-    if (tlen - blen != 0) {
-        for (i = blen; i < tlen; i++) {
-            temp = carry;
-            temp += t[i];
-            carry = Math.floor(temp / BIGDECIMAL_BASE);
-            ret.digits[i] = temp % BIGDECIMAL_BASE;
-        }
-    }
-
-    if (carry) ret.digits[i] = carry;
-    ret.used = ret.digits.length;
-    ret.clamp();
-    return ret;
-};
-
-Bigdecimal.prototype.add = function(bdec) {
-    var tsign = this.sign;
-    var bsign = bdec.sign;
-
-    var ret;
-
-    if (tsign == bsign) {
-        ret = this.lowlevel_add(bdec);
-        ret.sign = tsign;
-    } else {
-        // |a| < |b|
-        if (this.cmp_mag(bdec) == MP_LT) {
-            ret = bdec.lowlevel_sub(this);
-            ret.sign = bsign;
-        } else {
-            ret = this.lowlevel_sub(bdec);
-            ret.sign = tsign;
-        }
-    }
-    return ret;
-};
-Bigdecimal.prototype.lowlevel_mul = function(bdec) {
-    var tsign = this.sign;
-    var t = this.digits;
-    var tlen = this.used;
-    var bsign = bdec.sign;
-    var b = bdec.digits;
-    var blen = bdec.used;
-    var ret = new Bigdecimal(0),
-        retv,temp;
-    var tblen = tlen + blen;
-    var carry,i,j;
-
-    //if(typeof bdec == 'number') return this.lowlevel_mulD(bdec);
-
-    if (bdec.isZero()) return ret;
-    if (bdec.isOne()) return this.dup();
-
-    retv = [];
-    while(tblen--)retv[tblen] = 0;
-
-    for (i = 0; i < tlen; i++) {
-        carry = 0;
-        for (j = 0; j < blen; j++) {
-            temp = retv[i + j] + (t[i] * b[j]) + carry;
-            carry = Math.floor(temp / BIGDECIMAL_BASE);
-            retv[i + j] = temp % BIGDECIMAL_BASE;
-        }
-        retv[i + blen] = carry;
-    }
-
-    ret.digits = retv;
-    ret.used = retv.length;
-    ret.clamp();
-    return ret;
-};
-
-Bigdecimal.prototype.mul = function(bdec) {
-    var r;
-    if(this.cmp(bdec) == MP_LT) r = bdec.lowlevel_mul(this)
-    else  r = this.lowlevel_mul(bdec);
-    r.sign = this.sign * bdec.sign;
-    return r;
-};
+/**
+  Converts the Bigint into a string (internal).
+  @memberof Bigint
+  @instance
+  @param {number} radix of the resulting string
+  @return {string}
 */
-Bigint.prototype.toString = function(radix) {
+Bigint.prototype.toStringSmall = function(radix) {
     var mp_s_rmap =
         "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     var ret;
     var t;
     var d = 0 | 0;
     var s = "";
-    var sign = this.sign;
 
-    if (!radix) {
-        radix = 10;
+    // Work on copy.
+    t = this.copy();
+    t.sign = MP_ZPOS;
+    // this is veeeeery slow
+    while (t.isZero() == MP_NO) {
+        ret = t.divremInt(radix);
+        t = ret[0];
+        d = ret[1].dp[0];
+        s += mp_s_rmap[d];
     }
+    // reverse the digits of the string.
+    s = s.asciireverse();
+    return s;
+};
+
+/**
+   Cut-Off value for the number to string conversion with Schönhage's trick
+   (YMMV. Please send a note if it varies)
+   @memberof Bigint
+   @const {number}
+   @default
+*/
+var SCHOENHAGE_CONVERSION_CUT = 10;
+/**
+  Variable holding the cache for the number to string conversion with Schönhage's trick.
+  @memberof Bigint
+  @instance
+*/
+Bigint.schoenhagecache;
+/**
+  Length of variable holding the cache for the number to string  conversion with Schönhage's trick.
+  @memberof Bigint
+  @instance
+*/
+Bigint.schoenhagecache_len;
+/**
+  Base (radix) of the cache for the number to string conversion with Schönhage's trick.
+  @memberof Bigint
+  @instance
+*/
+Bigint.schoenhagecache_base;
+/**
+  Clears the cache used for number conversion.
+  @memberof Bigint
+  @instance
+*/
+Bigint.freeSchoenhageCache = function(){
+    Bigint.schoenhagecache = [];
+    Bigint.schoenhagecache_len = 0;
+    Bigint.schoenhagecache_base = -1;
+};
+/**
+  Converts the Bigint into a string.
+  Conversion with Schönhage's trick (divide and conquer).
+  @memberof Bigint
+  @instance
+  @param {number} [radix=10] radix of the resulting string
+  @return {string}
+*/
+Bigint.prototype.toString = function(base){
+    var outstr;
+    var sign;
+
+    var toStr = function(a, digits, base){
+        var size;
+        var str;
+        var i, b, n, ed;
+        var q,r, QR;
+        if(a.used <= SCHOENHAGE_CONVERSION_CUT){
+            str = a.toStringSmall(base);
+            if(str.length < digits && outstr.length > 0){
+                for(i = str.length;i < digits;i++){
+                    outstr += "0";
+                }
+            }
+            outstr += str;
+            return MP_OKAY;
+        }
+        b = a.highBit();
+        n = Math.floor(b / (2*base.highBit())).highBit();
+        if(!Bigint.schoenhagecache_len || Bigint.schoenhagecache_len == 0){
+            Bigint.schoenhagecache = [];
+            Bigint.schoenhagecache[0] = new Bigint(base);
+            for(i=1;i<n;i++){
+                Bigint.schoenhagecache[i] = Bigint.schoenhagecache[i-1].sqr();
+            }
+            Bigint.schoenhagecache_len = i;
+        }
+        if( n >= Bigint.schoenhagecache_len){
+            for(i = Bigint.schoenhagecache_len; i <= n;i++){
+                Bigint.schoenhagecache[i] = Bigint.schoenhagecache[i-1].sqr();
+            }
+            Bigint.schoenhagecache_len = i;
+        }
+    
+        QR = a.divrem(Bigint.schoenhagecache[n]);
+        q = QR[0];
+        r = QR[1];
+    
+        ed = 1 << n;
+        toStr(q,digits - ed,base);
+        toStr(r,ed,base);
+        return MP_OKAY;
+    };
+    
+    if(!base){
+        base = 10;
+    }  
 
     if (this.isNaN()) {
         return "NaN";
@@ -1349,130 +2297,43 @@ Bigint.prototype.toString = function(radix) {
     if (this.isUnity() == MP_YES) {
         return (sign < 0) ? "-1" : "1";
     }
-    if (this.used == 1 && radix < 37) {
+    if (this.used == 1 && base < 37) {
         // this.sign is either one or minus one
         return (this.dp[0] * this.sign).toString(radix);
     }
 
-    // compute decimal from bigint now
-
     // we _could_ implement radix 1, too! Bwaaaaaahahahaha...*hem*
-    if (radix < 2 || radix > 62) {
-        return "Radix is out of range, should be 1<radix<63, and not: " +
-            radix;
+    if (base < 2 || base > 62) {
+        // throw new RangeError(errormessage);
+        return "Base (radix) is out of range, should be 1<base<63, and not: " +
+            base;
     }
 
-    if (radix == 2) {
-        for (var i = 0; i < this.used - 1; i++) {
-            var tmp = this.dp[i];
-            for (var j = 0; j < MP_DIGIT_BIT; j++) {
-                s += (tmp & 0x1 == 1) ? "1" : "0";
-                tmp >>>= 1;
-            }
-        }
-        s += this.dp[this.used - 1].toString(2);
-        s = s.asciireverse();
-        return (sign < 0) ? "-" + s : s;
+    outstr = "";
+    sign = this.sign;
+    this.sign = MP_ZPOS;
+    if(!Bigint.schoenhagecache_base || Bigint.schoenhagecache_base != base){
+        Bigint.freeSchoenhageCache();
     }
-
-    // Work on copy.
-    t = this.copy();
-    t.sign = MP_ZPOS;
-
-
-    // assumes 26 bit digits
-    if (radix == 16 && MP_DIGIT_BIT == 26) {
-        //s += (t.sign == MP_NEG)?"-":"";
-        var current_length = t.used - 1;
-        if(current_length == 0){
-            s = t.dp[0].toString(16);
-            return (sign < 0) ? "-" + s : s;
-        }
-        else if(current_length == 1){
-            s = (t.dp[1] * (1 << MP_DIGIT_BIT) + t.dp[0]).toString(16);
-            return (sign < 0) ? "-" + s : s;
-        }
-        // the case of a single digit has been catched above, the loop will run
-        // at least once
-        while (current_length > 0) {
-            // we need to fill 32 bit. 32-26 = 6, mask = 0x3f
-            // take it from the digit above if it exists
-            if (current_length >= 2) {
-                tmp = t.dp[0] | (((t.dp[1] & 0x3f) << 26) & 0xffffffff);
-            } else {
-                tmp = t.dp[0];
-            }
-            // check if something is left
-            if (t.used == 1) {
-                if (t.dp[0] != 0) {
-                    // use toString() here to avoid leading zeros
-                    s = t.dp[0].toString(16) + s;
-                }
-                // it's the last one, let's get some coffee and make a break
-                break;
-            }
-            // add it to the result string
-            s = tmp.toHex32() + s;
-            // divide by 2^32
-            t.rShiftInplace(32);
-            // adjust anchor
-            current_length = t.used;
-        }
-        return (sign < 0) ? "-" + s : s;
+    toStr(this,0,base);
+    if(sign == MP_NEG){
+       outstr = "-" + outstr; 
     }
-
-    /*
-      // use the full available space a double offers
-      if(radix == 10 && t.used > 20){
-        var out = new Bigdecimal(0);
-        var base = new Bigdecimal(MP_DIGIT_MAX*MP_DIGIT_MAX);
-        var digit;
-        var limit = (t.used %2 == 0)?0:1;
-        for(var i = t.used-1;i>0;i-=2){
-          digit = new Bigdecimal(t.dp[i-1] + (t.dp[i]*MP_DIGIT_MAX) );
-          out = out.mul(base);
-          out = out.add(digit);
-        }
-        if(limit == 1){
-          digit = new Bigdecimal(t.dp[0] );
-          out = out.mul(new Bigdecimal(MP_DIGIT_MAX));
-          out = out.add(digit);
-        }
-        out.sign = this.sign;
-        return out.toString();
-      }
-    */
-    /*
-       // a more conservative version
-       if(radix == 10 && t.used > 20){
-        var out = new Bigdecimal(0);
-        var base = new Bigdecimal(MP_DIGIT_MAX);
-        for(var i = t.used-1;i>=0;i--){
-          var digit = new Bigdecimal(t.dp[i]);
-          out = out.mul(base);
-          out = out.add(digit);
-        }
-        out.sign = this.sign;
-        return out.toString();
-      }
-    */
-    // this is veeeeery slow
-    while (t.isZero() == MP_NO) {
-        ret = t.divremInt(radix);
-        t = ret[0];
-        d = ret[1].dp[0];
-        s += mp_s_rmap[d];
-    }
-
-    s += (sign == MP_NEG) ? "-" : "";
-
-    // reverse the digits of the string.
-    s = s.asciireverse();
-    return s;
+    this.sign = sign;
+    return outstr;
 };
-// more or less quite shamelessly stolen from libtommmath's mp_read_radix
-// does not make use of exponent given. No Prefixes (e.g. 0x, 0b, 0) allowed.
-String.prototype.toBigint = function(radix) {
+
+
+
+/**
+  Conversion of a string to a Bigint (internal).<br>
+  More or less quite shamelessly stolen from libtommmath's mp_read_radix.<br>
+  Does not make use of exponent given. No Prefixes (e.g. 0x, 0b, 0) allowed.
+  @function external:String#toBigint
+  @param {number} [radix=10] radix of the number given
+  @return {Bigint}
+*/
+String.prototype.toBigintSmall = function(radix) {
     var mp_s_rmap =
         "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     var neg;
@@ -1485,6 +2346,9 @@ String.prototype.toBigint = function(radix) {
     }
 
     if (radix < 2 || radix > 62) {
+        // var errormessage = "Radix is out of range, should be 1<radix<63, and not: " +
+        //    radix;
+        // throw new RangeError(errormessage);
         return "Radix is out of range, should be 1<radix<63, not: " + radix;
     }
 
@@ -1516,35 +2380,9 @@ String.prototype.toBigint = function(radix) {
     if (radix < 36) {
         str = str.toUpperCase();
     }
-    /*
-      // much faster version, needs Bigdecimal and some testing
-      if(radix == 10 && strlen > 70){
-        var i,j,k,tmp,astr;
-        var rem = strlen % BIGDECIMAL_LOG10_BASE;
-        for( i = 0;i < str.length-(rem+1);i += BIGDECIMAL_LOG10_BASE){
-          tmp = 0;
-          j = BIGDECIMAL_LOG10_BASE;
-          while(j--){
-            tmp *=10;
-            tmp += str.charCodeAt(i+((BIGDECIMAL_LOG10_BASE-1)-j))&0xff - 48;
-          }
-          ret = ret.mulInt(BIGDECIMAL_BASE);
-          if(tmp != 0)ret = ret.addInt(tmp);
-        }
-        if(rem){
-          tmp = 0;
-          j = rem+1;
-          while(--j){tmp *=10;tmp += str.charCodeAt(i+(rem-j))&0xff - 48;}
-          ret = ret.mulInt(Math.pow(10,rem-1));
-          if(tmp != 0)ret = ret.addInt(tmp);
-        }
-        ret.sign = neg;
-        ret.clamp();
-        return ret;
-      }
-    */
+
     // left (high) to right (low)
-    for (var i = 0; i < strlen; i++) {
+    for (i = 0; i < strlen; i++) {
         ch = str.charAt(i);
         charnum = mp_s_rmap.indexOf(ch);
         if (charnum < radix) {
@@ -1554,7 +2392,9 @@ String.prototype.toBigint = function(radix) {
             }
         } else {
             // Actually, this _is_ an error and not something one can let slip.
-            // TODO: don't forget when implementing error-handling
+            // throw new Invalid("Weird error in String.toBigint. Please check "+
+            //                   "the table named \"mp_s_rmap\" at the top " +
+            //                   "for correctness.")
             break;
         }
     }
@@ -1564,15 +2404,79 @@ String.prototype.toBigint = function(radix) {
     ret.clamp();
     return ret;
 };
+/**
+   Cut-Off value for the string to number conversion with Schönhage's trick
+   (YMMV. Please send a note if it varies)
+   @memberof Bigint
+   @const {number}
+   @default
+*/
+var  SET_STR_CUTOFF = 20;
+/**
+  Conversion of a string to a Bigint.<br>
+  Done with Schönhage's trick<br>
+  Does not make use of exponent given. No Prefixes (e.g. 0x, 0b, 0) allowed.
+  @function external:String#toBigint
+  @param {number} [radix=10] radix of the number given
+  @return {Bigint}
+*/
+String.prototype.toBigint = function(base){
+   var outstr, string;
+   var ret;
+   var sign;
+   var toBig = function(s,base){
+      var len, len_low, len_high;
+      var s_low, s_high;
+      var A, B, m;
+
+      len = s.length;
+      len_low = len >>> 1;
+      len_high = len - len_low;
+
+      if (len_low < SET_STR_CUTOFF) {
+         return s.toBigintSmall(base);
+      }
+      m = new Bigint(base);
+      s_high = s.substr(len_low, len_high);
+      A = toBig(s_high, base);
+      s_low = s.substr(0,len_low);
+      B = toBig(s_low, base);
+      m = m.pow(len_high);
+      B = B.mul(m);
+      return A.add(B);
+   };
+   outstr = "";
+   string = this;
+   sign = MP_ZPOS;
+   if(string.charAt(0) === "-"){
+      sign = MP_NEG;
+      string = string.substr(1);
+   }
+   if(string.charAt(0) === "+"){
+      string = string.substr(1);
+   }
+   if(!base){
+      base = 10;
+   }
+   ret = new Bigint();
+   ret = toBig(string,base);
+   ret.sign = sign;
+   return ret;
+};
 
 
-
-// returns Bigint. Bigint might be set to Nan or Infinity if Number is
-// not a small enough integer. Range: -9007199254740992..9007199254740992
+/**
+  Converts a small integer into a {Bigint}
+  Bigint might be set to Nan or Infinity if Number is
+  not a small enough integer. Range: -9007199254740992..9007199254740992
+  @function external:Number#toBigint
+  @return {Bigint}
+*/
 Number.prototype.toBigint = function() {
     var ret = new Bigint(0);
     // Check Number
     if (!this.isOk() || !this.isInt()) {
+        // throw new RangeError("Input not fit for Number.toBigint")
         ret.setNaN();
         return ret;
     }
@@ -1599,7 +2503,12 @@ Number.prototype.toBigint = function() {
     return ret;
 };
 
-
+/**
+  Checks if <code>this</code> has only one limb.
+  @memberof Bigint
+  @instance
+  @return {bool}
+*/
 Bigint.prototype.issmallenough = function() {
     // TODO: we can use two bigdigits if MP_DIGIT_BIT <= 26
     //       than change Bigint.prototype.toNumber accordingly
@@ -1609,13 +2518,24 @@ Bigint.prototype.issmallenough = function() {
     return true;
 };
 
+/**
+  Checks if <code>this</code> is a number and finite.
+  @memberof Bigint
+  @instance
+  @return {bool}
+*/
 Bigint.prototype.isOk = function() {
     if (this.isNaN() || !this.isFinite()) {
         return false;
     }
     return true;
 };
-
+/**
+  Converts a Bigint into a native number if possible
+  @memberof Bigint
+  @instance
+  @return {number}
+*/
 Bigint.prototype.toNumber = function() {
     // Check Bigint
     if (!this.isOk()) {
@@ -1649,9 +2569,9 @@ Bigint.prototype.toNumber = function() {
     bd_high += bd_low;
 
     // This will overflow Javascript Number when
-    // (this.used-3) * MP_DIGIT_BIT + 15 > 1023;
+    // (this.used-2) * MP_DIGIT_BIT + 15 > 1023;
     // Which is less then 40 bigdigits!
-    bd_high *= Math.pow(2, (this.used - 3) * MP_DIGIT_BIT);
+    bd_high *= Math.pow(2, (this.used - 2) * MP_DIGIT_BIT);
 
     if (this.sign == MP_NEG) {
         bd_high *= -1;
@@ -1659,14 +2579,26 @@ Bigint.prototype.toNumber = function() {
     return bd_high;
 };
 
-// see http://burtleburtle.net/bob/rand/smallprng.html
+/**
+  Seed for PRNG<br>
+  {@link http://burtleburtle.net/bob/rand/smallprng.html}
+  @constant  {object}
+  @default
+  @private
+*/
 var __burtlerand_ax = {
     a: 0xf1ea5eed,
     b: 2 >>> 0,
     c: 3 >>> 0,
     d: 4 >>> 0
 };
-
+/**
+  Actual PRNG.<br>
+  {@link http://burtleburtle.net/bob/rand/smallprng.html}
+  @param {number} [seed] optional seed
+  @return {number} 32-bit integer
+  @private
+*/
 function burtle_rand(seed) {
     var rot = function(s, k) {
         return (((s >>> 0) << (k >>> 0)) | ((s >>> 0) >>> (32 - (k >>>
@@ -1706,6 +2638,20 @@ function burtle_rand(seed) {
 // uses Bob Jenkins' small PRNG (with the extra round) listed above
 // used instead of Math.random to get a well-known function with a good mix
 // (good avalaunche values). This works in-place!
+/**
+  Set <code>this</code> to a random number.
+  Uses Bob Jenkins' small PRNG (with the extra round) listed at {@link burtle_rand}<br>
+  Used instead of <code>Math.random</code> to get a well-known function with a good mix
+  (good avalaunche values).<br>
+  This works in-place!<br>
+  The number you get might have a smaller number of bits than called for. Either try
+  again or ask for more bits in the first place and shift right later.
+  @memberof Bigint
+  @instance
+  @param {number} bits size of random number in bits; resulting number might be smaller!
+  @param {number} [seed] a small integer, defaults to <code>Date.now()</code>
+  @return {Bigint}
+*/
 Bigint.prototype.random = function(bits, seed) {
     var digbits = Math.floor(bits / MP_DIGIT_BIT);
     var modbits = bits % MP_DIGIT_BIT;
@@ -1722,10 +2668,10 @@ Bigint.prototype.random = function(bits, seed) {
     }
 
     mod_mask = (1 << modbits) - 1;
-    if(mod_mask > 0){
+    if (mod_mask > 0) {
         this.dp[digbits] = burtle_rand() & mod_mask;
     } else {
-        // to keep it downwards compatible
+        // to keep it repeatable
         burtle_rand();
     }
     this.dp[digbits] = burtle_rand() & mod_mask;
@@ -1736,7 +2682,12 @@ Bigint.prototype.random = function(bits, seed) {
     return this.copy();
 };
 
-// does deep copy of THIS
+/**
+  Copy <code>this</code>
+  @memberof Bigint
+  @instance
+  @return {Bigint} a deep copy of <code>this</code>
+*/
 Bigint.prototype.copy = function() {
     var tt;
     tt = new Bigint(0);
@@ -1750,12 +2701,26 @@ Bigint.prototype.copy = function() {
     }
     return tt;
 };
-
+/**
+  Copy <code>this</code>
+  @return {Bigint} a deep copy of <code>this</code>
+  @memberof Bigint
+  @instance
+  @see Bigint.prototype.copy
+*/
 Bigint.prototype.dup = function() {
     return this.copy();
 };
 
 // swap with deep copy (probably)
+/**
+  Swap <code>this</code> with argument<br>
+  Copies without thinking. No checks if on of the players is a <code>NaN</code>
+  or something else in that line.
+  @memberof Bigint
+  @instance
+  @param {Bigint} target the Bigint to swap with
+*/
 Bigint.prototype.swap = function(target) {
     var tmp = target.copy();
     target = this.copy();
@@ -1765,13 +2730,16 @@ Bigint.prototype.swap = function(target) {
     }
     this.sign = tmp.sign;
     this.used = tmp.used;
-    // "this" might have been larger, so set the bigdigit after the last one to
+    // "this" might have been larger, so set the limb after the last one to
     // zero
     this.dp[this.used] = 0 >>> 0;
     this.alloc = tmp.alloc;
     tmp.dp = null;
 };
 // swap with shallow copy (probably) unsure, don't use!
+/**
+  @ignore
+*/
 Bigint.prototype.exch = function(target) {
     var tmp = target;
     target = this;
@@ -1780,8 +2748,12 @@ Bigint.prototype.exch = function(target) {
     this.used = tmp.used;
     this.alloc = tmp.alloc;
 };
-
-// change sign, returns full copy, "this" stays unchanged
+/**
+  Change sign of <code>this</code>
+  @memberof Bigint
+  @instance
+  @return {Bigint} <code>-this</code>
+*/
 Bigint.prototype.neg = function() {
     var ret = this.copy();
     if (this.sign == MP_ZPOS) {
@@ -1791,8 +2763,24 @@ Bigint.prototype.neg = function() {
     }
     return ret;
 };
-
-// make positive, returns full copy, "this" stays unchanged
+/**
+  Change sign of <code>this</code> in-place
+  @memberof Bigint
+  @instance
+*/
+Bigint.prototype.negInplace = function() {
+    if (this.sign == MP_ZPOS) {
+        this.sign = MP_NEG;
+    } else {
+        this.sign = MP_ZPOS;
+    }
+};
+/**
+  Absolute value
+  @memberof Bigint
+  @instance
+  @return {Bigint} <code>this</code>
+*/
 Bigint.prototype.abs = function() {
     var ret = this.copy();
     if (this.sign == MP_NEG) {
@@ -1800,79 +2788,179 @@ Bigint.prototype.abs = function() {
     }
     return ret;
 };
-
-/* Some useful tools and a very small bit of IEEE compliance */
-// this == 0
+/**
+  Absolute value workin in-place
+  @memberof Bigint
+  @instance
+*/
+Bigint.prototype.absInplace = function() {
+    if (this.sign == MP_NEG) {
+        this.sign = MP_ZPOS;
+    }
+};
+/**
+  Checks if <code>this</code> is zero
+  @memberof Bigint
+  @instance
+  @return {bool}
+*/
 Bigint.prototype.isZero = function() {
     if (this.used == 1 && this.dp[0] == 0) {
         return MP_YES;
     }
     return MP_NO;
 };
-// this == +1
+/**
+  Checks if <code>this</code> is plus one
+  @memberof Bigint
+  @instance
+  @return {bool}
+*/
 Bigint.prototype.isOne = function() {
     if (this.used == 1 && this.sign == MP_ZPOS && this.dp[0] == 1) {
         return MP_YES;
     }
     return MP_NO;
 };
-// this == +1 || this == -1
+/**
+  Checks if <code>this</code> is plus one or minus one
+  @memberof Bigint
+  @instance
+  @return {bool}
+*/
 Bigint.prototype.isUnity = function() {
     if (this.used == 1 && this.dp[0] == 1) {
         return MP_YES;
     }
     return MP_NO;
 };
-// this < 0
+/**
+  Checks if <code>this</code> is negative
+  @memberof Bigint
+  @instance
+  @return {bool}
+*/
 Bigint.prototype.isNeg = function() {
     return (this.sign == MP_ZPOS) ? MP_NO : MP_YES;
 };
-// this > 0
+/**
+  Checks if <code>this</code> is positive
+  @memberof Bigint
+  @instance
+  @return {bool}
+*/
 Bigint.prototype.isPos = function() {
     return (this.sign == MP_NEG) ? MP_NO : MP_YES;
 };
+/**
+  Checks if <code>this</code> is even
+  @memberof Bigint
+  @instance
+  @return {bool}
+*/
 Bigint.prototype.isEven = function() {
     return (this.dp[0].isOdd()) ? MP_NO : MP_YES;
 };
+/**
+  Checks if <code>this</code> is odd
+  @memberof Bigint
+  @instance
+  @return {bool}
+*/
 Bigint.prototype.isOdd = function() {
     return (this.dp[0].isEven()) ? MP_NO : MP_YES;
 };
-
+/**
+  Sets <code>this</code> to NaN
+  @memberof Bigint
+  @instance
+  @return {bool}
+*/
 Bigint.prototype.setNaN = function() {
     this.dp[0] = Number.NaN;
 };
+/**
+  Checks if <code>this</code> is NaN
+  @memberof Bigint
+  @instance
+  @return {bool}
+*/
 Bigint.prototype.isNaN = function() {
     return isNaN(this.dp[0]);
 };
-
+/**
+  Sets <code>this</code> to negative infinity
+  @memberof Bigint
+  @instance
+  @return {bool}
+*/
 Bigint.prototype.setNegInf = function() {
     this.dp[0] = Number.NEGATIVE_INFINITY;
 };
+/**
+  Checks if <code>this</code> is negative infinite
+  @memberof Bigint
+  @instance
+  @return {bool}
+*/
 Bigint.prototype.isNegInf = function() {
     return (this.dp[0] == Number.NEGATIVE_INFINITY) ? MP_YES : MP_NO;
 };
-
+/**
+  Sets <code>this</code> to positive infinity
+  @memberof Bigint
+  @instance
+  @return {bool}
+*/
 Bigint.prototype.setPosInf = function() {
     this.dp[0] = Number.POSITIVE_INFINITY;
 };
+/**
+  Checks if <code>this</code> is positive infinite
+  @memberof Bigint
+  @instance
+  @return {bool}
+*/
 Bigint.prototype.isPosInf = function() {
     return (this.dp[0] == Number.POSITIVE_INFINITY) ? MP_YES : MP_NO;
 };
 
-
+/**
+  Sets <code>this</code> to Infinity
+  @memberof Bigint
+  @instance
+  @return {bool}
+*/
 Bigint.prototype.setInf = function() {
     this.dp[0] = Number.POSITIVE_INFINITY;
 };
+/**
+  Checks if <code>this</code> is not finite
+  @memberof Bigint
+  @instance
+  @return {bool}
+*/
 Bigint.prototype.isInf = function() {
     return (this.isPosInf() || this.isNegInf()) ? MP_YES : MP_NO;
 };
-
+/**
+  Checks if <code>this</code> is finite
+  @memberof Bigint
+  @instance
+  @return {bool}
+*/
 Bigint.prototype.isFinite = function() {
     return (this.dp[0].isFinite()) ? MP_YES : MP_NO;
 };
 
 
 // highest bit set (e.g.: 22 = 0b10110, returns 4)
+/**
+  Highest bit set, zero based
+  @memberof Bigint
+  @instance
+  @return {number}
+*/
 Bigint.prototype.highBit = function() {
     if (this.used == 1) {
         return this.dp[0].highBit();
@@ -1880,12 +2968,23 @@ Bigint.prototype.highBit = function() {
         return MP_DIGIT_BIT * (this.used - 1) + (this.dp[this.used - 1].highBit());
     }
 };
-
+/**
+  Integer logarithm base two
+  @memberof Bigint
+  @instance
+  @return {number}
+*/
 Bigint.prototype.ilog2 = function() {
-    return (this.highBit() + 1);
+    return (this.highBit());
 };
 
 // lowest bit set (e.g.: 22 = 0b10110, returns 1)
+/**
+  Lowest bit set, zero based
+  @memberof Bigint
+  @instance
+  @return {number}
+*/
 Bigint.prototype.lowBit = function() {
     if (this.used == 1) {
         return this.dp[0].lowBit();
@@ -1897,7 +2996,12 @@ Bigint.prototype.lowBit = function() {
         return this.dp[count].lowBit() + count * MP_DIGIT_BIT;
     }
 };
-
+/**
+  Checks if <code>this</code> is a power of two
+  @memberof Bigint
+  @instance
+  @return {bool}
+*/
 Bigint.prototype.isPow2 = function() {
     if (this.highBit() == this.lowBit()) {
         return MP_YES;
@@ -1906,9 +3010,15 @@ Bigint.prototype.isPow2 = function() {
 };
 
 // number of bits set (e.g.: 22 = 0b10110, returns 3)
-// Awkward function name caused by function setBit()--which actually sets bits--
-// the english grammar, and a clash of cultures (I just couldn't be persuaded to
-// call the function hammingWeight).
+/**
+  Number of bits set (Hamming weight)<br>
+  Awkward function name caused by function setBit()--which actually sets bits--
+  the english grammar, and a clash of cultures (I just couldn't be persuaded to
+  call the function hammingWeight).
+  @memberof Bigint
+  @instance
+  @return {number}
+*/
 Bigint.prototype.numSetBits = function() {
     if (this.used == 1) {
         return this.dp[0].setBits();
@@ -1921,7 +3031,12 @@ Bigint.prototype.numSetBits = function() {
         return count;
     }
 };
-// returns 1 (one) if this is zero
+/**
+  Number of decimal digits of <code>this</code>. Returns 1 (one) if <code>this</code> is zero
+  @memberof Bigint
+  @instance
+  @return {number}
+*/
 Bigint.prototype.digits = function() {
     var log102 = Math.log(10) / Math.log(2);
     var log2 = this.highBit();
@@ -1930,10 +3045,23 @@ Bigint.prototype.digits = function() {
 
 // TODO: check input!
 // shift left big-digit-wise
+/**
+  Left Shift limb-wise (multiplication with 2<sup>i*MP_DIGIT_BIT</sup>).
+  Input can be negative for division
+  @memberof Bigint
+  @instance
+  @param {number} i the amount to be shifted
+  @return {Bigint}
+*/
 Bigint.prototype.dlShift = function(i) {
-    var ret = this.copy();
+    var ret;
+    if(!i.isInt() || i > MP_INT_MAX || i < MP_INT_MIN){
+       // throw new RangeError("Value in dlShift is either out of " +
+       //                       "bounds or no integer");
+       return MP_RANGE;
+    }
     if (i == 0) {
-        return ret;
+        return this.copy();
     }
     if (i < 0) {
         return this.drShift(-i);
@@ -1943,17 +3071,32 @@ Bigint.prototype.dlShift = function(i) {
     while (i--) {
         tmp[i] = 0 >>> 0;
     }
+    ret = this.copy();
     ret.dp = tmp.concat(ret.dp);
     ret.used = ret.dp.length;
+    ret.clamp();
     return ret;
 };
+/**
+  Left Shift limb-wise (multiplication with 2<sup>i*MP_DIGIT_BIT</sup>), in place.
+  Input can be negative for division
+  @memberof Bigint
+  @instance
+  @param {number} i the amount to be shifted
+  @return {number} MP_OKAY or an errorvalue
+*/
 Bigint.prototype.dlShiftInplace = function(i) {
+    if(!i.isInt() || i > MP_INT_MAX || i < MP_INT_MIN){
+       // throw new RangeError("Value in dlShiftInplace is either out of " +
+       //                       "bounds or no integer");
+       return MP_RANGE;
+    }
     if (i == 0) {
-        return;
+        return MP_OKAY;
     }
     if (i < 0) {
         this.drShiftInplace(-i);
-        return;
+        return MP_OKAY;
     }
     var tmp = [];
     //for (var k = 0; k < i; ++k) tmp[k] = 0>>>0;
@@ -1962,58 +3105,95 @@ Bigint.prototype.dlShiftInplace = function(i) {
     }
     this.dp = tmp.concat(this.dp);
     this.used = this.dp.length;
+    this.clamp();
+    return MP_OKAY;
 };
 // shift right big-digit-wise, returns 0 if shift is bigger or equal length
+/**
+  Right Shift limb-wise (division with 2<sup>i*MP_DIGIT_BIT</sup>).
+  Returns 0 if shift is bigger or equal length.
+  Input can be negative for multiplication
+  @memberof Bigint
+  @instance
+  @param {number} i the amount to be shifted
+  @return {Bigint}
+*/
 Bigint.prototype.drShift = function(i) {
     var ret;
-    if ( i == 0) {
-         return this.copy();
+    if(!i.isInt() || i > MP_INT_MAX || i < MP_INT_MIN){
+       // throw new RangeError("Value in drShift is either out of bounds or no integer");
+       return MP_RANGE;
     }
-    if( i < 0 ) {
-         return this.dlShift(-i);
+    if (i == 0) {
+        return this.copy();
+    }
+    if (i < 0) {
+        return this.dlShift(-i);
     }
     if (this.used < i) {
-        ret = new Bigint();
-        ret.dp[0] = 0;
-        ret.used = 1;
-        ret.sign = MP_ZPOS;
-        return ret;
+        return new Bigint(0);
     }
-    ret = new Bigint();
-    if (i <= 0) {
-        // Alternative: return dlShift (like GP/PARI for example)
-        return ret;
-    }
+    ret = new Bigint(0);
     ret.dp = this.dp.slice(i, this.used);
     ret.used = ret.dp.length;
     ret.sign = this.sign;
+    ret.clamp();
     return ret;
 };
 // shift right big-digit-wise
+/**
+  Right Shift limb-wise (division with 2<sup>i*MP_DIGIT_BIT</sup>), in place.
+  Sets <code>this</code> to 0 if shift is bigger or equal length.
+  Input can be negative for multiplication
+  @memberof Bigint
+  @instance
+  @param {number} i the amount to be shifted
+  @return {number} MP_OKAY or an errorvalue
+*/
 Bigint.prototype.drShiftInplace = function(i) {
+    if(!i.isInt() || i > MP_INT_MAX || i < MP_INT_MIN){
+       // throw new RangeError("Value in drShiftInplace is either out of " + 
+       //                      "bounds or no integer");
+       return MP_RANGE;
+    }
     if (i == 0) {
-        return;
+        return MP_OKAY;
     }
     if (i < 0) {
         this.dlShiftInplace(-i);
-        return;
+        return MP_OKAY;
     }
     if (this.used < i) {
         this.dp[0] = 0;
         this.used = 1;
         this.sign = MP_ZPOS;
+        return MP_OKAY;
     }
 
     this.dp = this.dp.slice(i, this.used);
     this.used = this.dp.length;
+    this.clamp();
+    return MP_OKAY;
 };
 // shift left bit-wise
+/**
+  Left Shift bit-wise (multiplication with 2<sup>i</sup>).
+  Input can be negative for division
+  @memberof Bigint
+  @instance
+  @param {number} i the amount to be shifted
+  @return {Bigint}
+*/
 Bigint.prototype.lShift = function(i) {
     var dlshift;
     var lshift;
     var r, rr, k;
     var ret;
-
+    if(!i.isInt() || i > MP_INT_MAX || i < MP_INT_MIN){
+       // throw new RangeError("Value in lShift is either out of " + 
+       //                      "bounds or no integer");
+       return MP_RANGE;
+    }
     if (i == 0) {
         return this.copy();
     }
@@ -2045,17 +3225,29 @@ Bigint.prototype.lShift = function(i) {
     ret.clamp();
     return ret;
 };
+/**
+  Left Shift bit-wise (multiplication with 2<sup>i</sup>), in place.
+  Input can be negative for division
+  @memberof Bigint
+  @instance
+  @param {number} i the amount to be shifted
+  @return {number} MP_OKAY or an errorvalue
+*/
 Bigint.prototype.lShiftInplace = function(i) {
     var dlshift;
     var lshift;
     var r, rr, k;
-
+    if(!i.isInt() || i > MP_INT_MAX || i < MP_INT_MIN){
+       // throw new RangeError("Value in lShiftInplace is either out of " + 
+       //                      "bounds or no integer");
+       return MP_RANGE;
+    }
     if (i == 0) {
-        return;
+        return MP_OKAY;
     }
     if (i < 0) {
         this.rShiftInplace(-i);
-        return;
+        return MP_OKAY;
     }
 
     dlshift = Math.floor(i / MP_DIGIT_BIT);
@@ -2063,7 +3255,7 @@ Bigint.prototype.lShiftInplace = function(i) {
 
     this.dlShiftInplace(dlshift);
     if (lshift == 0) {
-        return;
+        return MP_OKAY;
     }
 
     var mask = (1 << lshift) - 1;
@@ -2080,29 +3272,42 @@ Bigint.prototype.lShiftInplace = function(i) {
         this.used++;
     }
     this.clamp();
+    return MP_OKAY;
 };
 
 // shift right bit-wise
+/**
+  Right Shift bit-wise (multiplication with 2<sup>i</sup>)
+  Returns 0 if shift is bigger or equal length.
+  Input can be negative for multiplication
+  @memberof Bigint
+  @instance
+  @param {number} i the amount to be shifted
+  @return {Bigint}
+*/
 Bigint.prototype.rShift = function(i) {
     var ret;
+    if(!i.isInt() || i > MP_INT_MAX || i < MP_INT_MIN){
+       // throw new RangeError("Value in rShift is either out of " + 
+       //                      "bounds or no integer");
+       return MP_RANGE;
+    }
     if (i == 0) {
         return this.copy();
     }
     if (i < 0) {
         return this.lShift(-i);
     }
-    ret = this.copy();
+
     if (this.highBit() < i) {
-        ret.dp[0] = 0;
-        ret.used = 1;
-        ret.sign = MP_ZPOS;
-        return ret;
+        return new Bigint(0);
     }
 
     var drshift = Math.floor(i / MP_DIGIT_BIT);
     var rshift = i % MP_DIGIT_BIT;
     var r, rr;
 
+    ret = this.copy();
     ret.drShiftInplace(drshift);
 
     if (rshift == 0) {
@@ -2123,19 +3328,33 @@ Bigint.prototype.rShift = function(i) {
 
     return ret;
 };
+/**
+  Right Shift bit-wise (multiplication with 2<sup>i</sup>), in place.
+  Sets <code>this</code> to 0 if shift is bigger or equal length.
+  Input can be negative for multiplication
+  @memberof Bigint
+  @instance
+  @param {number} i the amount to be shifted
+  @return {number} MP_OKAY or an errorvalue
+*/
 Bigint.prototype.rShiftInplace = function(i) {
+    if(!i.isInt() || i > MP_INT_MAX || i < MP_INT_MIN){
+       // throw new RangeError("Value in rShiftInplace is either out of " + 
+       //                      "bounds or no integer");
+       return MP_RANGE;
+    }
     if (i == 0) {
-        return;
+        return MP_OKAY;
     }
     if (i < 0) {
         this.lShiftInplace(-i);
-        return;
+        return MP_OKAY;
     }
     if (this.highBit() < i) {
         this.dp[0] = 0;
         this.used = 1;
         this.sign = MP_ZPOS;
-        return;
+        return MP_OKAY;
     }
 
     var drshift = Math.floor(i / MP_DIGIT_BIT);
@@ -2145,7 +3364,7 @@ Bigint.prototype.rShiftInplace = function(i) {
     this.drShiftInplace(drshift);
 
     if (rshift == 0) {
-        return;
+        return MP_OKAY;
     }
 
     var mask = (1 << rshift) - 1;
@@ -2159,9 +3378,24 @@ Bigint.prototype.rShiftInplace = function(i) {
         r = rr;
     }
     this.clamp();
+    return MP_OKAY;
 };
 // like rShift but rounds to +inf
+/**
+  Right Shift bit-wise (multiplication with 2<sup>i</sup>) rounding to +Inf.
+  Sets <code>this</code> to 0 if shift is bigger or equal length.
+  Input can be negative for multiplication
+  @memberof Bigint
+  @instance
+  @param {number} i the amount to be shifted
+  @return {Bigint}
+*/
 Bigint.prototype.rShiftRounded = function(i) {
+    if(!i.isInt() || i > MP_INT_MAX || i < MP_INT_MIN){
+       // throw new RangeError("Value in rShiftRounded is either out of " + 
+       //                      "bounds or no integer");
+       return MP_RANGE;
+    }
     var ret = this.rShift(i);
     if (i > 0 && this.getBit(i - 1) == 1) {
         if (this.sign === MP_NEG) {
@@ -2172,30 +3406,49 @@ Bigint.prototype.rShiftRounded = function(i) {
     }
     return ret;
 };
-// this % 2^b, like in libtommmath. Actually a port of the libtommmath function
-Bigint.prototype.mod2d = function (b){
-  var x, ret;
+/**
+  <code>this % 2^b</code> , like in libtommmath. 
+  Actually a port of the libtommmath function of the same name
+  @param {number} b exponent of 2<sup>b</sup>
+  @memberof Bigint
+  @instance
+  @return {Bigint}
+*/
+Bigint.prototype.mod2d = function(b) {
+    var x, ret;
+    if(!b.isInt() || b > MP_DIGIT_MAX){
+       // throw new RangeError("Value in mod2d is either out of " + 
+       //                      "bounds or no integer");
+       return MP_RANGE;
+    }
+    if (b <= 0) {
+        return new Bigint(0);
+    }
+    if (b >= this.used * MP_DIGIT_BIT) {
+        return this.copy();
+    }
 
-  if(b <= 0 ){
-    return new Bigint(0);
-  }
-  if(b >= this.used * MP_DIGIT_BIT){
-    return this.copy();
-  }
+    ret = this.copy();
+    /* faster than doing a t&(2^b-1) */
 
-  ret = this.copy();
-  /* faster than doing a t&(2^b-1) */
-
-  /* zero digits above the last digit of the modulus */
-  for (x = (b / MP_DIGIT_BIT) + ((b % MP_DIGIT_BIT) == 0 ? 0 : 1); x < ret.used; x++) {
-    ret.dp[x] = 0;
-  }
-  /* clear the digit that is not completely outside/inside the modulus */
-  ret.dp[Math.floor(b / MP_DIGIT_BIT)] &= (1 << (b % MP_DIGIT_BIT)) -  1;
-  ret.clamp();
-  return ret;
+    /* zero digits above the last digit of the modulus */
+    for (x = (b / MP_DIGIT_BIT) + ((b % MP_DIGIT_BIT) == 0 ? 0 : 1); x <
+        ret.used; x++) {
+        ret.dp[x] = 0;
+    }
+    /* clear the digit that is not completely outside/inside the modulus */
+    ret.dp[Math.floor(b / MP_DIGIT_BIT)] &= (1 << (b % MP_DIGIT_BIT)) - 1;
+    ret.clamp();
+    return ret;
 };
-// multiplication limited to the higher digits
+/**
+  Multiplication limited to the higher digits
+  @param {Bigint} bint multiplicant
+  @param {number} digs lower limit
+  @return {Bigint}
+  @see {@link barrettreduce}
+  @private
+*/
 Bigint.prototype.mulhighdigs = function(bint, digs) {
     var pa, pb, ix, iy, i;
     var u;
@@ -2231,7 +3484,14 @@ Bigint.prototype.mulhighdigs = function(bint, digs) {
     t.clamp();
     return t;
 };
-// multiplication modulo 2^(digs * MP_DIGIT_BIT)
+/**
+  Multiplication modulo 2<sup>digs * MP_DIGIT_BIT</sup>
+  @param {Bigint} bint multiplicant
+  @param {number} digs higer limit
+  @return {Bigint}
+  @see {@link barrettreduce}
+  @private
+*/
 Bigint.prototype.muldigs = function(bint, digs) {
     var u, r, pb, ix, iy;
     var sign;
@@ -2264,6 +3524,12 @@ Bigint.prototype.muldigs = function(bint, digs) {
     return ret;
 };
 // standard unsigned multiply
+/**
+  Standard unsigned multiplication
+  @param {Bigint} bi multiplicant
+  @return {Bigint}
+  @private
+*/
 Bigint.prototype.multiply = function(bi) {
     var ret, i, j, a, b, carry, temp;
     a = this;
@@ -2286,6 +3552,13 @@ Bigint.prototype.multiply = function(bi) {
     ret.clamp();
     return ret;
 };
+/**
+  Multiplication
+  @memberof Bigint
+  @instance
+  @param {Bigint} bi multiplicant
+  @return {Bigint}
+*/
 Bigint.prototype.mul = function(bi, flag) {
     var ret, asign, bsign, a, b;
     var mulBalanced = function(x, y) {
@@ -2308,6 +3581,8 @@ Bigint.prototype.mul = function(bi, flag) {
 
         return ret;
     };
+
+
     // larger one first
     if (this.used <= bi.used) {
         a = bi;
@@ -2385,7 +3660,11 @@ Bigint.prototype.mul = function(bi, flag) {
     return ret;
 };
 
-// basic unsigned square
+/**
+  Basic unsigned square
+  @return {Bigint}
+  @private
+*/
 Bigint.prototype.square = function() {
     var t;
     var r, ix, iy, c;
@@ -2408,14 +3687,14 @@ Bigint.prototype.square = function() {
 
         for (iy = ix + 1; iy < this.used; iy++) {
             r = this.dp[ix] * this.dp[iy];
-            //  (2^26-1) * 2 + (2^26-1)^2 + (2^26-1)^2 < 2^53 (by 134217728 )
+            //  (2^26-1) * 2 + (2^26-1)^2 + (2^26-1)^2 < 2^53 (by 134,217,728 )
             r = t.dp[ix + iy] + r + r + c;
             t.dp[ix + iy] = r & MP_MASK;
             c = Math.floor(r / MP_DIGIT_MAX);
         }
 
         while (c > 0) {
-            iy++; // if you ask yourself: WTF? you're right
+            iy++;
             r = t.dp[ix + iy - 1] + c;
             t.dp[ix + iy - 1] = r & MP_MASK;
             c = Math.floor(r / MP_DIGIT_MAX);
@@ -2426,22 +3705,37 @@ Bigint.prototype.square = function() {
     return t;
 };
 // public: square function
+/**
+  Squaring
+  @memberof Bigint
+  @instance
+  @return {Bigint}
+*/
 Bigint.prototype.sqr = function() {
+    var s = this.sign, ret;
     this.sign = MP_ZPOS;
 
     if (this.used >= FFT_SQR_CUTOFF) {
         // FFT does both in one function
-        return this.fft_mul();
+        ret = this.fft_mul();
     } else if (this.used >= 3 * TOOM_COOK_SQR_CUTOFF) {
-        return this.toom_cook_sqr();
+        ret = this.toom_cook_sqr();
     } else if (this.used >= 2 * KARATSUBA_SQR_CUTOFF) {
-        return this.karatsuba_square();
+        ret = this.karatsuba_square();
     } else {
-        return this.square();
+        ret = this.square();
     }
+    this.sign = s;
+    return ret;
 };
 
-
+/**
+  Multiplication with a a small integer
+  @memberof Bigint
+  @instance
+  @param {number} si a small integer
+  @return {Bigint}
+*/
 Bigint.prototype.mulInt = function(si) {
     var a = this,
         b = si,
@@ -2489,7 +3783,14 @@ Bigint.prototype.mulInt = function(si) {
     }
     return ret;
 };
-// compares absolute values (magnitudes)
+/**
+  Comparing with another <code>Bigint</code>, magnitude only
+  @memberof Bigint
+  @instance
+  @param {Bigint} bi
+  @return {number}
+  @private
+*/
 Bigint.prototype.cmp_mag = function(bi) {
     if (this.used < bi.used) {
         return MP_LT;
@@ -2509,20 +3810,27 @@ Bigint.prototype.cmp_mag = function(bi) {
     return MP_EQ;
 };
 
-// compares signed values
+/**
+  Comparing with another Bigint
+  @memberof Bigint
+  @instance
+  @param {Bigint} bi
+  @return {number}
+*/
 Bigint.prototype.cmp = function(bi) {
     /*
         We have signed zeros, that makes it a bit more complicated to avoid
-        curious things when comparing to -0. We just set -0 = +0 temprorarily.
+        curious things when comparing to -0. We just set -0 = +0 temporarily.
      */
     var a = this;
     var b = bi;
+
     var asign = a.sign;
     var bsign = b.sign;
-    if(a.isZero()){
+    if (a.isZero()) {
         a.sign = MP_ZPOS;
     }
-    if(b.isZero()){
+    if (b.isZero()) {
         b.sign = MP_ZPOS;
     }
     /* compare based on sign */
@@ -2549,7 +3857,14 @@ Bigint.prototype.cmp = function(bi) {
         return a.cmp_mag(b);
     }
 };
-// internal, unsigned adder, returns an Array, not a Bigint!
+/**
+  Lowlevel addition
+  @memberof Bigint
+  @instance
+  @param {Bigint} bi
+  @return {Array} 
+  @private
+*/
 Bigint.prototype.kadd = function(bi) {
     var x, retdp, min, max, carry, i;
 
@@ -2587,7 +3902,15 @@ Bigint.prototype.kadd = function(bi) {
     return retdp;
 };
 // public signed adder
+/**
+  Addition
+  @memberof Bigint
+  @instance
+  @param {Bigint} bi
+  @return {Bigint}
+*/
 Bigint.prototype.add = function(bi) {
+
     var sa = this.sign;
     var sb = bi.sign;
 
@@ -2616,12 +3939,30 @@ Bigint.prototype.add = function(bi) {
     return ret;
 };
 // TODO: to do
+// CLOSED: tried it, not faster
+/**
+  Addition with a (small integer)
+  @param {number} si a small integer
+  @return {Bigint}
+*/
 Bigint.prototype.addInt = function(si) {
+    if(!si.isInt()){
+       // throw new RangeError("Value in addInt is no integer");
+       return MP_RANGE;
+    }
     var bi = si.toBigint();
     return this.add(bi);
 };
 
-// internal unsigned subtractor
+
+/**
+  Lowlevel subtraction
+  @memberof Bigint
+  @instance
+  @param {Bigint} bi
+  @return {Array} 
+  @private
+*/
 Bigint.prototype.ksub = function(bi) {
     var retdp, min, max, carry, i;
 
@@ -2645,9 +3986,15 @@ Bigint.prototype.ksub = function(bi) {
     return retdp;
 };
 // public signed subtractor
+/**
+  Subtraction with a {Bigint}
+  @memberof Bigint
+  @instance
+  @param {Bigint} bi
+  @return {Bigint}
+*/
 Bigint.prototype.sub = function(bi) {
     var sa, sb, ret;
-
     ret = new Bigint();
 
     sa = this.sign;
@@ -2681,12 +4028,28 @@ Bigint.prototype.sub = function(bi) {
     ret.clamp();
     return ret;
 };
-
-// TODO: to do
+/**
+  Subtraction with a small integer
+  @memberof Bigint
+  @instance
+  @param {number} si a small integer
+  @return {Bigint}
+*/
 Bigint.prototype.subInt = function(si) {
+    if(!si.isInt()){
+       // throw new RangeError("Value in subInt is no integer");
+       return MP_RANGE;
+    }
     return this.sub(si.toBigint());
 };
-// internal division with remainder (D. Knuth: Algo. D)
+/**
+  Internal division with remainder (D. Knuth: Algo. D)
+  @memberof Bigint
+  @instance
+  @param {Bigint} bint Divisor
+  @return {Array} Quotient and reminder in that order
+  @private
+*/
 Bigint.prototype.kdivrem = function(bint) {
     // Port of divmnu64.c from "Hacker's Delight"
     var divmnu = function(q, r, u, v, m, n) {
@@ -2803,7 +4166,14 @@ Bigint.prototype.kdivrem = function(bint) {
 
     return [Q, R];
 };
-
+/**
+  Internal division with remainder (Burnikel-Ziegler division)
+  @memberof Bigint
+  @instance
+  @param {Bigint} bint Divisor
+  @return {Array} Quotient and reminder in that order
+  @private
+*/
 Bigint.prototype.burnZiegDivision = function(bint) {
     var divrem = function(a, b) {
         // (max) size of one block
@@ -2903,8 +4273,14 @@ Bigint.prototype.burnZiegDivision = function(bint) {
     return divrem(this, bint);
 };
 
-
-// approximate reciprocal 1/this for Barrett-division
+/**
+  Approximate reciprocal 1/this for Barrett-division
+  @memberof Bigint
+  @instance
+  @param {number} n precision
+  @return {Bigint}
+  @private
+*/
 Bigint.prototype.inverse = function(n) {
     var m = this.highBit() + 1;
     var giantsteps;
@@ -2933,10 +4309,18 @@ Bigint.prototype.inverse = function(n) {
     }
     return r;
 };
-// Take an approximation of the reciprocal of the denominator and correct it
-// the trick is to find the right amount of approximateness (is this really a
-// proper English word? Found it in at least one book: Clifford Alan Hooker,
-// "A Realistic Theory of Science", SUNY Press, 1987).
+/**
+  Take an approximation of the reciprocal of the denominator and correct it
+  the trick is to find the right amount of approximateness (is this really a
+  proper English word? Found it in at least one book: Clifford Alan Hooker,
+  "A Realistic Theory of Science", SUNY Press, 1987).
+  @memberof Bigint
+  @instance
+  @param {Bigint} b Divisor
+  @param {Bigint} mu
+  @return {Array} Quotient and reminder in that order
+  @private
+*/
 Bigint.prototype.barretDivisionCorrection = function(b, mu) {
     var m = this.highBit() + 1;
     var n = b.highBit() + 1;
@@ -2957,6 +4341,14 @@ Bigint.prototype.barretDivisionCorrection = function(b, mu) {
     return [q, r];
 };
 // Barrett-division works for N<=2*D, anything else needs some work
+/**
+  Internal division with remainder (Barret division)
+  @memberof Bigint
+  @instance
+  @param {Bigint} bint Divisor
+  @return {Array} Quotient and reminder in that order
+  @private
+*/
 Bigint.prototype.barrettDivision = function(bint) {
     var m = this.highBit() + 1;
     var n = bint.highBit() + 1;
@@ -3003,8 +4395,15 @@ Bigint.prototype.barrettDivision = function(bint) {
         return [q, r];
     }
 };
-
-Bigint.prototype.divisionNewton = function(bint){
+/**
+  Internal division with remainder (Newton-Raphson inverse)
+  @memberof Bigint
+  @instance
+  @param {Bigint} bint Divisor
+  @return {Array} Quotient and reminder in that order
+  @private
+*/
+Bigint.prototype.divisionNewton = function(bint) {
     var tlen, blen, rlen, extra;
     var t1, t2, t3, t4, ts, q, r;
     var giantsteps, steps, gs0, gsi, startprecision;
@@ -3016,8 +4415,8 @@ Bigint.prototype.divisionNewton = function(bint){
     // probably too much and should be adjusted to fill a limb if possible, too.
     extra = blen.highBit() + tlen.highBit() + 1;
     // should also have three bits at least
-    if(extra < 3){
-         extra = 3;
+    if (extra < 3) {
+        extra = 3;
     }
     ts = this.lShift(extra);
     tlen += extra;
@@ -3028,17 +4427,17 @@ Bigint.prototype.divisionNewton = function(bint){
     // same speed as with Bigints. YMMV, so please try it out yourself.
     startprecision = 15;
     // precompute individual precisions to keep the iteration loop legible.
-    giantsteps = computeGiantsteps(startprecision,rlen,2);
+    giantsteps = computeGiantsteps(startprecision, rlen, 2);
     steps = giantsteps.length;
 
-    t1 =  new Bigint(1);
+    t1 = new Bigint(1);
     t1.lShiftInplace(2 * giantsteps[0]);
     t1 = t1.div(bint.rShiftRounded(blen - giantsteps[0]));
 
     // the first entry of giantsteps is not necessarily equal to startprecision
     gs0 = giantsteps[0];
 
-    for(var i = 0; i < steps ; i++){
+    for (var i = 0; i < steps; i++) {
         gsi = giantsteps[i];
         // Adjust numerator (2^k) to new precision
         t3 = t1.lShift(gsi - gs0 + 1);
@@ -3064,11 +4463,10 @@ Bigint.prototype.divisionNewton = function(bint){
     // compute the remainder
     r = this.sub(q.mul(bint));
     // The N_R algorithm as implemented can be off by one, correct it
-    if( r.sign == MP_NEG){
+    if (r.sign == MP_NEG) {
         r = r.add(bint);
         q.decr();
-    }
-    else if( r.cmp(bint) == MP_GT){
+    } else if (r.cmp(bint) == MP_GT) {
         r = r.sub(bint);
         q.incr();
     }
@@ -3076,6 +4474,13 @@ Bigint.prototype.divisionNewton = function(bint){
 };
 
 // public: truncated division with remainder
+/**
+  Truncated division with remainder
+  @memberof Bigint
+  @instance
+  @param {Bigint} bint Divisor
+  @return {array} Quotient and remainder in that order
+*/
 Bigint.prototype.divrem = function(bint) {
     var a = this.abs();
     var b = bint.abs();
@@ -3090,7 +4495,17 @@ Bigint.prototype.divrem = function(bint) {
         return [a.setInf(), b.setInf()];
     }
 
+    if (a.isZero()) {
+       ret = new Bigint(0);
+       if (a.sign == MP_NEG) {
+           ret.sign = MP_NEG;
+       }
+       return [ret, new Bigint(0)];
+    }
+
     if (b.isZero()) {
+        // Problem with error-throwing: not conforming to IEEE-754
+        // throw new DivisionByZero("Second argument in divrem is zero")
         return (b.sign == MP_NEG) ? [a.setNegInf(), new Bigint(0)] : [a.setPosInf(),
             new Bigint(0)
         ];
@@ -3110,16 +4525,17 @@ Bigint.prototype.divrem = function(bint) {
     rsign = (this.sign == MP_NEG) ? MP_NEG : MP_ZPOS;
 
     // The cutoffs overlap, these branches are just rough limits
-    if (a.used >= NEWTON_NUMERATOR && b.used >= NEWTON_DENOMINATOR){
+    if (a.used >= NEWTON_NUMERATOR && b.used >= NEWTON_DENOMINATOR) {
         ret = a.divisionNewton(b);
-    } else if (a.used >= BARRETT_NUMERATOR || b.used >= BARRETT_DENOMINATOR){
+    } else if (a.used >= BARRETT_NUMERATOR || b.used >= BARRETT_DENOMINATOR) {
         // splitted in two for legibility
-        if ( a.used <= 2 * b.used && a.used >= BARRETT_NUMERATOR){
+        if (a.used <= 2 * b.used && a.used >= BARRETT_NUMERATOR) {
             ret = a.barrettDivision(b);
-        } else if ( a.used > 2 * b.used && b.used >=  BARRETT_DENOMINATOR){
+        } else if (a.used > 2 * b.used && b.used >= BARRETT_DENOMINATOR) {
             ret = a.barrettDivision(b);
         }
-    } else if (a.used >= BURN_ZIEG_NUMERATOR && b.used >= BURN_ZIEG_DENOMINATOR){
+    } else if (a.used >= BURN_ZIEG_NUMERATOR && b.used >=
+        BURN_ZIEG_DENOMINATOR) {
         ret = a.burnZiegDivision(b);
     } else {
         ret = a.kdivrem(b);
@@ -3136,8 +4552,13 @@ Bigint.prototype.divrem = function(bint) {
     return [q, r];
 };
 
-// this function returns a bigint as the remainder.
-// truncated division with remainder
+/**
+  Truncated division with remainder
+  @memberof Bigint
+  @instance
+  @param {number} si a small integer
+  @return {array} Quotient and remainder in that order and both Bigints
+*/
 Bigint.prototype.divremInt = function(si) {
     var divrem2in1 = function(u, m, v, q, B) {
         var k = 0,
@@ -3159,9 +4580,36 @@ Bigint.prototype.divremInt = function(si) {
     };
     var Q = new Bigint(0);
     var R = new Bigint(0);
-    // TODO: checks & balances
+
+    if(!si.isInt()){
+       // throw new RangeError("Value in divremInt is no integer");
+       return MP_RANGE;
+    }
+
+    /* Some checks (NaN, Inf) */
+    if (isNaN(this.dp[0]) || isNaN(si)) {
+        return [Q.setNaN(), R.setNaN()];
+    }
+    if (this.isInf() || !si.isFinite()) {
+        return [Q.setInf(), R.setInf()];
+    }
+
+    if (this.isZero()) {
+       if (this.sign == MP_NEG) {
+           Q.sign = MP_NEG;
+       }
+       return [Q, R];
+    }
+
+    if (si == 0) {
+        // Problem with error-throwing: not conforming to IEEE-754
+        // throw new DivisionByZero("Second argument in divrem is zero")
+        return (this.sign == MP_NEG) ? [Q.setNegInf(), R] : [Q.setPosInf(), R];
+    }
+
     var qsign = ((this.sign * si.sign()) < 0) ? MP_NEG : MP_ZPOS;
     var rsign = (this.sign == MP_NEG) ? MP_NEG : MP_ZPOS;
+
     R.dp[0] = divrem2in1(this.dp, this.used, si, Q.dp, MP_DIGIT_BIT);
     Q.used = Q.dp.length;
     Q.sign = qsign;
@@ -3173,21 +4621,29 @@ Bigint.prototype.divremInt = function(si) {
 };
 
 // division with remainder, rounding to -Infinity (like in GP/PARI for example)
-Bigint.prototype.divmod = function(bint){
+/**
+  Division with remainder, rounding to -Infinity (like in GP/PARI for
+   example). This function changes the output of <code>divrem</code> and is
+   therefore slower
+  @memberof Bigint
+  @instance
+  @param {Bigint} bint Divisor
+  @return {array} Quotient and remainder in that order
+*/
+Bigint.prototype.divmod = function(bint) {
     var a = this;
     var b = bint;
     var qr;
-    if(a.sign == MP_NEG && b.sign == MP_NEG){
+    if (a.sign == MP_NEG && b.sign == MP_NEG) {
         qr = a.abs().divrem(b.abs());
-        if(!qr[1].isZero()){
+        if (!qr[1].isZero()) {
             qr[0].incr();
             qr[1] = b.add(qr[1]).abs();
         }
         return qr;
-    }
-    else if(a.sign == MP_NEG  && b.sign == MP_ZPOS){
+    } else if (a.sign == MP_NEG && b.sign == MP_ZPOS) {
         qr = a.abs().divrem(b);
-        if(!qr[1].isZero()){
+        if (!qr[1].isZero()) {
             qr[0].incr();
             qr[0] = qr[0].neg();
             qr[1] = b.sub(qr[1]);
@@ -3195,33 +4651,43 @@ Bigint.prototype.divmod = function(bint){
         }
         qr[0] = qr[0].neg();
         return qr;
-    }
-    else if(a.sign == MP_ZPOS && b.sign == MP_NEG){
+    } else if (a.sign == MP_ZPOS && b.sign == MP_NEG) {
         qr = a.divrem(b.abs());
         qr[0] = qr[0].neg();
         return qr;
     }
     return a.divrem(b);
 };
-
-// division by 3 if fraction is known to have no remainder (e.g. in Toom-Cook)
-// uses MP_DIGIT_BIT = 26 only but is easily changed
-// It depends on architecture if it is actually faster, please test but I found
-// at 1,000,000 bit long numbers with my good ol' Duron a difference of a mere
-// 150 milliseconds (201 to 53)
-/*
+MOD_MUL_INV_THREE = (3).modInv(1 << MP_DIGIT_BIT);
+MOD_MUL_INV_THREE_HALF = Math.ceil(MOD_MUL_INV_THREE / 2);
+/**
+<p>
+   Division by 3 if fraction is known to have no remainder (e.g. in Toom-Cook)
+   uses MP_DIGIT_BIT = 26 only but is easily changed
+   It depends on architecture if it is actually faster, please test but I found
+   at 1,000,000 bit long numbers with my good ol' Duron a difference of a mere
+   150 milliseconds (201ms with direct division and 53ms with
+    <code>exactDiv3</code>)
+</p><p>
     Uses multiplication with the multiplicative modular inverse of 3 with the
     modulus 2^26, that is, the canonical residue of v mod 2^26 such that
     v * 3 is congruent to 1 mod 2^26.
-
-   modulus         v               ceil(v/2)
-     2^26      0x2aaaaab           0x1555556
-     2^28      0xaaaaaab           0x5555556
-     2^30      0x2aaaaaab          0x15555556
-     2^31      0x2aaaaaab          0x15555556
+</p>
+<table>
+  <thead>
+    <tr><th> modulus</th><th>v</th><th>ceil(v/2)</th></tr>
+  </thead>
+  <tbody>
+    <tr><td> 2^26 </td><td> 0x2aaaaab  </td><td> 0x1555556  </td></tr>
+    <tr><td> 2^28 </td><td> 0xaaaaaab  </td><td> 0x5555556  </td></tr>
+    <tr><td> 2^30 </td><td> 0x2aaaaaab </td><td> 0x15555556 </td></tr>
+    <tr><td> 2^31 </td><td> 0x2aaaaaab </td><td> 0x15555556 </td></tr>
+  </tbody>
+</table>
+  @memberof Bigint
+  @instance
+  @return {Bigint}
 */
-MOD_MUL_INV_THREE = (3).modInv(1 << MP_DIGIT_BIT);
-MOD_MUL_INV_THREE_HALF = Math.ceil(MOD_MUL_INV_THREE / 2);
 Bigint.prototype.exactDiv3 = function() {
     var ret;
     var i, tmp, carry;
@@ -3249,21 +4715,59 @@ Bigint.prototype.exactDiv3 = function() {
 };
 
 
-
+/**
+  Truncated division
+  @memberof Bigint
+  @instance
+  @param {Bigint} bi Divisor
+  @return {Bigint} Quotient
+*/
 Bigint.prototype.div = function(bi) {
     return this.divrem(bi)[0];
 };
+/**
+  Truncated division with a small integer
+  @memberof Bigint
+  @instance
+  @param {number} si Divisor
+  @return {Bigint} Quotient
+*/
 Bigint.prototype.divInt = function(si) {
+    if(!si.isInt()){
+       // throw new RangeError("Value in divInt is no integer");
+       return MP_RANGE;
+    }
     return this.divremInt(si)[0];
 };
+/**
+  Truncated division
+  @memberof Bigint
+  @instance
+  @param {Bigint} bi Divisor
+  @return {Bigint} Remainder
+*/
 Bigint.prototype.rem = function(bi) {
     return this.divrem(bi)[1];
 };
+/**
+  Truncated division with a small integer
+  @param {number} si Divisor
+  @return {Bigint} Remainder
+*/
 Bigint.prototype.remInt = function(si) {
+    if(!si.isInt()){
+       // throw new RangeError("Value in remInt is no integer");
+       return MP_RANGE;
+    }
     return this.divremInt(si)[1];
 };
 
-// Beware: works in-place!
+/**
+  Add one to <code>this</code>.
+  <strong>Caution:</strong> works in-place!
+  @memberof Bigint
+  @instance
+*/
 Bigint.prototype.incr = function() {
     var carry, i;
     carry = 1;
@@ -3271,8 +4775,28 @@ Bigint.prototype.incr = function() {
     this.dp[i] = this.dp[i] + carry;
     carry = this.dp[i] >>> MP_DIGIT_BIT;
     this.dp[i] &= MP_MASK;
-    // the chance of this early-out to happen has not yet been calculated but
-    // conjectured to be quite high
+    // the chance of this early-out to happen is:
+    /* With the help of the generalization of Benfords law and P(n) the chance
+       of the number -1 + 2^26 to appear as the first digit
+         P(1) ~ 0.00000000082683967377
+       But this is of no use, we need the probability of -1+2^26 to be the last
+       (smallest, rightmost) digit.
+       To use a Bigint makes only sense if we need more than 53 bit large
+       integers (native JavaScript number), so we can quite safely assume
+       that the average Biginteger has more than two limbs. The probability
+       at limb n is
+         P(2)  ~ 0.000000014551586344877780148581481623954425854052673092740
+         P(3)  ~ 0.000000014901161187687220864635435468019684431315983003679
+         P(4)  ~ 0.000000014901161193847656158202359070417718624866786766027
+         P(5)  ~ 0.000000014901161193847656249999998632108555293347168381091
+         P(6)  ~ 0.000000014901161193847656249999999999999979616829086741018
+         P(7)  ~ 0.000000014901161193847656249999999999999999999999696267085
+         P(8)  ~ 0.0000000149011611938476562499999999999999999999999999999954740
+         P(9)  ~ 0.000000014901161193847656249999999999999999999999999999999(9)
+         P(10) ~ 0.000000014901161193847656249999999999999999999999999999999(9)
+       The limit is 0.00000001490116119384765625 for P(n) with n\to\infty which
+       is the expected 1/(-1+2^26).
+    */
     if (carry === 0) {
         return;
     }
@@ -3286,7 +4810,12 @@ Bigint.prototype.incr = function() {
     }
     this.used = this.dp.length;
 };
-// Beware: works in-place!
+/**
+  Subtract one from <code>this</code>.
+  <strong>Caution:</strong> works in-place!
+  @memberof Bigint
+  @instance
+*/
 Bigint.prototype.decr = function() {
     var carry, i;
 
@@ -3314,18 +4843,30 @@ Bigint.prototype.decr = function() {
         this.used--;
     }
 };
-
-
+/**
+  Slice a piece of limbs out of the number (for e.g.: Toom-Cook multiplication)
+  @param {number} start of slice
+  @param {number} end of slice
+  @return {Bigint}
+  @private
+*/
 Bigint.prototype.slice = function(start, end) {
+    // no error checking in private functions?
     var ret = new Bigint(0);
     ret.dp = this.dp.slice(start, end);
     ret.used = end - start;
     ret.sign = this.sign;
     return ret;
 };
+/**
+  Toom-Cook 2-way multiplication better known as Karatsuba multiplication.
+  @param {Bigint} bint multiplicant
+  @return {Bigint}
+  @private
+*/
 Bigint.prototype.karatsuba = function(bint) {
     var x0, x1, y0, y1, x0y0, x1y1, t1, xy;
-
+    // all errors got checked in Bigint.mul()
     var tlen = this.used;
     var blen = bint.used;
 
@@ -3352,6 +4893,11 @@ Bigint.prototype.karatsuba = function(bint) {
 
     return xy;
 };
+/**
+  Toom-Cook 2-way squaring better known as Karatsuba squaring.
+  @return {Bigint}
+  @private
+*/
 Bigint.prototype.karatsuba_square = function() {
     var x0, x1, x0y0, x1y1, t1, xy;
 
@@ -3383,6 +4929,15 @@ Bigint.prototype.karatsuba_square = function() {
 Jaewook Chung, M. Anwar Hasan: Asymmetric Squaring Formulae, Centre for Applied
 Cryptographic Research, University of Waterloo, Ontario, Canada, (3-August-2006). URL:
 http://www.cacr.math.uwaterloo.ca/tech_reports.html. 551, 553, 557
+*/
+/**
+  Toom-Cook 3-way multiplication.<br>
+Jaewook Chung, M. Anwar Hasan: Asymmetric Squaring Formulae, Centre for Applied
+Cryptographic Research, University of Waterloo, Ontario, Canada, (3-August-2006). URL:
+{@link http://www.cacr.math.uwaterloo.ca/tech_reports.html}. 551, 553, 557
+  @param {Bigint} bint multiplicant
+  @return {Bigint}
+  @private
 */
 Bigint.prototype.toom_cook_mul = function(bint) {
     var a0, a1, a2, b0, b1, b2, t1, t2, w0, w1, w2, w3, w4, c;
@@ -3431,23 +4986,27 @@ Bigint.prototype.toom_cook_mul = function(bint) {
     w2 = t2.sub(w0).sub(w4);
     w3 = t1.sub(t2);
 
-    w1 = w1.dlShift(1 * m); // c
-    w2 = w2.dlShift(2 * m); // c
-    w3 = w3.dlShift(3 * m); // c
-    w4 = w4.dlShift(4 * m); // c
+    w1 = w1.dlShift(1 * m);
+    w2 = w2.dlShift(2 * m);
+    w3 = w3.dlShift(3 * m);
+    w4 = w4.dlShift(4 * m);
 
     c = w0.add(w1).add(w2).add(w3).add(w4);
 
     return c;
 };
-
+/**
+  Toom-Cook 3-way squaring
+  @return {Bigint}
+  @private
+*/
 Bigint.prototype.toom_cook_sqr = function() {
     var a0, a1, a2, t1, w0, w1, w2, w3, w4, c;
 
     var tlen = this.used;
 
     var m = Math.floor(tlen / 3);
-    if (m <= 40 /* TOOM_MUL_CUTOFF */ ) {
+    if (m <= TOOM_COOK_SQR_CUTOFF) {
         return this.karatsuba_square();
     }
 
@@ -3484,6 +5043,14 @@ Bigint.prototype.toom_cook_sqr = function() {
 };
 
 // detects automatically if a square is wanted, just leave out the argument
+/**
+  FFT multiplication <em>and</em> squaring.<br>
+  Detects automatically if a square is wanted, just leave out the argument for
+  squaring.<br>
+  @param {Bigint} bint multiplicant
+  @return {Bigint}
+  @private
+*/
 Bigint.prototype.fft_mul = function(bint) {
     /* base two integer logarithm */
     var highbit = function(n) {
@@ -3889,6 +5456,12 @@ Bigint.prototype.fft_mul = function(bint) {
 
 // simple right-to-left
 // will implement and make use of left-to-right for x^y with very small x later
+/**
+  Exponentiation by a positive small integer
+  @param {number} ui exponent
+  @return {Bigint}
+  @private
+*/
 Bigint.prototype.kpow = function(ui) {
     var ret = new Bigint(1);
     var t = this;
@@ -3901,7 +5474,12 @@ Bigint.prototype.kpow = function(ui) {
     }
     return ret;
 };
-
+/**
+  Exponentiation by a <code>Bigint</code>
+  @param {Bigint} bi exponent
+  @return {Bigint}
+  @private
+*/
 Bigint.prototype.bpow = function(bi) {
     var ret = new Bigint(1);
     var t = this.copy();
@@ -3914,12 +5492,17 @@ Bigint.prototype.bpow = function(bi) {
     }
     return ret;
 };
-
+/**
+  Exponentiation
+  @memberof Bigint
+  @instance
+  @param {number|Bigint} ui exponent
+  @return {Bigint}
+*/
 Bigint.prototype.pow = function(ui) {
     var sign = this.sign;
     var t;
-
-    if(xtypeof(ui) == "bigint"){
+    if (xtypeof(ui) == "bigint") {
         return this.powBigint(ui);
     }
 
@@ -3988,8 +5571,15 @@ Bigint.prototype.pow = function(ui) {
     }
     return t;
 };
-
-Bigint.prototype.powBigint = function(bi){
+/**
+  Exponentiation with a Bigint
+  @memberof Bigint
+  @instance
+  @param {Bigint} bi an unsigned (positive) Bigint
+  @return {Bigint}
+  @private
+*/
+Bigint.prototype.powBigint = function(bi) {
     var sign = this.sign;
     var t;
 
@@ -4045,6 +5635,12 @@ Bigint.prototype.powBigint = function(bi){
 };
 
 // should be done with left-to-right instead?
+/**
+  Exponentiation with a Bigint
+  @function external:Number#kpow
+  @param {Bigint} bi exponent
+  @return {Bigint}
+*/
 Number.prototype.kpow = function(bi) {
     var ret = new Bigint(1);
     var t = this.toBigint();
@@ -4057,7 +5653,12 @@ Number.prototype.kpow = function(bi) {
     }
     return ret;
 };
-
+/**
+  Exponentiation with a small positive integer
+  @function external:Number#bigpow
+  @param {number} si exponent
+  @return {Bigint}
+*/
 Number.prototype.bigpow = function(si) {
     var ret = new Bigint(1);
     var bi = si.toBigint();
@@ -4073,8 +5674,16 @@ Number.prototype.bigpow = function(si) {
 };
 
 // Bigint gets simple bracketing
+/**
+  Integer logarithm of arbitrary positive base
+  @memberof Bigint
+  @instance
+  @param {number} base base of the logarithm
+  @return {Bigint}
+*/
 Bigint.prototype.ilogb = function(base) {
     var low, bracket_low, high, bracket_high, mid, bracket_mid;
+    var ONE = new Bigint(1);
     // log(-x)/log(y) = log(x)/log(y) + (k*pi *i)/log(y)
     if (this.isNeg()) {
         return this.copy().setNaN();
@@ -4082,6 +5691,7 @@ Bigint.prototype.ilogb = function(base) {
     // this works works for positive and integer bases only
     // if(base < 0) return this.toBigfloat().cilogb(b).abs().floor();
     if (base < 1 || !base.isInt()) {
+        // throw new RangeError("base in ilogb out of range or not an integer")
         return this.copy().setNaN();
     }
 
@@ -4094,7 +5704,7 @@ Bigint.prototype.ilogb = function(base) {
     low = new Bigint(0);
     bracket_low = new Bigint(1);
     high = new Bigint(1);
-    bracket_high = new Bigint(base);
+    bracket_high = base.toBigint();
 
     while (bracket_high.cmp(this) == MP_LT) {
         low = high.copy();
@@ -4102,7 +5712,7 @@ Bigint.prototype.ilogb = function(base) {
         high.lShiftInplace(1);
         bracket_high = bracket_high.sqr();
     }
-    while (high.sub(low).cmp(Bigint.ONE) == MP_GT) {
+    while (high.sub(low).cmp(ONE) == MP_GT) {
 
         mid = (low.add(high)).rShift(1);
         bracket_mid = bracket_low.mul(base.kpow(mid.sub(low)));
@@ -4125,17 +5735,28 @@ Bigint.prototype.ilogb = function(base) {
         return low;
     }
 };
-
+/**
+  Integer square root
+  @memberof Bigint
+  @instance
+  @return {Bigint}
+*/
 Bigint.prototype.sqrt = function() {
     var t1, t2;
 
     // complex comes later
     if (this.sign == MP_NEG) {
+        // throw new Unsupported("Value im sqrt() is negative");
         return MP_VAL;
     }
 
     if (this.isZero()) {
         return new Bigint();
+    }
+
+    if (this.used == 1) {
+        t1 = Math.floor(Math.sqrt(this.dp[0]));
+        return new Bigint(t1);
     }
 
     t1 = this.copy();
@@ -4150,7 +5771,13 @@ Bigint.prototype.sqrt = function() {
     return t1;
 };
 
-
+/**
+  N-th root
+  @memberof Bigint
+  @instance
+  @param {number} b denominator of exponent
+  @return {Bigint}
+*/
 Bigint.prototype.nthroot = function(b) {
     var t1, t2, t3, t4, a;
     var sign, ilog2;
@@ -4159,6 +5786,7 @@ Bigint.prototype.nthroot = function(b) {
         if (b > 0) {
             return new Bigint(0);
         } else {
+            // throw new RangeError("b negative in nthroot")
             return (new Bigint()).setNaN();
         }
     }
@@ -4175,8 +5803,13 @@ Bigint.prototype.nthroot = function(b) {
         // would return 1/(x^(1/-b)) but that is always < 1
         return new Bigint(0);
     }
-    if (b == 0 || b.isNaN()) {
+    if (b == 0) {
         // zero means this^(1/0) which is a division by zero
+        // return new DivisionByZero("b is zero in nthroot");
+        return (new Bigint()).setNaN();
+    }
+    if (b.isNaN()) {
+        // return new RangeError("b is NaN in nthroot");
         return (new Bigint()).setNaN();
     }
     if (b == 1) {
@@ -4186,6 +5819,7 @@ Bigint.prototype.nthroot = function(b) {
 
     /* input must be positive if b is even */
     if ((b & 1) == 0 && this.sign == MP_NEG) {
+        // throw new RangeError("input negative and b odd in nthroot");
         return (new Bigint()).setNaN();
     }
     if (b == 2) {
@@ -4277,7 +5911,14 @@ Bigint.prototype.nthroot = function(b) {
     return t2;
 };
 
-
+/**
+  N-th root, old version with bracketing
+  @memberof Bigint
+  @instance
+  @param {number} b denominator of exponent
+  @return {Bigint}
+  @private
+*/
 Bigint.prototype.nthrootold = function(n) {
     var low, high, mid, sign;
 
@@ -4290,7 +5931,7 @@ Bigint.prototype.nthrootold = function(n) {
     }
     if (this.isOne()) {
         if (n == 0) {
-            return  (new Bigint()).setNaN();
+            return (new Bigint()).setNaN();
         } else {
             return new Bigint(1);
         }
@@ -4323,14 +5964,23 @@ Bigint.prototype.nthrootold = function(n) {
     return mid;
 };
 
-
+/**
+  GCD, greatest common divisior
+  @memberof Bigint
+  @instance
+  @param {Bigint} bint
+  @return {Bigint}
+*/
 Bigint.prototype.gcd = function(bint) {
     var g = new Bigint(1);
     // checks and balances
-    if(this.isZero()){
+    if(!(bint instanceof Bigint)){
+        throw new RangeError("GCD of types other than bigints not supported");
+    }
+    if (this.isZero()) {
         return bint.abs();
     }
-    if(bint.isZero()){
+    if (bint.isZero()) {
         return this.abs();
     }
     var x = this.abs();
@@ -4360,8 +6010,18 @@ Bigint.prototype.gcd = function(bint) {
     }
     return g.mul(y);
 };
+/**
+  Extended GCD
+  @memberof Bigint
+  @instance
+  @param {Bigint} bint
+  @return {array} x, y, and gcd in that order
+*/
 Bigint.prototype.egcd = function(bint) {
     var g = new Bigint(1);
+    if(!(bint instanceof Bigint)){
+        throw new RangeError("GCD of types other than bigints not supported");
+    }
     // checks and balances
     var x = this.copy();
     var y = bint.copy();
@@ -4415,7 +6075,13 @@ Bigint.prototype.egcd = function(bint) {
 
     return [C, D, g.mul(v)];
 };
-
+/**
+  LCM: lowest common multiplicator
+  @memberof Bigint
+  @instance
+  @param {Bigint} bint
+  @return {Bigint}
+*/
 Bigint.prototype.lcm = function(bint) {
     var t1 = this.gcd(bint),
         ret;
@@ -4428,11 +6094,20 @@ Bigint.prototype.lcm = function(bint) {
     return ret;
 };
 
-
+/**
+  OR with a <code>Bigint</code>
+  @memberof Bigint
+  @instance
+  @param {Bigint} bint
+  @return {Bigint}
+*/
 Bigint.prototype.or = function(bint) {
+    if(!(bint instanceof Bigint)){
+        throw new RangeError("OR of types other than bigints not supported");
+    }
     var ret = new Bigint(0);
-    var a,b,i;
-    if(this.used > bint.used){
+    var a, b, i;
+    if (this.used > bint.used) {
         a = this;
         b = bint;
     } else {
@@ -4450,11 +6125,20 @@ Bigint.prototype.or = function(bint) {
     ret.clamp();
     return ret;
 };
-
+/**
+  AND with a <code>Bigint</code>
+  @memberof Bigint
+  @instance
+  @param {Bigint} bint
+  @return {Bigint}
+*/
 Bigint.prototype.and = function(bint) {
+    if(!(bint instanceof Bigint)){
+        throw new RangeError("AND of types other than bigints not supported");
+    }
     var ret = new Bigint(0);
-    var a,b,i;
-    if(this.used < bint.used){
+    var a, b, i;
+    if (this.used < bint.used) {
         a = bint;
         b = this;
     } else {
@@ -4469,11 +6153,20 @@ Bigint.prototype.and = function(bint) {
     ret.clamp();
     return ret;
 };
-
+/**
+  XOR with a <code>Bigint</code>
+  @memberof Bigint
+  @instance
+  @param {Bigint} bint
+  @return {Bigint}
+*/
 Bigint.prototype.xor = function(bint) {
+    if(!(bint instanceof Bigint)){
+        throw new RangeError("XOR of types other than bigints not supported");
+    }
     var ret = new Bigint(0);
-    var a,b,i;
-    if(this.used < bint.used){
+    var a, b, i;
+    if (this.used < bint.used) {
         a = bint;
         b = this;
     } else {
@@ -4491,7 +6184,12 @@ Bigint.prototype.xor = function(bint) {
     ret.clamp();
     return ret;
 };
-
+/**
+  NOT <code>this</code>
+  @memberof Bigint
+  @instance
+  @return {Bigint}
+*/
 Bigint.prototype.not = function() {
     var ret = new Bigint(0);
     var a, i;
@@ -4504,7 +6202,12 @@ Bigint.prototype.not = function() {
     ret.clamp();
     return ret;
 };
-// Despite its name it _does_ work in-place
+/**
+  NOT <code>this</code>
+  Despite its name it <em>does<em> work in-place
+  @memberof Bigint
+  @instance
+*/
 Bigint.prototype.notInplace = function() {
     var i;
     var a = this;
@@ -4513,29 +6216,58 @@ Bigint.prototype.notInplace = function() {
     }
     this.clamp();
 };
-
 // all single bit manipulators are zero based
+// Error checking (mainly bounds) left to the JS-engine
+/**
+  Get a bit of <code>this</code>
+  @memberof Bigint
+  @instance
+  @param {number} n place of bit
+  @return {number}
+*/
 Bigint.prototype.getBit = function(n) {
     var digit = this.dp[Math.floor(n / MP_DIGIT_BIT)];
     return ((digit >>> ((n % MP_DIGIT_BIT))) & 1);
 };
-
+/**
+  Set a bit of <code>this</code>
+  @memberof Bigint
+  @instance
+  @param {number} n place of bit
+*/
 Bigint.prototype.setBit = function(n) {
     this.dp[Math.floor(n / MP_DIGIT_BIT)] |= (1 << (n % MP_DIGIT_BIT));
 };
-
+/**
+  Flip a bit of <code>this</code>
+  @memberof Bigint
+  @instance
+  @param {number} n place of bit
+*/
 Bigint.prototype.flipBit = function(n) {
     this.dp[Math.floor(n / MP_DIGIT_BIT)] ^= (1 << (n % MP_DIGIT_BIT));
 };
-
+/**
+  Clear a bit of <code>this</code>
+  @memberof Bigint
+  @instance
+  @param {number} n place of bit
+*/
 Bigint.prototype.clearBit = function(n) {
     this.dp[Math.floor(n / MP_DIGIT_BIT)] &= ~(1 << (n % MP_DIGIT_BIT));
 };
-
-Bigint.prototype.mask = function(n){
+/**
+  Construct a bit-mask
+  @memberof Bigint
+  @instance
+  @param {number} n number of bits
+  @return {Bigint}
+*/
+Bigint.prototype.mask = function(n) {
     var ndlen, nblen, mask, ret;
     // or allow zero?
-    if(n <= 0){
+    if (n <= 0) {
+        // throw new RangeError("Argument in mask() <= 0");
         this.dp[0] = Number.NaN;
         return;
     }
@@ -4543,7 +6275,7 @@ Bigint.prototype.mask = function(n){
     nblen = n % MP_DIGIT_BIT;
 
     mask = (1 << nblen) - 1;
-    if(ndlen == 0){
+    if (ndlen == 0) {
         this.dp = [];
         this.dp[0] = mask;
         this.used = 1;
@@ -4551,7 +6283,7 @@ Bigint.prototype.mask = function(n){
         return;
     }
     this.dp = [];
-    if(mask){
+    if (mask) {
         this.dp[ndlen] = mask;
     }
     while (ndlen--) {
@@ -4562,14 +6294,65 @@ Bigint.prototype.mask = function(n){
     return;
 };
 
+/*
+     Modular arithmetic and other number theoretical functions
+*/
+
+/**
+  Jacobi function.<br>
+  First argument (<code>this</code>) can be negative, too.
+  @memberof Bigint
+  @instance
+  @param {Bigint} p positive odd integer
+  @return {number} {-1,0,1} or <code>MP_VAL</code> in case of error
+*/
 Bigint.prototype.jacobi = function(p) {
+    var f, b, ret;
+    if(!(p instanceof Bigint)){
+        throw new RangeError("jacobi of types other than bigints not supported");
+    }
+    // Mathematica (wolframalpha.com actually) returns zero for p=0
+    // but 0 is even!?
+    if (p.sign == MP_NEG || p.isZero()) {
+        return MP_VAL;
+    }
+    if(p.isOne()){
+        return 1;
+    }
+    if (p.isEven()) {
+        return MP_VAL;
+    }
+    if (this.isZero()) {
+        return 0;
+    }
+    if (this.sign == MP_NEG) {
+        // (-1)^((b-1)/2)
+        /*b = p.copy();
+        b.decr();
+        b.rShiftInplace(1);*/
+        b = p.dp[0] - 1;
+        b >>>= 1;
+        f = (b.isOdd()) ? -1 : 1;
+        if (this.isUnity()){
+            return f;
+        }
+        ret = this.abs().kjacobi(p);
+        ret *= f;
+        return ret;
+    } else {
+        return this.kjacobi(p);
+    }
+};
+/**
+  Unsigned Jacobi-symbol (internal)
+  @memberof Bigint
+  @instance
+  @param {Bigint} p positive odd integer
+  @return {number}
+  @private
+*/
+Bigint.prototype.kjacobi = function(p) {
     var aprime, k, s, r, pdigit, adigit, pprime;
-    if (this.sign == MP_NEG || p.sign == MP_NEG) {
-        return MP_VAL;
-    }
-    if (p.used == 1 && (p.dp[0] < 3 || p.dp[0].isEven())) {
-        return MP_VAL;
-    }
     if (this.used == 1) {
         if (this.dp[0] == 0 || this.dp[0] == 1) {
             return this.dp[0];
@@ -4577,14 +6360,6 @@ Bigint.prototype.jacobi = function(p) {
     }
     s = 0;
     aprime = this.copy();
-    /*
-       Stripping trailing zeros is the same as
-       while(aprime.used > 0 && aprime.dp[0].isEven()){
-           aprime = aprime.divInt(2);
-       }
-       To be even the number must end in a zero bit and the
-       division by two can be replaced by a shift right by one.
-    */
     k = aprime.lowBit();
     aprime.rShiftInplace(k);
     if (k.isEven()) {
@@ -4594,7 +6369,7 @@ Bigint.prototype.jacobi = function(p) {
         r = pdigit & 7; // equiv. to: r = pdigit % 8;
         if (r == 1 || r == 7) {
             s = 1;
-        } else {
+        } else if (r == 3 || r == 5) {
             s = -1;
         }
     }
@@ -4602,24 +6377,33 @@ Bigint.prototype.jacobi = function(p) {
     adigit = aprime.dp[0];
     // equiv. to:
     // if(pdigit % 4 == 3 && adigit % 4 == 3){
-    if (pdigit & 3 == 3 && adigit & 3 == 3) {
+    if (((pdigit & 3) == 3) && ((adigit & 3) == 3)) {
         s = -s;
     }
-    if (!aprime.isOne()) {
+    if (aprime.isOne()) {
+        return s;
+    } else {
         pprime = p.rem(aprime);
-        s = s * pprime.jacobi(aprime);
+        s = s * pprime.kjacobi(aprime);
     }
     return s;
 };
 
 
-/*
-     Modular arithmetic
+/**
+  Modular inverse
+  @memberof Bigint
+  @instance
+  @param {Bigint} b
+  @return {Bigint}
 */
-
 Bigint.prototype.modInv = function(b) {
     var x, y, u, v, A, B, C, D;
+    if(!(b instanceof Bigint)){
+        throw new RangeError("modInv of types other than bigints not supported");
+    }
     if (b.sign == MP_NEG) {
+        // throw new RangeError("negative b in modInv()");
         return MP_VAL;
     }
     if (b.dp[0].isOdd()) {
@@ -4628,6 +6412,7 @@ Bigint.prototype.modInv = function(b) {
     x = this.rem(b);
     y = b.copy();
     if (x.isEven() && y.isEven()) {
+        // throw new RangeError("both arguments are even in modInv()");
         return MP_VAL;
     }
     /* 3. u=x, v=y, A=1, B=0, C=0,D=1 */
@@ -4678,9 +6463,14 @@ Bigint.prototype.modInv = function(b) {
     return C;
 };
 
-
+/**
+  @ignore
+*/
 Bigint.prototype.fastModInv = function(b) {
     var x, y, u, v, A, B, C, D;
+    if(!(b instanceof Bigint)){
+        throw new RangeError("fastModInv of types other than bigints not supported");
+    }
     if (b.sign == MP_NEG) {
         return MP_VAL;
     }
@@ -4731,9 +6521,13 @@ Bigint.prototype.fastModInv = function(b) {
     return D;
 };
 
-
-
-// Barrett reduction, slower than division
+/**
+  Barrett reduction, slower than division
+  @memberof Bigint
+  @instance
+  @param {Bigint} bint
+  @return {Bigint}
+*/
 Bigint.prototype.barrettreduce = function(bint) {
     var calcmu = function(m, b) {
         var mu = new Bigint(1);
@@ -4742,6 +6536,9 @@ Bigint.prototype.barrettreduce = function(bint) {
     };
     var blen;
     var ret, q, mu;
+    if(!(bint instanceof Bigint)){
+        throw new RangeError("barrettreduce of types other than bigints not supported");
+    }
     // checks and balances
     blen = bint.used;
     q = this.copy();
@@ -4769,4 +6566,345 @@ Bigint.prototype.barrettreduce = function(bint) {
     return ret;
 };
 
+/**
+  Modular exponentiation
+  @memberof Bigint
+  @instance
+  @param {Bigint|number} exp exponent
+  @param {Bigint|number} mod modulus
+  @return {Bigint}
+*/
+Bigint.prototype.powmod = function(exp, mod) {
+    var z1, ret;
+    // the use of "typeof" is not the best solution here, assumes proper input
+    // in the first place and if we already know the input we can write a little
+    // wrapper function for the conversions
+    if (typeof exp === "number") {
+        exp = exp.toBigint();
+    }
+    if (typeof mod === "number") {
+        mod = mod.toBigint();
+    }
+    if (mod.isZero() || mod.sign == MP_NEG) {
+        // throw new RangeError("mod is <=0 in powmod");
+        return (new Bigint()).setNaN();
+    }
+    if (exp.sign == MP_NEG) {
+        // throw new RangeError("exp is <0 in powmod");
+        return (new Bigint()).setNaN();
+    }
+    if ((this.isZero() && !exp.isZero()) || mod.isOne()) {
+        return new Bigint(0);
+    }
+    if (exp.isZero()) {
+        return new Bigint(1);
+    }
+    if (mod.isTwo()) {
+        if (this.isOdd()) {
+            return new Bigint(1);
+        } else {
+            return new Bigint(0);
+        }
+    }
+    if (this.isUnity() && (this.sign == MP_NEG || exp.isEven())) {
+        return new Bigint(1);
+    }
+    if (this.sign == MP_NEG || this.cmp(mod) != MP_LT) {
+        z1 = this.rem(mod);
+    } else {
+        z1 = this.copy();
+    }
+    if (z1.isZero()) {
+        return new Bigint(0);
+    }
+    if (z1.isOne()) {
+        return new Bigint(1);
+    }
+    // TODO: include Montgomery etc.
+
+    var ret = new Bigint(1);
+    var e = exp.copy();
+    while (e.isZero() == MP_NO) {
+        if (e.isOdd() == MP_YES) {
+            ret = ret.mul(z1).rem(mod);
+        }
+        z1 = z1.sqr().rem(mod);
+        e.rShiftInplace(1);
+    }
+    return ret;
+};
+/**
+  Modular multiplication
+  @memberof Bigint
+  @instance
+  @param {Bigint|number} bint multiplicant
+  @param {Bigint|number} mod modulus
+  @return {Bigint}
+*/
+Bigint.prototype.mulmod = function(bint, mod){
+    var t1, t2;
+    if (typeof exp === "number") {
+        bint = bint.toBigint();
+    }
+    if (typeof mod === "number") {
+        mod = mod.toBigint();
+    }
+    if (mod.isZero()){
+        // throw new RangeError("mod is zero in mulmod");
+        return (new Bigint()).setNaN();
+    }
+    if (this.isZero()) {
+        // throw new RangeError("First argument (this) is zero in mulmod");
+        return new Bigint(0);
+    }
+    if( bint.isZero()) {
+        // throw new RangeError("Second argument (bint) is zero in mulmod");
+        return new Bigint(0);
+    }
+
+    if(this.isOne()){
+        return bint.rem(mod);
+    }
+    if(bint.isOne()){
+        return this.rem(mod);
+    }
+    // Argument reducing
+    // (a * b) % m = ((a % m) * (b % m)) % m
+    t1 = this.rem(mod);
+    t2 = bint.rem(mod);
+    return t1.mul(t2).rem(mod);
+};
+
+/*
+   Prime testing and factorization
+*/
+
+/**
+  Test if <code>this</code> is a perfect square.<br>
+  A little bit faster than computing a square root alone. Does not accept
+  negative input. Takes 0 (zero) and 1 (one) as perfect squares, too.
+  @memberof Bigint
+  @instance
+  @return {bool} or <code>MP_VAL</code> in case of an error
+*/
+Bigint.prototype.isPerfectSquare = function() {
+    var sqrtn, lastsix, lasthex;
+
+    // The last six bits of a perfect square must be one of these numbers
+    lastsix = [0x00, 0x01, 0x04, 0x09, 0x10, 0x11, 0x19, 0x21, 0x24, 0x29,
+        0x31, 0x39
+    ];
+    lasthex = this.dp[0] & 0x3f;
+
+    if (this.sign == MP_NEG) {
+        // throw new RangeError("Input is negative in isPerfectSquare");
+        return MP_VAL;
+    }
+    if (this.isZero() || this.isOne()) {
+        return MP_YES;
+    }
+    if (lastsix.indexOf(lasthex) < 0) {
+        return MP_NO;
+    }
+
+    sqrtn = this.sqrt();
+    if (sqrtn.sqr().cmp(this) == MP_EQ) {
+        return MP_YES;
+    } else {
+        return MP_NO;
+    }
+};
+
+/**
+  Test if <code>this</code> is a small prime.<br>
+  Numbers up to <code>34,155,071,728,320</code> are accepted.
+  @memberof Bigint
+  @instance
+  @return {bool}
+  @throws {RangeError} Input is larger than 3415507172832
+*/
+Bigint.prototype.isSmallPrime = function() {
+    var n, k, sqrtn, primes;
+    if (this.isEven()) {
+        return MP_NO;
+    }
+    if (this.used > 1) {
+        if (this.cmp((34155071728321).toBigint()) == MP_LT) {
+            return this.isPseudoprime();
+        } else {
+            throw new RangeError("Input is larger than 34155071728321 in"+
+                                  " isSmallPrime");
+        }
+    }
+    n = this.dp[0];
+    sqrtn = Math.floor(Math.sqrt(n));
+    if (sqrtn * sqrtn == n) {
+        return MP_NO;
+    }
+
+    // sqrt(2^26) = 8192 and pi(8192) = 1028
+    primes = primesieve.primeRange(0, sqrtn);
+    for (k = 0; k < primes.length; k++) {
+        if (Math.floor(n / primes[k]) == (n / primes[k] * 1.0)) {
+            return MP_NO;
+        }
+    }
+
+    return MP_YES;
+};
+
+/**
+  Test if <code>this</code> is divisible by <code>d</code> without remainder
+  @memberof Bigint
+  @instance
+  @param {Bigint|number} d divisor
+  @return {bool}
+*/
+Bigint.prototype.divisible = function(d) {
+    var r;
+    if (typeof d === "number") {
+        d = d.toBigint();
+    }
+    r = this.rem(d);
+    if (!r.isZero()) {
+        return MP_NO;
+    }
+    return MP_YES;
+};
+
+/**
+  Miller-Rabin test
+  @memberof Bigint
+  @instance
+  @param {number} base Miller-Rabin base
+  @return {bool}
+  @private
+*/
+Bigint.prototype.rabinMiller = function(base) {
+    var zbase, zNm1, zd, zrem, s, k;
+
+    zbase = base.toBigint();
+    zNm1 = this.subInt(1);
+    s = this.lowBit();
+
+    zd = zNm1.rShift(s);
+    zrem = zbase.powmod(zd, this);
+
+    if (zrem.isOne()) {
+        return MP_YES;
+    }
+
+    if (zrem.cmp(zNm1) == MP_EQ) {
+        return MP_YES;
+    }
+    for (k = 1; k < s; k++) {
+        zrem = zrem.mulmod(zrem);
+        if (zrem.cmp(zNm1) == MP_EQ) {
+            return MP_YES;
+        }
+    }
+    return MP_NO;
+};
+
+/**
+  Test if <code>this</code> is a pseudo prime.<br>
+  Primes up to <code>34,155,071,728,247</code> are certified primes.<br>
+  Timing for 2^200 + 235, 61 decimal digits: ~2,5 sec. on an old 1 GHz Duron
+  Timing for 2^200 - 75,  61 decimal digits: ~3.8 sec.
+  @memberof Bigint
+  @instance
+  @return {bool}
+*/
+Bigint.prototype.isPseudoprime = function() {
+    var sqrtN, qmax, primes, k;
+
+    // Step 1: simple cases
+    if (this.isEven()) {
+        return MP_NO;
+    }
+    if (this.used == 1) {
+        return this.isSmallPrime();
+    }
+
+    // Step 2: trial division
+    qmax = this.highBit() + 1;
+    if (qmax < 36) {
+        qmax = 36;
+    }
+    primes = primesieve.primeRange(0, qmax);
+    for (k = 0; k < primes.length; k++) {
+        if (this.cmp(primes[k].toBigint()) == MP_EQ) {
+            return MP_YES;
+        }
+        if (this.divisible(primes[k].toBigint()) == MP_YES) {
+            return MP_NO;
+        }
+    }
+    // Step 2a: see if we did an already exhaustive test
+    sqrtN = this.sqrt();
+    if (sqrtN.cmp(qmax.toBigint()) != MP_GT) {
+        return MP_YES;
+    }
+
+    // Step 3a: check if we have a perfect square
+    if (sqrtN.sqr().cmp(this) == MP_EQ) {
+        return MP_NO;
+    }
+
+    // Step 3b: some rounds of Miller-Rabin (bases 2, 3, 5, 7, 11, 13 and 17)
+    for (k = 0; k < 8; k++) {
+        // Miller-Rabin does not return false positives
+        if (this.rabinMiller(primes[k]) == MP_NO) {
+            return MP_NO;
+        }
+    }
+    // Step 4: all primes below 34155071728321 are surely prime now
+    if (this.cmp((34155071728321).toBigint()) == MP_LT) {
+        return MP_YES;
+    }
+    /* TODO:
+       // Step 5: Lucas-Selfridge test
+       if(this.lucasSelfridge() == MP_NO){
+          return MP_NO;
+       }
+       
+       // Step 6: strong Lucas-Selfridge test
+       return this.strongLucasSelfridge();
+    */
+    return MP_YES;
+};
+
+/**
+  Miller-Rabin test
+  @memberof Bigint
+  @instance
+  @param {number} base Miller-Rabin base
+  @return {bool}
+  @private
+*/
+Bigint.prototype.rabinMiller = function(base) {
+    var zbase, zNm1, zd, zrem, s, k;
+
+    zbase = base.toBigint();
+    zNm1 = this.subInt(1);
+    s = this.lowBit();
+
+    zd = zNm1.rShift(s);
+    zrem = zbase.powmod(zd, this);
+
+    if (zrem.isOne()) {
+        return MP_YES;
+    }
+
+    if (zrem.cmp(zNm1) == MP_EQ) {
+        return MP_YES;
+    }
+    for (k = 1; k < s; k++) {
+        zrem = zrem.mulmod(zrem,this);
+        if (zrem.cmp(zNm1) == MP_EQ) {
+            return MP_YES;
+        }
+    }
+    return MP_NO;
+};
 
