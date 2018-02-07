@@ -22,7 +22,6 @@
  * @license GPL
 */
 String.prototype.typeerrors = function(keyb){
-
   var c = '';
   var t = "";
   var s = this.toLowerCase();
@@ -32,7 +31,7 @@ String.prototype.typeerrors = function(keyb){
                 " qwertzuiop\u00fc asdfghjkl\u00f6\u00e4 yxcvbnm",
 		" azertyuiop qsdfghjklm wxcvbn",
 		" qwertyuiop asdfghjkl\u00f1 zxcvbnm",
-		" qwertyuiop asdfghjkl\u00f7 zxcvbnm",
+		" qwertyuiop asdfghjkl\u00f7 zxcvbnm"
 		];
 
   switch(keyb){
@@ -42,7 +41,7 @@ String.prototype.typeerrors = function(keyb){
     case 'de': keyboard = boards[1];break;
     default: keyboard = boards[0];break;
   }
-  
+
   for(var i=0;i < s.length; i++){
     c = this.charAt(i);
     t = this;
