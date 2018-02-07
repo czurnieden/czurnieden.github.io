@@ -2299,7 +2299,7 @@ Bigint.prototype.toString = function(base){
     }
     if (this.used == 1 && base < 37) {
         // this.sign is either one or minus one
-        return (this.dp[0] * this.sign).toString(radix);
+        return (this.dp[0] * this.sign).toString(base);
     }
 
     // we _could_ implement radix 1, too! Bwaaaaaahahahaha...*hem*
